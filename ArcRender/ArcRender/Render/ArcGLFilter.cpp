@@ -32,7 +32,6 @@ ArcGLFilter::~ArcGLFilter() {
     m_outFrameBuffer = nullptr;
     delete m_vertexBuffer;
     delete m_texCoorBuffer;
-    ArcGLContext::destroyInstance();
     ArcGLVBOCache::destroyInstance();
 }
 

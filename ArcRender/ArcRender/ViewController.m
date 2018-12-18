@@ -20,6 +20,7 @@
     UIImageView* videoView;
     UIButton* mSwitchCameraBtn;
     UIButton* mSwitchBlackFrameBtn;
+    UIButton* mShowOrHideLogoBtn;
 }
 @end
 
@@ -36,6 +37,7 @@
     [self setVideoProvider];
     [self setupSwitchCameraBtn];
     [self setupSwitchBlackFrameBtn];
+    [self setupShowOrHideLogoBtn];
 }
 
 - (void)setRender {
@@ -49,16 +51,16 @@
     [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
     [self.view addSubview:[mRender renderView]];
     
-    videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
-    [videoView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:videoView];
-    
-    __weak __typeof(self) weakSelf = self;
+//    videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
+//    [videoView setBackgroundColor:[UIColor whiteColor]];
+//    [self.view addSubview:videoView];
+//
+//    __weak __typeof(self) weakSelf = self;
     [mRender setPixelBufferForEncodeCallback:^(CVPixelBufferRef pixelBuffer) {
-        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            [self->videoView setImage:image];
-        });
+//        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
+//        dispatch_async(dispatch_get_main_queue(), ^(){
+//            [self->videoView setImage:image];
+//        });
     }];
 }
 
@@ -138,6 +140,26 @@
     static BOOL enableBlackFrame = NO;
     enableBlackFrame = !enableBlackFrame;
     mRender.enableBlackFrame = enableBlackFrame;
+}
+
+- (void)setupShowOrHideLogoBtn {
+    mShowOrHideLogoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    mShowOrHideLogoBtn.frame = CGRectMake(self.view.frame.size.width - 80, CGRectGetMaxY(mSwitchBlackFrameBtn.frame) + 10, 60, 30);
+    [self.view addSubview:mShowOrHideLogoBtn];
+    mShowOrHideLogoBtn.backgroundColor = [UIColor orangeColor];
+    [mShowOrHideLogoBtn setTitle:@"Switch3" forState:UIControlStateNormal];
+    mShowOrHideLogoBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [mShowOrHideLogoBtn addTarget:self action:@selector(showOrHideLogo) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)showOrHideLogo {
+    static BOOL flag = YES;
+    flag = !flag;
+    if(flag) {
+        [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
+    }else {
+        [mRender setBlendImage:nil rect:CGRectZero];
+    }
 }
 
 -(UIImage*) pixelBuffer2Image:(CVPixelBufferRef) pixelBuffer;{

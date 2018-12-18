@@ -352,6 +352,13 @@
         ArcGLRect imagaRect = [self getGLRect:mBlendImageRect];
         mBlendImageFilter -> updateImageRectViewSize(imagaRect, viewSize);
     }
+    if(mBlendForEncodeFilter) {
+        mBlendForEncodeFilter -> setFrameSize(frameSize);
+        mBlendForEncodeFilter -> setOutputSize(size);
+        ArcGLSize viewSize = [self getGLSize:self.viewFrame.size];
+        ArcGLRect imagaRect = [self getGLRect:mBlendImageRect];
+        mBlendForEncodeFilter -> updateImageRectViewSize(imagaRect, viewSize);
+    }
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -418,7 +425,6 @@
 
 - (void)removeBlendImageFilter {
     if(mBlendImageFilter != nullptr) {
-        mSampleBufferFilter -> removeTarget(mBlendImageFilter);
         mBlendImageFilter -> removeTarget(mRenderView);
         delete mBlendImageFilter;
         mBlendImageFilter = nullptr;
@@ -484,7 +490,7 @@
         [weakSelf removeBlendImageFilter];
         [weakSelf removeBlendImageForEncodeFilter];
         [weakSelf deleteBlendImage];
-    });
+    }); 
 }
 
 - (void)setEnableBlackFrame:(BOOL)enableBlackFrame {
