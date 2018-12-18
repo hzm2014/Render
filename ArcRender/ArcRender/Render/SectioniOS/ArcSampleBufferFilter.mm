@@ -95,6 +95,20 @@ void ArcSampleBufferFilter::processPixelBuffer(CVImageBufferRef cameraFrame){
     }
 }
 
+void ArcSampleBufferFilter::enableBlackFrame(bool enable) {
+    m_enableBlackFrame = enable;
+}
+
+void ArcSampleBufferFilter::informTargets() {
+    if(m_enableBlackFrame) {
+        m_outFrameBuffer -> active();
+        glClearColor(0, 0, 0, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+        m_outFrameBuffer -> deactive();
+    }
+    ArcGLOutput::informTargets();
+}
+
 ArcSampleBufferFilter::~ArcSampleBufferFilter(){
     
     if(m_rawBuffer != nullptr){

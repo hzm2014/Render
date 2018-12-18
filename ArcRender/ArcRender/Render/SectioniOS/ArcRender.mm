@@ -452,6 +452,11 @@
 
 - (void)setEnableBlackFrame:(BOOL)enableBlackFrame {
     _enableBlackFrame = enableBlackFrame;
+    __weak __typeof(self) weakSelf = self;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf -> mSampleBufferFilter -> enableBlackFrame(strongSelf.enableBlackFrame);
+    });
 }
 
 - (void)deleteBlendImage {

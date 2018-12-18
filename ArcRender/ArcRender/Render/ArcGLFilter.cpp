@@ -61,7 +61,7 @@ void ArcGLFilter::initParams() {
     
     m_position = m_context -> attribute("position");
     m_inputTexCoor = m_context -> attribute("inputTextureCoordinate");
-    
+    glDisable(GL_DEPTH);
 }
 
 /**
@@ -273,7 +273,7 @@ void ArcGLFilter::activeOutFrameBuffer() {
     m_outFrameBuffer -> active();
 
     glClearColor(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void ArcGLFilter::render() {

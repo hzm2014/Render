@@ -19,6 +19,7 @@
     UIInterfaceOrientation old_orientation;
     UIImageView* videoView;
     UIButton* mSwitchCameraBtn;
+    UIButton* mSwitchBlackFrameBtn;
 }
 @end
 
@@ -34,6 +35,7 @@
     [self setRender];
     [self setVideoProvider];
     [self setupSwitchCameraBtn];
+    [self setupSwitchBlackFrameBtn];
 }
 
 - (void)setRender {
@@ -110,7 +112,8 @@
     mSwitchCameraBtn.frame = CGRectMake(self.view.frame.size.width - 80, 30, 60, 30);
     [self.view addSubview:mSwitchCameraBtn];
     mSwitchCameraBtn.backgroundColor = [UIColor orangeColor];
-    [mSwitchCameraBtn setTitle:@"Switch" forState:UIControlStateNormal];
+    [mSwitchCameraBtn setTitle:@"Switch1" forState:UIControlStateNormal];
+    mSwitchCameraBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     [mSwitchCameraBtn addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -118,6 +121,22 @@
     [mVideoProvider switchCamera];
     mPosition = mPosition == AVCaptureDevicePositionFront?AVCaptureDevicePositionBack:AVCaptureDevicePositionFront;
     mRender.cameraPosition = mPosition;
+}
+
+- (void)setupSwitchBlackFrameBtn {
+    mSwitchBlackFrameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    mSwitchBlackFrameBtn.frame = CGRectMake(self.view.frame.size.width - 80, CGRectGetMaxY(mSwitchCameraBtn.frame) + 10, 60, 30);
+    [self.view addSubview:mSwitchBlackFrameBtn];
+    mSwitchBlackFrameBtn.backgroundColor = [UIColor orangeColor];
+    [mSwitchBlackFrameBtn setTitle:@"Switch2" forState:UIControlStateNormal];
+    mSwitchBlackFrameBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+    [mSwitchBlackFrameBtn addTarget:self action:@selector(switchblackFrame) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)switchblackFrame {
+    static BOOL enableBlackFrame = NO;
+    enableBlackFrame = !enableBlackFrame;
+    mRender.enableBlackFrame = enableBlackFrame;
 }
 
 -(UIImage*) pixelBuffer2Image:(CVPixelBufferRef) pixelBuffer;{

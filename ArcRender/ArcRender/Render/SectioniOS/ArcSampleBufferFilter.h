@@ -21,8 +21,14 @@ public:
     void processSampleBuffer(CMSampleBufferRef sampleBuffer);
     void processPixelBuffer(CVImageBufferRef pixelBuffer);
     
+    void enableBlackFrame(bool enable);
+    
+    
 protected:
     
     OSType              m_format;        // 是否YUV数据
     ArciOSFrameBuffer*  m_rawBuffer;
+    bool                m_enableBlackFrame = false; //是否启用黑帧
+    
+    virtual void informTargets();
 };
