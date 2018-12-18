@@ -1,0 +1,584 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F80A381621B381D200B3DB0E /* ArciOSGLImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F80A381521B381D200B3DB0E /* ArciOSGLImage.mm */; };
+		F80A381921B40C9C00B3DB0E /* for_test.png in Resources */ = {isa = PBXBuildFile; fileRef = F80A381821B40C9C00B3DB0E /* for_test.png */; };
+		F80A4428219DB29B00DB7FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F80A4427219DB29B00DB7FCB /* AppDelegate.m */; };
+		F80A442B219DB29B00DB7FCB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F80A442A219DB29B00DB7FCB /* ViewController.m */; };
+		F80A4430219DB29C00DB7FCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F80A442F219DB29C00DB7FCB /* Assets.xcassets */; };
+		F80A4433219DB29C00DB7FCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F80A4431219DB29C00DB7FCB /* LaunchScreen.storyboard */; };
+		F80A4436219DB29C00DB7FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F80A4435219DB29C00DB7FCB /* main.m */; };
+		F80A445B219DB30E00DB7FCB /* ArcGLContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4459219DB30E00DB7FCB /* ArcGLContext.cpp */; };
+		F80A445E219DB41800DB7FCB /* ArcGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A445C219DB41800DB7FCB /* ArcGLProgram.cpp */; };
+		F80A4461219DB42F00DB7FCB /* ArcGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A445F219DB42F00DB7FCB /* ArcGLShader.cpp */; };
+		F80A4464219DB45200DB7FCB /* ArcGLFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4462219DB45200DB7FCB /* ArcGLFrameBuffer.cpp */; };
+		F80A4467219DB46500DB7FCB /* ArcGLTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4465219DB46500DB7FCB /* ArcGLTexture.cpp */; };
+		F80A446A219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4468219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp */; };
+		F80A446D219DB5A400DB7FCB /* ArcGLInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A446B219DB5A400DB7FCB /* ArcGLInput.cpp */; };
+		F80A4470219DB5B100DB7FCB /* ArcGLOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A446E219DB5B100DB7FCB /* ArcGLOutput.cpp */; };
+		F80A4473219DB60900DB7FCB /* ArcGLVertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4471219DB60900DB7FCB /* ArcGLVertexShader.cpp */; };
+		F80A4476219DB61F00DB7FCB /* ArcGLFragmentShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4474219DB61F00DB7FCB /* ArcGLFragmentShader.cpp */; };
+		F891659921B77C960091A3D6 /* ArcBlendForEncodeFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F891659721B77C950091A3D6 /* ArcBlendForEncodeFilter.cpp */; };
+		F8B292D421AE3359006D7837 /* ArcVideoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B292D221AE3359006D7837 /* ArcVideoProvider.m */; };
+		F8C2132C21AB858100E806B4 /* ArcGLFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2132A21AB858100E806B4 /* ArcGLFilter.cpp */; };
+		F8C2132F21AB945F00E806B4 /* ArcGLVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2132D21AB945F00E806B4 /* ArcGLVertexBuffer.cpp */; };
+		F8C2133221AB954800E806B4 /* ArcGLVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2133021AB954800E806B4 /* ArcGLVertexArray.cpp */; };
+		F8C2133521AB97C300E806B4 /* ArcGLVBOCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2133321AB97C300E806B4 /* ArcGLVBOCache.cpp */; };
+		F8C2133D21ACE96100E806B4 /* ArcSampleBufferFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8C2133C21ACE96100E806B4 /* ArcSampleBufferFilter.mm */; };
+		F8C2134021ACEA9A00E806B4 /* ArcGLMutipleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2133E21ACEA9A00E806B4 /* ArcGLMutipleFilter.cpp */; };
+		F8C2134621AD1DB100E806B4 /* ArcNV12ToRGBFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2134421AD1DB100E806B4 /* ArcNV12ToRGBFilter.cpp */; };
+		F8C2134921AD314600E806B4 /* ArcRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8C2134821AD314600E806B4 /* ArcRenderView.mm */; };
+		F8C2134F21AD39AE00E806B4 /* ArcGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8C2134E21AD39AE00E806B4 /* ArcGLView.mm */; };
+		F8E5669521A15D9D00572403 /* ArcGLPixelBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E5669321A15D9D00572403 /* ArcGLPixelBuffer.cpp */; };
+		F8E59A9121A1A93F00632696 /* ArciOSContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8E59A9021A1A93F00632696 /* ArciOSContext.mm */; };
+		F8E5FB7C21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E5FB7A21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp */; };
+		F8E5FB7F21B2D42D00BA3CC8 /* ArcGLImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E5FB7D21B2D42D00BA3CC8 /* ArcGLImage.cpp */; };
+		F8EE607E21B112150043BD12 /* AVCaptureDevice+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EE607D21B112150043BD12 /* AVCaptureDevice+Custom.m */; };
+		F8EE9E14219E4E63007C8DB5 /* ArcGLTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8EE9E12219E4E63007C8DB5 /* ArcGLTextureManager.cpp */; };
+		F8EE9E1C219E9948007C8DB5 /* ArciOSFrameBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8EE9E1B219E9948007C8DB5 /* ArciOSFrameBuffer.mm */; };
+		F8FCBC2321A54D5700AFA34D /* ArciOSFrameBufferManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2221A54D5700AFA34D /* ArciOSFrameBufferManager.mm */; };
+		F8FCBC2C21A642E500AFA34D /* ArcRender.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2B21A642E500AFA34D /* ArcRender.mm */; };
+		F8FCBC3021A6735E00AFA34D /* ArcRunProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2E21A6735E00AFA34D /* ArcRunProcess.m */; };
+		F8FCBC3C21A6A81000AFA34D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FCBC3B21A6A81000AFA34D /* CoreMedia.framework */; };
+		F8FD71D521AD73900048955B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FD71D421AD73900048955B /* AVFoundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F80A381421B381D200B3DB0E /* ArciOSGLImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSGLImage.h; sourceTree = "<group>"; };
+		F80A381521B381D200B3DB0E /* ArciOSGLImage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSGLImage.mm; sourceTree = "<group>"; };
+		F80A381821B40C9C00B3DB0E /* for_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = for_test.png; sourceTree = "<group>"; };
+		F80A4423219DB29B00DB7FCB /* ArcRender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcRender.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80A4426219DB29B00DB7FCB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F80A4427219DB29B00DB7FCB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F80A4429219DB29B00DB7FCB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F80A442A219DB29B00DB7FCB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F80A442F219DB29C00DB7FCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F80A4432219DB29C00DB7FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F80A4434219DB29C00DB7FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F80A4435219DB29C00DB7FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F80A4459219DB30E00DB7FCB /* ArcGLContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLContext.cpp; sourceTree = "<group>"; };
+		F80A445A219DB30E00DB7FCB /* ArcGLContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLContext.hpp; sourceTree = "<group>"; };
+		F80A445C219DB41800DB7FCB /* ArcGLProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLProgram.cpp; sourceTree = "<group>"; };
+		F80A445D219DB41800DB7FCB /* ArcGLProgram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLProgram.hpp; sourceTree = "<group>"; };
+		F80A445F219DB42F00DB7FCB /* ArcGLShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLShader.cpp; sourceTree = "<group>"; };
+		F80A4460219DB42F00DB7FCB /* ArcGLShader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLShader.hpp; sourceTree = "<group>"; };
+		F80A4462219DB45200DB7FCB /* ArcGLFrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLFrameBuffer.cpp; sourceTree = "<group>"; };
+		F80A4463219DB45200DB7FCB /* ArcGLFrameBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLFrameBuffer.hpp; sourceTree = "<group>"; };
+		F80A4465219DB46500DB7FCB /* ArcGLTexture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLTexture.cpp; sourceTree = "<group>"; };
+		F80A4466219DB46500DB7FCB /* ArcGLTexture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLTexture.hpp; sourceTree = "<group>"; };
+		F80A4468219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLFrameBufferManager.cpp; sourceTree = "<group>"; };
+		F80A4469219DB48F00DB7FCB /* ArcGLFrameBufferManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLFrameBufferManager.hpp; sourceTree = "<group>"; };
+		F80A446B219DB5A400DB7FCB /* ArcGLInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLInput.cpp; sourceTree = "<group>"; };
+		F80A446C219DB5A400DB7FCB /* ArcGLInput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLInput.hpp; sourceTree = "<group>"; };
+		F80A446E219DB5B100DB7FCB /* ArcGLOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLOutput.cpp; sourceTree = "<group>"; };
+		F80A446F219DB5B100DB7FCB /* ArcGLOutput.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLOutput.hpp; sourceTree = "<group>"; };
+		F80A4471219DB60900DB7FCB /* ArcGLVertexShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLVertexShader.cpp; sourceTree = "<group>"; };
+		F80A4472219DB60900DB7FCB /* ArcGLVertexShader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLVertexShader.hpp; sourceTree = "<group>"; };
+		F80A4474219DB61F00DB7FCB /* ArcGLFragmentShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLFragmentShader.cpp; sourceTree = "<group>"; };
+		F80A4475219DB61F00DB7FCB /* ArcGLFragmentShader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLFragmentShader.hpp; sourceTree = "<group>"; };
+		F80A447D219DB92200DB7FCB /* ArcGLHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcGLHeader.h; sourceTree = "<group>"; };
+		F891659721B77C950091A3D6 /* ArcBlendForEncodeFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcBlendForEncodeFilter.cpp; sourceTree = "<group>"; };
+		F891659821B77C950091A3D6 /* ArcBlendForEncodeFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcBlendForEncodeFilter.hpp; sourceTree = "<group>"; };
+		F8B292D221AE3359006D7837 /* ArcVideoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcVideoProvider.m; sourceTree = "<group>"; };
+		F8B292D321AE3359006D7837 /* ArcVideoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcVideoProvider.h; sourceTree = "<group>"; };
+		F8C2132A21AB858100E806B4 /* ArcGLFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLFilter.cpp; sourceTree = "<group>"; };
+		F8C2132B21AB858100E806B4 /* ArcGLFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLFilter.hpp; sourceTree = "<group>"; };
+		F8C2132D21AB945F00E806B4 /* ArcGLVertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLVertexBuffer.cpp; sourceTree = "<group>"; };
+		F8C2132E21AB945F00E806B4 /* ArcGLVertexBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLVertexBuffer.hpp; sourceTree = "<group>"; };
+		F8C2133021AB954800E806B4 /* ArcGLVertexArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLVertexArray.cpp; sourceTree = "<group>"; };
+		F8C2133121AB954800E806B4 /* ArcGLVertexArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLVertexArray.hpp; sourceTree = "<group>"; };
+		F8C2133321AB97C300E806B4 /* ArcGLVBOCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLVBOCache.cpp; sourceTree = "<group>"; };
+		F8C2133421AB97C300E806B4 /* ArcGLVBOCache.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLVBOCache.hpp; sourceTree = "<group>"; };
+		F8C2133B21ACE96100E806B4 /* ArcSampleBufferFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcSampleBufferFilter.h; sourceTree = "<group>"; };
+		F8C2133C21ACE96100E806B4 /* ArcSampleBufferFilter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArcSampleBufferFilter.mm; sourceTree = "<group>"; };
+		F8C2133E21ACEA9A00E806B4 /* ArcGLMutipleFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLMutipleFilter.cpp; sourceTree = "<group>"; };
+		F8C2133F21ACEA9A00E806B4 /* ArcGLMutipleFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLMutipleFilter.hpp; sourceTree = "<group>"; };
+		F8C2134421AD1DB100E806B4 /* ArcNV12ToRGBFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcNV12ToRGBFilter.cpp; sourceTree = "<group>"; };
+		F8C2134521AD1DB100E806B4 /* ArcNV12ToRGBFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcNV12ToRGBFilter.hpp; sourceTree = "<group>"; };
+		F8C2134721AD314600E806B4 /* ArcRenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcRenderView.h; sourceTree = "<group>"; };
+		F8C2134821AD314600E806B4 /* ArcRenderView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArcRenderView.mm; sourceTree = "<group>"; };
+		F8C2134D21AD39AE00E806B4 /* ArcGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcGLView.h; sourceTree = "<group>"; };
+		F8C2134E21AD39AE00E806B4 /* ArcGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArcGLView.mm; sourceTree = "<group>"; };
+		F8E5669321A15D9D00572403 /* ArcGLPixelBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLPixelBuffer.cpp; sourceTree = "<group>"; };
+		F8E5669421A15D9D00572403 /* ArcGLPixelBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLPixelBuffer.hpp; sourceTree = "<group>"; };
+		F8E59A8C21A1A8EE00632696 /* ArcAndroidContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcAndroidContext.cpp; sourceTree = "<group>"; };
+		F8E59A8D21A1A8EE00632696 /* ArcAndroidContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcAndroidContext.hpp; sourceTree = "<group>"; };
+		F8E59A8F21A1A93F00632696 /* ArciOSContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSContext.h; sourceTree = "<group>"; };
+		F8E59A9021A1A93F00632696 /* ArciOSContext.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSContext.mm; sourceTree = "<group>"; };
+		F8E5FB7A21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcBlendImageFilter.cpp; sourceTree = "<group>"; };
+		F8E5FB7B21B2CEA500BA3CC8 /* ArcBlendImageFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcBlendImageFilter.hpp; sourceTree = "<group>"; };
+		F8E5FB7D21B2D42D00BA3CC8 /* ArcGLImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLImage.cpp; sourceTree = "<group>"; };
+		F8E5FB7E21B2D42D00BA3CC8 /* ArcGLImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLImage.hpp; sourceTree = "<group>"; };
+		F8EE607C21B112150043BD12 /* AVCaptureDevice+Custom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AVCaptureDevice+Custom.h"; sourceTree = "<group>"; };
+		F8EE607D21B112150043BD12 /* AVCaptureDevice+Custom.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureDevice+Custom.m"; sourceTree = "<group>"; };
+		F8EE9E12219E4E63007C8DB5 /* ArcGLTextureManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLTextureManager.cpp; sourceTree = "<group>"; };
+		F8EE9E13219E4E63007C8DB5 /* ArcGLTextureManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLTextureManager.hpp; sourceTree = "<group>"; };
+		F8EE9E17219E9916007C8DB5 /* ArcAndroidFrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcAndroidFrameBuffer.cpp; sourceTree = "<group>"; };
+		F8EE9E18219E9916007C8DB5 /* ArcAndroidFrameBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcAndroidFrameBuffer.hpp; sourceTree = "<group>"; };
+		F8EE9E1A219E9948007C8DB5 /* ArciOSFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSFrameBuffer.h; sourceTree = "<group>"; };
+		F8EE9E1B219E9948007C8DB5 /* ArciOSFrameBuffer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSFrameBuffer.mm; sourceTree = "<group>"; };
+		F8FCBC2121A54D5700AFA34D /* ArciOSFrameBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSFrameBufferManager.h; sourceTree = "<group>"; };
+		F8FCBC2221A54D5700AFA34D /* ArciOSFrameBufferManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSFrameBufferManager.mm; sourceTree = "<group>"; };
+		F8FCBC2421A54D7300AFA34D /* ArcAFrameBufferManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcAFrameBufferManager.cpp; sourceTree = "<group>"; };
+		F8FCBC2521A54D7300AFA34D /* ArcAFrameBufferManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcAFrameBufferManager.hpp; sourceTree = "<group>"; };
+		F8FCBC2A21A642E500AFA34D /* ArcRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcRender.h; sourceTree = "<group>"; };
+		F8FCBC2B21A642E500AFA34D /* ArcRender.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArcRender.mm; sourceTree = "<group>"; };
+		F8FCBC2E21A6735E00AFA34D /* ArcRunProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcRunProcess.m; sourceTree = "<group>"; };
+		F8FCBC2F21A6735E00AFA34D /* ArcRunProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcRunProcess.h; sourceTree = "<group>"; };
+		F8FCBC3B21A6A81000AFA34D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		F8FD71D421AD73900048955B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F80A4420219DB29B00DB7FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FD71D521AD73900048955B /* AVFoundation.framework in Frameworks */,
+				F8FCBC3C21A6A81000AFA34D /* CoreMedia.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F80A441A219DB29B00DB7FCB = {
+			isa = PBXGroup;
+			children = (
+				F80A4425219DB29B00DB7FCB /* ArcRender */,
+				F80A4424219DB29B00DB7FCB /* Products */,
+				F8FCBC3A21A6A81000AFA34D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F80A4424219DB29B00DB7FCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F80A4423219DB29B00DB7FCB /* ArcRender.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F80A4425219DB29B00DB7FCB /* ArcRender */ = {
+			isa = PBXGroup;
+			children = (
+				F80A4458219DB2DE00DB7FCB /* Render */,
+				F80A4426219DB29B00DB7FCB /* AppDelegate.h */,
+				F80A4427219DB29B00DB7FCB /* AppDelegate.m */,
+				F80A4429219DB29B00DB7FCB /* ViewController.h */,
+				F80A442A219DB29B00DB7FCB /* ViewController.m */,
+				F8B292D321AE3359006D7837 /* ArcVideoProvider.h */,
+				F8B292D221AE3359006D7837 /* ArcVideoProvider.m */,
+				F8EE607C21B112150043BD12 /* AVCaptureDevice+Custom.h */,
+				F8EE607D21B112150043BD12 /* AVCaptureDevice+Custom.m */,
+				F80A381821B40C9C00B3DB0E /* for_test.png */,
+				F80A442F219DB29C00DB7FCB /* Assets.xcassets */,
+				F80A4431219DB29C00DB7FCB /* LaunchScreen.storyboard */,
+				F80A4434219DB29C00DB7FCB /* Info.plist */,
+				F80A4435219DB29C00DB7FCB /* main.m */,
+			);
+			path = ArcRender;
+			sourceTree = "<group>";
+		};
+		F80A4458219DB2DE00DB7FCB /* Render */ = {
+			isa = PBXGroup;
+			children = (
+				F8FCBC2721A54DDF00AFA34D /* SectioniOS */,
+				F8FCBC2821A54E2A00AFA34D /* SectionAndroid */,
+				F80A4459219DB30E00DB7FCB /* ArcGLContext.cpp */,
+				F80A445A219DB30E00DB7FCB /* ArcGLContext.hpp */,
+				F80A445C219DB41800DB7FCB /* ArcGLProgram.cpp */,
+				F80A445D219DB41800DB7FCB /* ArcGLProgram.hpp */,
+				F80A445F219DB42F00DB7FCB /* ArcGLShader.cpp */,
+				F80A4460219DB42F00DB7FCB /* ArcGLShader.hpp */,
+				F80A4471219DB60900DB7FCB /* ArcGLVertexShader.cpp */,
+				F80A4472219DB60900DB7FCB /* ArcGLVertexShader.hpp */,
+				F80A4474219DB61F00DB7FCB /* ArcGLFragmentShader.cpp */,
+				F80A4475219DB61F00DB7FCB /* ArcGLFragmentShader.hpp */,
+				F80A4462219DB45200DB7FCB /* ArcGLFrameBuffer.cpp */,
+				F80A4463219DB45200DB7FCB /* ArcGLFrameBuffer.hpp */,
+				F80A4468219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp */,
+				F80A4469219DB48F00DB7FCB /* ArcGLFrameBufferManager.hpp */,
+				F80A4465219DB46500DB7FCB /* ArcGLTexture.cpp */,
+				F80A4466219DB46500DB7FCB /* ArcGLTexture.hpp */,
+				F8EE9E12219E4E63007C8DB5 /* ArcGLTextureManager.cpp */,
+				F8EE9E13219E4E63007C8DB5 /* ArcGLTextureManager.hpp */,
+				F8E5FB7D21B2D42D00BA3CC8 /* ArcGLImage.cpp */,
+				F8E5FB7E21B2D42D00BA3CC8 /* ArcGLImage.hpp */,
+				F8E5669321A15D9D00572403 /* ArcGLPixelBuffer.cpp */,
+				F8E5669421A15D9D00572403 /* ArcGLPixelBuffer.hpp */,
+				F8C2132D21AB945F00E806B4 /* ArcGLVertexBuffer.cpp */,
+				F8C2132E21AB945F00E806B4 /* ArcGLVertexBuffer.hpp */,
+				F8C2133321AB97C300E806B4 /* ArcGLVBOCache.cpp */,
+				F8C2133421AB97C300E806B4 /* ArcGLVBOCache.hpp */,
+				F8C2133021AB954800E806B4 /* ArcGLVertexArray.cpp */,
+				F8C2133121AB954800E806B4 /* ArcGLVertexArray.hpp */,
+				F80A446B219DB5A400DB7FCB /* ArcGLInput.cpp */,
+				F80A446C219DB5A400DB7FCB /* ArcGLInput.hpp */,
+				F80A446E219DB5B100DB7FCB /* ArcGLOutput.cpp */,
+				F80A446F219DB5B100DB7FCB /* ArcGLOutput.hpp */,
+				F8C2132A21AB858100E806B4 /* ArcGLFilter.cpp */,
+				F8C2132B21AB858100E806B4 /* ArcGLFilter.hpp */,
+				F8C2133E21ACEA9A00E806B4 /* ArcGLMutipleFilter.cpp */,
+				F8C2133F21ACEA9A00E806B4 /* ArcGLMutipleFilter.hpp */,
+				F8C2134421AD1DB100E806B4 /* ArcNV12ToRGBFilter.cpp */,
+				F8C2134521AD1DB100E806B4 /* ArcNV12ToRGBFilter.hpp */,
+				F8E5FB7A21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp */,
+				F8E5FB7B21B2CEA500BA3CC8 /* ArcBlendImageFilter.hpp */,
+				F891659721B77C950091A3D6 /* ArcBlendForEncodeFilter.cpp */,
+				F891659821B77C950091A3D6 /* ArcBlendForEncodeFilter.hpp */,
+				F80A447D219DB92200DB7FCB /* ArcGLHeader.h */,
+			);
+			path = Render;
+			sourceTree = "<group>";
+		};
+		F8FCBC2721A54DDF00AFA34D /* SectioniOS */ = {
+			isa = PBXGroup;
+			children = (
+				F8E59A8F21A1A93F00632696 /* ArciOSContext.h */,
+				F8E59A9021A1A93F00632696 /* ArciOSContext.mm */,
+				F8EE9E1A219E9948007C8DB5 /* ArciOSFrameBuffer.h */,
+				F8EE9E1B219E9948007C8DB5 /* ArciOSFrameBuffer.mm */,
+				F8FCBC2121A54D5700AFA34D /* ArciOSFrameBufferManager.h */,
+				F8FCBC2221A54D5700AFA34D /* ArciOSFrameBufferManager.mm */,
+				F8C2133B21ACE96100E806B4 /* ArcSampleBufferFilter.h */,
+				F8C2133C21ACE96100E806B4 /* ArcSampleBufferFilter.mm */,
+				F80A381421B381D200B3DB0E /* ArciOSGLImage.h */,
+				F80A381521B381D200B3DB0E /* ArciOSGLImage.mm */,
+				F8FCBC2A21A642E500AFA34D /* ArcRender.h */,
+				F8FCBC2B21A642E500AFA34D /* ArcRender.mm */,
+				F8C2134721AD314600E806B4 /* ArcRenderView.h */,
+				F8C2134821AD314600E806B4 /* ArcRenderView.mm */,
+				F8C2134D21AD39AE00E806B4 /* ArcGLView.h */,
+				F8C2134E21AD39AE00E806B4 /* ArcGLView.mm */,
+				F8FCBC2F21A6735E00AFA34D /* ArcRunProcess.h */,
+				F8FCBC2E21A6735E00AFA34D /* ArcRunProcess.m */,
+			);
+			path = SectioniOS;
+			sourceTree = "<group>";
+		};
+		F8FCBC2821A54E2A00AFA34D /* SectionAndroid */ = {
+			isa = PBXGroup;
+			children = (
+				F8E59A8C21A1A8EE00632696 /* ArcAndroidContext.cpp */,
+				F8E59A8D21A1A8EE00632696 /* ArcAndroidContext.hpp */,
+				F8EE9E17219E9916007C8DB5 /* ArcAndroidFrameBuffer.cpp */,
+				F8EE9E18219E9916007C8DB5 /* ArcAndroidFrameBuffer.hpp */,
+				F8FCBC2421A54D7300AFA34D /* ArcAFrameBufferManager.cpp */,
+				F8FCBC2521A54D7300AFA34D /* ArcAFrameBufferManager.hpp */,
+			);
+			path = SectionAndroid;
+			sourceTree = "<group>";
+		};
+		F8FCBC3A21A6A81000AFA34D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8FD71D421AD73900048955B /* AVFoundation.framework */,
+				F8FCBC3B21A6A81000AFA34D /* CoreMedia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F80A4422219DB29B00DB7FCB /* ArcRender */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F80A444F219DB29C00DB7FCB /* Build configuration list for PBXNativeTarget "ArcRender" */;
+			buildPhases = (
+				F80A441F219DB29B00DB7FCB /* Sources */,
+				F80A4420219DB29B00DB7FCB /* Frameworks */,
+				F80A4421219DB29B00DB7FCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArcRender;
+			productName = ArcRender;
+			productReference = F80A4423219DB29B00DB7FCB /* ArcRender.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F80A441B219DB29B00DB7FCB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "zhiming he";
+				TargetAttributes = {
+					F80A4422219DB29B00DB7FCB = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = F80A441E219DB29B00DB7FCB /* Build configuration list for PBXProject "ArcRender" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F80A441A219DB29B00DB7FCB;
+			productRefGroup = F80A4424219DB29B00DB7FCB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F80A4422219DB29B00DB7FCB /* ArcRender */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F80A4421219DB29B00DB7FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80A4433219DB29C00DB7FCB /* LaunchScreen.storyboard in Resources */,
+				F80A381921B40C9C00B3DB0E /* for_test.png in Resources */,
+				F80A4430219DB29C00DB7FCB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F80A441F219DB29B00DB7FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80A445E219DB41800DB7FCB /* ArcGLProgram.cpp in Sources */,
+				F8C2132F21AB945F00E806B4 /* ArcGLVertexBuffer.cpp in Sources */,
+				F891659921B77C960091A3D6 /* ArcBlendForEncodeFilter.cpp in Sources */,
+				F80A442B219DB29B00DB7FCB /* ViewController.m in Sources */,
+				F8E5FB7F21B2D42D00BA3CC8 /* ArcGLImage.cpp in Sources */,
+				F80A4464219DB45200DB7FCB /* ArcGLFrameBuffer.cpp in Sources */,
+				F80A4470219DB5B100DB7FCB /* ArcGLOutput.cpp in Sources */,
+				F8C2134021ACEA9A00E806B4 /* ArcGLMutipleFilter.cpp in Sources */,
+				F8EE9E1C219E9948007C8DB5 /* ArciOSFrameBuffer.mm in Sources */,
+				F80A381621B381D200B3DB0E /* ArciOSGLImage.mm in Sources */,
+				F80A4467219DB46500DB7FCB /* ArcGLTexture.cpp in Sources */,
+				F8C2134921AD314600E806B4 /* ArcRenderView.mm in Sources */,
+				F8B292D421AE3359006D7837 /* ArcVideoProvider.m in Sources */,
+				F8FCBC2321A54D5700AFA34D /* ArciOSFrameBufferManager.mm in Sources */,
+				F8C2134F21AD39AE00E806B4 /* ArcGLView.mm in Sources */,
+				F8C2132C21AB858100E806B4 /* ArcGLFilter.cpp in Sources */,
+				F80A4476219DB61F00DB7FCB /* ArcGLFragmentShader.cpp in Sources */,
+				F8EE607E21B112150043BD12 /* AVCaptureDevice+Custom.m in Sources */,
+				F8E5FB7C21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp in Sources */,
+				F80A4461219DB42F00DB7FCB /* ArcGLShader.cpp in Sources */,
+				F8E5669521A15D9D00572403 /* ArcGLPixelBuffer.cpp in Sources */,
+				F8EE9E14219E4E63007C8DB5 /* ArcGLTextureManager.cpp in Sources */,
+				F80A446A219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp in Sources */,
+				F80A4436219DB29C00DB7FCB /* main.m in Sources */,
+				F8C2133221AB954800E806B4 /* ArcGLVertexArray.cpp in Sources */,
+				F8C2133521AB97C300E806B4 /* ArcGLVBOCache.cpp in Sources */,
+				F80A4473219DB60900DB7FCB /* ArcGLVertexShader.cpp in Sources */,
+				F80A4428219DB29B00DB7FCB /* AppDelegate.m in Sources */,
+				F80A446D219DB5A400DB7FCB /* ArcGLInput.cpp in Sources */,
+				F8FCBC3021A6735E00AFA34D /* ArcRunProcess.m in Sources */,
+				F8C2134621AD1DB100E806B4 /* ArcNV12ToRGBFilter.cpp in Sources */,
+				F8FCBC2C21A642E500AFA34D /* ArcRender.mm in Sources */,
+				F80A445B219DB30E00DB7FCB /* ArcGLContext.cpp in Sources */,
+				F8C2133D21ACE96100E806B4 /* ArcSampleBufferFilter.mm in Sources */,
+				F8E59A9121A1A93F00632696 /* ArciOSContext.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F80A4431219DB29C00DB7FCB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F80A4432219DB29C00DB7FCB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F80A444D219DB29C00DB7FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F80A444E219DB29C00DB7FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F80A4450219DB29C00DB7FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 235UW68632;
+				INFOPLIST_FILE = ArcRender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arcvideo.ArcRender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Debug_All;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F80A4451219DB29C00DB7FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 235UW68632;
+				INFOPLIST_FILE = ArcRender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arcvideo.ArcRender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Debug_All;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F80A441E219DB29B00DB7FCB /* Build configuration list for PBXProject "ArcRender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F80A444D219DB29C00DB7FCB /* Debug */,
+				F80A444E219DB29C00DB7FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F80A444F219DB29C00DB7FCB /* Build configuration list for PBXNativeTarget "ArcRender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F80A4450219DB29C00DB7FCB /* Debug */,
+				F80A4451219DB29C00DB7FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F80A441B219DB29B00DB7FCB /* Project object */;
+}
