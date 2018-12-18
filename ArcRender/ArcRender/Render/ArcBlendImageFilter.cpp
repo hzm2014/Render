@@ -78,29 +78,29 @@ void ArcBlendImageFilter::updateImageVertex() {
     float x4 = 0.0;
     float y4 = 0.0;
     
-    x1 = m_imageRect.point.x*1.00/m_viewSize.width + wScale - 0.5;
+    x1 = m_imageRect.point.x*1.00/m_adjustedViewSize.width + wScale - 0.5;
     
-    if (m_imageRect.point.y > m_viewSize.width/2) {
-        y1 = 0.5 - (m_imageRect.point.y*1.00/m_viewSize.height + hScale);
-        y3 = 0.5 - (m_imageRect.point.y*1.00/m_viewSize.height + hScale);
+    if (m_imageRect.point.y > m_adjustedViewSize.width/2) {
+        y1 = 0.5 - (m_imageRect.point.y*1.00/m_adjustedViewSize.height + hScale);
+        y3 = 0.5 - (m_imageRect.point.y*1.00/m_adjustedViewSize.height + hScale);
     } else {
-        y1 = - ((m_imageRect.point.y*1.00/m_viewSize.height + hScale) - 0.5);
-        y3 = - ((m_imageRect.point.y*1.00/m_viewSize.height + hScale) - 0.5);
+        y1 = - ((m_imageRect.point.y*1.00/m_adjustedViewSize.height + hScale) - 0.5);
+        y3 = - ((m_imageRect.point.y*1.00/m_adjustedViewSize.height + hScale) - 0.5);
     }
     
-    x3 = (m_imageRect.point.x + m_imageRect.size.width)*1.00/m_viewSize.width + wScale - 0.5;
+    x3 = (m_imageRect.point.x + m_imageRect.size.width)*1.00/m_adjustedViewSize.width + wScale - 0.5;
     
-    x2 = m_imageRect.point.x*1.00/m_viewSize.width + wScale - 0.5;
+    x2 = m_imageRect.point.x*1.00/m_adjustedViewSize.width + wScale - 0.5;
     
-    if ((m_imageRect.point.y + m_imageRect.size.height) > m_viewSize.width/2) {
-        y2 = 0.5 - ((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_viewSize.height + hScale);
-        y4 = 0.5 - ((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_viewSize.height + hScale);
+    if ((m_imageRect.point.y + m_imageRect.size.height) > m_adjustedViewSize.width/2) {
+        y2 = 0.5 - ((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_adjustedViewSize.height + hScale);
+        y4 = 0.5 - ((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_adjustedViewSize.height + hScale);
     } else {
-        y2 = - (((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_viewSize.height + hScale) - 0.5);
-        y4 = - (((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_viewSize.height + hScale) - 0.5);
+        y2 = - (((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_adjustedViewSize.height + hScale) - 0.5);
+        y4 = - (((m_imageRect.point.y + m_imageRect.size.height)*1.00/m_adjustedViewSize.height + hScale) - 0.5);
     }
     
-    x4 = (m_imageRect.point.x + m_imageRect.size.width)*1.00/m_viewSize.width + wScale - 0.5;
+    x4 = (m_imageRect.point.x + m_imageRect.size.width)*1.00/m_adjustedViewSize.width + wScale - 0.5;
     
     // 由于渲染是从左下角为基点，而默认的view的区域是从左上角为基点，映射后是围绕x轴的对称点
     
