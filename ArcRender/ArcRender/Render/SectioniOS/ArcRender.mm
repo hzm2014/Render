@@ -79,6 +79,7 @@
 - (void)setSampleBufferFilter {
     mSampleBufferFilter = new ArcSampleBufferFilter();
     mSampleBufferFilter -> setFillMode(ArcGLFillModePreserveAspectRatioAndFill);
+    
     mSampleBufferFilter -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
 }
 
@@ -389,11 +390,12 @@
 
 - (void)setHasEncodeVideoFrame:(BOOL)hasEncodeVideoFrame {
     _hasEncodeVideoFrame = hasEncodeVideoFrame;
-    
-    if(hasEncodeVideoFrame) {
-        [self createBlendForEncodeFilter];
-    } else {
-        
+    if(mBlendForEncodeFilter) {
+        if(_hasEncodeVideoFrame) {
+            mBlendForEncodeFilter -> enable();
+        } else {
+            mBlendForEncodeFilter -> disable();
+        }
     }
 }
 
@@ -414,6 +416,16 @@
     
 }
 
+- (void)removeBlendImageFilter {
+    if(mBlendImageFilter != nullptr) {
+        mSampleBufferFilter -> removeTarget(mBlendImageFilter);
+        mBlendImageFilter -> removeTarget(mRenderView);
+        delete mBlendImageFilter;
+        mBlendImageFilter = nullptr;
+    }
+    mSampleBufferFilter -> addTarget(mRenderView);
+}
+
 - (void)createBlendForEncodeFilter {
     
     if(mBlendForEncodeFilter == nullptr) {
@@ -425,19 +437,16 @@
         mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
     
         mSampleBufferFilter -> addTarget(mBlendForEncodeFilter);
-        mBlendForEncodeFilter -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
+        mBlendForEncodeFilter -> setCompleteCallback(blendRenderCompleteForEncode, (__bridge void*)self);
     }
-    
 }
 
-- (void)setBlendImage:(UIImage *)image rect:(CGRect)rect {
-    mBlendImageRect = rect;
-    __weak __typeof(self) weakSelf = self;
-    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
-        [weakSelf createBlendFilter];
-        [weakSelf createBlendForEncodeFilter];
-        [weakSelf createBlendImageWithImage:image];
-    });
+- (void)removeBlendImageForEncodeFilter {
+    if(mBlendForEncodeFilter != nullptr) {
+        mSampleBufferFilter -> removeTarget(mBlendForEncodeFilter);
+        delete mBlendForEncodeFilter;
+        mBlendForEncodeFilter = nullptr;
+    }
 }
 
 - (void)createBlendImageWithImage:(UIImage*)image {
@@ -448,6 +457,34 @@
     mBlendImage -> addTarget(mBlendForEncodeFilter);
     
     mBlendImage -> informTargets();
+}
+
+- (void)setBlendImage:(UIImage *)image rect:(CGRect)rect {
+    mBlendImageRect = rect;
+    
+    if(image) {
+        [self processBlendImage:image];
+    } else {
+        [self removeBlendImage];
+    }
+}
+
+- (void)processBlendImage:(UIImage*)image {
+    __weak __typeof(self) weakSelf = self;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        [weakSelf createBlendFilter];
+        [weakSelf createBlendForEncodeFilter];
+        [weakSelf createBlendImageWithImage:image];
+    });
+}
+
+- (void)removeBlendImage {
+    __weak __typeof(self) weakSelf = self;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        [weakSelf removeBlendImageFilter];
+        [weakSelf removeBlendImageForEncodeFilter];
+        [weakSelf deleteBlendImage];
+    });
 }
 
 - (void)setEnableBlackFrame:(BOOL)enableBlackFrame {
@@ -474,7 +511,18 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
     FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
     CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
     ArcRender* render = (__bridge ArcRender*)para;
-    if(render.mPixelBufferBlock) {
+    
+    if(render.mPixelBufferBlock && render.hasEncodeVideoFrame && render -> mBlendForEncodeFilter == nil) {
+        render.mPixelBufferBlock(pixelBuffer);
+    }
+}
+
+void blendRenderCompleteForEncode(ArcGLOutput* output, void* para) {
+    FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
+    CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
+    ArcRender* render = (__bridge ArcRender*)para;
+    
+    if(render.mPixelBufferBlock && render.hasEncodeVideoFrame && render -> mBlendForEncodeFilter) {
         render.mPixelBufferBlock(pixelBuffer);
     }
 }

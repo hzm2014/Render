@@ -47,4 +47,10 @@ void ArcBlendForEncodeFilter::calculateImageRect(ArcGLRect rect) {
     m_imageRect = rectForEncode;
 }
 
+void ArcBlendForEncodeFilter::newFrame() {
+    
+    
+    ArcBlendImageFilter::newFrame();
+}
+
 

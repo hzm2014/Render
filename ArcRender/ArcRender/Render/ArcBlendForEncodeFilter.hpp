@@ -19,6 +19,8 @@ public:
     ArcBlendForEncodeFilter(ArcGLRect rect, ArcGLSize viewSize);
     ~ArcBlendForEncodeFilter();
     
+    virtual void newFrame();
+    
 protected:
     
     virtual void calculateImageRect(ArcGLRect rect);

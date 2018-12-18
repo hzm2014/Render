@@ -13,7 +13,6 @@
 
 ArcGLInput::ArcGLInput(unsigned inputsNum) {
     m_frameSize = {0,0};
-    m_enable = true;
     m_rotation = ArcGLNoRotation;
     m_firstFrameBuffer = nullptr;
     setInputs(inputsNum);

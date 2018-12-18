@@ -47,7 +47,7 @@ protected:
     std::vector<ArcGLOutput*>   m_sources;
     std::vector<FrameBufferPtr> m_inputBuffers;
     FrameBufferPtr m_firstFrameBuffer;
-    bool m_enable; //是否执行newFrame
+    bool m_enable = true; //是否执行newFrame
     bool m_ready = false; //Input Buffer是否都是非空
     
     ArcGLSize m_frameSize;

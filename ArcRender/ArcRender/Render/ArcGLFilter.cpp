@@ -236,34 +236,33 @@ void ArcGLFilter::newFrame() {
     m_context -> makeAsCurrent();
     
     if (!m_enable) {
-        m_outFrameBuffer = m_inputBuffers[0];
         unlockInputFrameBuffersForUse();
-        informTargets();
+        return;
     }
-    else{
-        render();
-        // render后的回调
-        if (m_complete != nullptr) {
-            m_complete(this, m_para);
-        }
-        unlockInputFrameBuffersForUse();
-        
-        //Debug
-        if(m_name == "ArcSampleBufferFilter") {
-            
-        }
-        
-        if(m_name == "ArcBlendImageFilter") {
-            
-        }
-        
-        if(m_name == "ArcBlendForEncodeFilter") {
-            
-        }
-        //Debug end
-        
-        informTargets();
+    
+    render();
+    // render后的回调
+    if (m_complete != nullptr) {
+        m_complete(this, m_para);
     }
+    unlockInputFrameBuffersForUse();
+    
+    //Debug
+    if(m_name == "ArcSampleBufferFilter") {
+        
+    }
+    
+    if(m_name == "ArcBlendImageFilter") {
+        
+    }
+    
+    if(m_name == "ArcBlendForEncodeFilter") {
+        
+    }
+    //Debug end
+    
+    informTargets();
+    
 }
 
 void ArcGLFilter::activeOutFrameBuffer() {
