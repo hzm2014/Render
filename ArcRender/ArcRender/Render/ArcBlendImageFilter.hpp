@@ -21,6 +21,8 @@ public:
     
     void updateImageRectViewSize(ArcGLRect rect, ArcGLSize viewSize);
     
+    virtual void setOutputSize(ArcGLSize size);
+    
     virtual void setInputFrameBuffer(FrameBufferPtr frameBuffer, unsigned location = 0);
     
     virtual void activeOutFrameBuffer();

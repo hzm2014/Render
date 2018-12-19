@@ -27,11 +27,18 @@ static string fragmentShader = k_fragment300_shader;
 ArcBlendImageFilter::ArcBlendImageFilter(ArcGLRect rect, ArcGLSize viewSize): ArcGLFilter(vertexShader, fragmentShader) {
     m_name = "ArcBlendImageFilter";
     setInputs(1);
-    updateImageRectViewSize(rect, viewSize);
+    m_viewSize = viewSize;
+    m_imageRect = rect;
 }
 
 void ArcBlendImageFilter::calculateAspectRatio() {
     memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
+}
+
+void ArcBlendImageFilter::setOutputSize(ArcGLSize size) {
+    ArcGLFilter::setOutputSize(size);
+    
+    updateImageRectViewSize(m_imageRect, m_viewSize);
 }
 
 void ArcBlendImageFilter::updateImageRectViewSize(ArcGLRect rect, ArcGLSize viewSize) {
@@ -47,6 +54,9 @@ void ArcBlendImageFilter::calculateImageRect(ArcGLRect rect) {
 }
 
 void ArcBlendImageFilter::calculateAdjustViewSize() {
+    if(m_outputSize.width == 0 || m_outputSize.height == 0) {
+        return;
+    }
     ArcGLRect frameRect = {0,0,0,0};
     float imageWidth = m_outputSize.width;
     float imageHeight = m_outputSize.height;

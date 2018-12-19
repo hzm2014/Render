@@ -412,6 +412,11 @@
         ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendImageFilter = new ArcBlendImageFilter(imageRect, viewSize);
+        if(_cameraPosition == AVCaptureDevicePositionFront) {
+            mBlendImageFilter -> setMirror(true);
+        } else {
+            mBlendImageFilter -> setMirror(false);
+        }
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendImageFilter -> setOutputSize(size);
         mBlendImageFilter -> setOutputRotation(_outputRotation);
@@ -438,6 +443,11 @@
         ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendForEncodeFilter = new ArcBlendForEncodeFilter(imageRect, viewSize);
+        if(_cameraPosition == AVCaptureDevicePositionFront) {
+            mBlendForEncodeFilter -> setMirror(true);
+        } else {
+            mBlendForEncodeFilter -> setMirror(false);
+        }
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendForEncodeFilter -> setOutputSize(size);
         mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
