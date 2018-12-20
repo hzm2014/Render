@@ -191,6 +191,15 @@
 			children = (
 				F8FCBC2721A54DDF00AFA34D /* SectioniOS */,
 				F8FCBC2821A54E2A00AFA34D /* SectionAndroid */,
+				F8A72A2C21CB68EA00FB9435 /* Base */,
+				F8A72A2D21CB693700FB9435 /* Filters */,
+			);
+			path = Render;
+			sourceTree = "<group>";
+		};
+		F8A72A2C21CB68EA00FB9435 /* Base */ = {
+			isa = PBXGroup;
+			children = (
 				F80A4459219DB30E00DB7FCB /* ArcGLContext.cpp */,
 				F80A445A219DB30E00DB7FCB /* ArcGLContext.hpp */,
 				F80A445C219DB41800DB7FCB /* ArcGLProgram.cpp */,
@@ -235,7 +244,14 @@
 				F891659821B77C950091A3D6 /* ArcBlendForEncodeFilter.hpp */,
 				F80A447D219DB92200DB7FCB /* ArcGLHeader.h */,
 			);
-			path = Render;
+			path = Base;
+			sourceTree = "<group>";
+		};
+		F8A72A2D21CB693700FB9435 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Filters;
 			sourceTree = "<group>";
 		};
 		F8FCBC2721A54DDF00AFA34D /* SectioniOS */ = {
