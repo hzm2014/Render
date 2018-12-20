@@ -21,10 +21,10 @@ ArciOSFrameBufferManager::~ArciOSFrameBufferManager() {
 FrameBufferPtr ArciOSFrameBufferManager::frameBuffer(ArcGLSize& size, ArcGLTextureOption& option, bool onlyTexture) {
     
     string hashValue = hashForFrameBuffer(size, option);
-    FrameBufferMap::iterator iter = m_frameBufferMap.find(hashValue);
-    if(iter != m_frameBufferMap.end() && iter -> second -> idle()) {
-        
-        return iter -> second;
+    for(FrameBufferMap::iterator iter = m_frameBufferMap.begin(); iter != m_frameBufferMap.end(); iter++) {
+        if(iter -> first == hashValue && iter -> second -> idle()) {
+            return iter -> second;
+        }
     }
     
     //not find, then create

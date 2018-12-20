@@ -21,6 +21,7 @@ public:
     
     void setBrightness(float value = 0.0);
     inline float brightness() { return m_brightness; }
+    virtual void calculateAspectRatio();
         
 protected:
     

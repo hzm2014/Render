@@ -25,7 +25,7 @@ public:
     
 protected:
     
-    using FrameBufferMap = map<string, FrameBufferPtr>;
+    using FrameBufferMap = multimap<string, FrameBufferPtr>;
     
     ArcGLFrameBuffer* m_frameBuffer;
     FrameBufferMap m_frameBufferMap;
