@@ -25,6 +25,7 @@
 		F80A4473219DB60900DB7FCB /* ArcGLVertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4471219DB60900DB7FCB /* ArcGLVertexShader.cpp */; };
 		F80A4476219DB61F00DB7FCB /* ArcGLFragmentShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F80A4474219DB61F00DB7FCB /* ArcGLFragmentShader.cpp */; };
 		F891659921B77C960091A3D6 /* ArcBlendForEncodeFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F891659721B77C950091A3D6 /* ArcBlendForEncodeFilter.cpp */; };
+		F8A72A3021CB6CBE00FB9435 /* ArcGLBrightnessFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8A72A2E21CB6CBE00FB9435 /* ArcGLBrightnessFilter.cpp */; };
 		F8B292D421AE3359006D7837 /* ArcVideoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B292D221AE3359006D7837 /* ArcVideoProvider.m */; };
 		F8C2132C21AB858100E806B4 /* ArcGLFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2132A21AB858100E806B4 /* ArcGLFilter.cpp */; };
 		F8C2132F21AB945F00E806B4 /* ArcGLVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8C2132D21AB945F00E806B4 /* ArcGLVertexBuffer.cpp */; };
@@ -85,6 +86,8 @@
 		F80A447D219DB92200DB7FCB /* ArcGLHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcGLHeader.h; sourceTree = "<group>"; };
 		F891659721B77C950091A3D6 /* ArcBlendForEncodeFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcBlendForEncodeFilter.cpp; sourceTree = "<group>"; };
 		F891659821B77C950091A3D6 /* ArcBlendForEncodeFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcBlendForEncodeFilter.hpp; sourceTree = "<group>"; };
+		F8A72A2E21CB6CBE00FB9435 /* ArcGLBrightnessFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLBrightnessFilter.cpp; sourceTree = "<group>"; };
+		F8A72A2F21CB6CBE00FB9435 /* ArcGLBrightnessFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLBrightnessFilter.hpp; sourceTree = "<group>"; };
 		F8B292D221AE3359006D7837 /* ArcVideoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcVideoProvider.m; sourceTree = "<group>"; };
 		F8B292D321AE3359006D7837 /* ArcVideoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcVideoProvider.h; sourceTree = "<group>"; };
 		F8C2132A21AB858100E806B4 /* ArcGLFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLFilter.cpp; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 		F8A72A2D21CB693700FB9435 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				F8A72A2E21CB6CBE00FB9435 /* ArcGLBrightnessFilter.cpp */,
+				F8A72A2F21CB6CBE00FB9435 /* ArcGLBrightnessFilter.hpp */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				F8FCBC2C21A642E500AFA34D /* ArcRender.mm in Sources */,
 				F80A445B219DB30E00DB7FCB /* ArcGLContext.cpp in Sources */,
 				F8C2133D21ACE96100E806B4 /* ArcSampleBufferFilter.mm in Sources */,
+				F8A72A3021CB6CBE00FB9435 /* ArcGLBrightnessFilter.cpp in Sources */,
 				F8E59A9121A1A93F00632696 /* ArciOSContext.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

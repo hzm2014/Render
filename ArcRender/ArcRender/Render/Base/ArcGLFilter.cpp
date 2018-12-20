@@ -65,8 +65,6 @@ void ArcGLFilter::initParams() {
 }
 
 /**
- // 目前fragment最多支持16个纹理单元
-
  @param inputs 纹理单元数量
  */
 void ArcGLFilter::setInputs(int inputs){
@@ -249,6 +247,10 @@ void ArcGLFilter::newFrame() {
     
     //Debug
     if(m_name == "ArcSampleBufferFilter") {
+        
+    }
+    
+    if(m_name == "ArcGLBrightnessFilter") {
         
     }
     

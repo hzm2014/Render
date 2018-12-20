@@ -14,6 +14,7 @@
 #include "ArciOSGLImage.h"
 #import "ArcBlendImageFilter.hpp"
 #import "ArcBlendForEncodeFilter.hpp"
+#import "ArcGLBrightnessFilter.hpp"
 
 
 @interface ArcRender ()
@@ -29,6 +30,7 @@
     ArcGLImage* mBlendImage;
     ArcBlendImageFilter* mBlendImageFilter;
     ArcBlendForEncodeFilter* mBlendForEncodeFilter;
+    ArcGLBrightnessFilter* mBrightnessFilter;
 }
 
 @property (nonatomic, copy) PixelBufferForEncode mPixelBufferBlock;
@@ -49,6 +51,7 @@
         mBlendImage = nullptr;
         mBlendImageFilter = nullptr;
         mBlendForEncodeFilter = nullptr;
+        mBrightnessFilter = nullptr;
         
         _outputOrientation = UIInterfaceOrientationPortrait;
         _frontVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
@@ -359,6 +362,11 @@
         ArcGLRect imagaRect = [self getGLRect:mBlendImageRect];
         mBlendForEncodeFilter -> updateImageRectViewSize(imagaRect, viewSize);
     }
+    
+    if(mBrightnessFilter) {
+        mBrightnessFilter -> setFrameSize(frameSize);
+        mBrightnessFilter -> setOutputSize(size);
+    }
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -519,6 +527,43 @@
     }
 }
 
+#pragma mark - Brightness
+- (void)setBrightness:(float)brightness {
+    
+    if(brightness < -1.0 || brightness > 1.0) {
+        return;
+    }
+    
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        self->_brightness = brightness;
+        if(self->mBrightnessFilter == nullptr) {
+            [self createBrightnessFilterWithValue:brightness];
+        } else {
+            self->mBrightnessFilter -> setBrightness(brightness);
+        }
+        
+        if(self->mBlendImageFilter) {
+            self->mSampleBufferFilter -> removeTarget(self->mBlendImageFilter);
+            self->mBrightnessFilter -> addTarget(self->mBlendImageFilter);
+        }
+        
+        if(self->mBlendForEncodeFilter) {
+            self->mSampleBufferFilter -> removeTarget(self->mBlendForEncodeFilter);
+            self->mBrightnessFilter -> addTarget(self->mBlendForEncodeFilter);
+        }
+        
+        self->mSampleBufferFilter -> addTarget(self->mBrightnessFilter);
+    });
+}
+
+- (void)createBrightnessFilterWithValue:(float)value {
+    mBrightnessFilter = new ArcGLBrightnessFilter(value);
+    ArcGLSize size = [self getGLSize:_outPutSize];
+    mBrightnessFilter -> setOutputSize(size);
+    mBrightnessFilter -> setOutputRotation(_outputRotation);
+}
+
+#pragma mark - Callback
 - (void)setPixelBufferForEncodeCallback:(PixelBufferForEncode)pixelBufferCb {
     _mPixelBufferBlock = pixelBufferCb;
 }
@@ -543,6 +588,7 @@ void blendRenderCompleteForEncode(ArcGLOutput* output, void* para) {
     }
 }
 
+#pragma mark - dealloc
 - (void)dealloc {
     mRunProcess = nil;
     delete mSampleBufferFilter;
