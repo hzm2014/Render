@@ -434,10 +434,7 @@
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendImageFilter -> setOutputSize(size);
         mBlendImageFilter -> setOutputRotation(_outputRotation);
-        
-//        mBlendImageFilter -> addTarget(mRenderView);
-//        mSampleBufferFilter -> removeTarget(mRenderView);
-//        mSampleBufferFilter -> addTarget(mBlendImageFilter);
+        mReady = NO;
     }
     
 }
@@ -467,14 +464,12 @@
         mBlendForEncodeFilter -> setOutputSize(size);
         mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
     
-//        mSampleBufferFilter -> addTarget(mBlendForEncodeFilter);
         mBlendForEncodeFilter -> setCompleteCallback(blendRenderCompleteForEncode, (__bridge void*)self);
     }
 }
 
 - (void)removeBlendImageForEncodeFilter {
     if(mBlendForEncodeFilter != nullptr) {
-//        mSampleBufferFilter -> removeTarget(mBlendForEncodeFilter);
         mFilters.remove(mBlendForEncodeFilter);
         delete mBlendForEncodeFilter;
         mBlendForEncodeFilter = nullptr;
@@ -539,6 +534,7 @@
 - (void)linkFilters {
     ArcGLFilter* f = mSampleBufferFilter;
     for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ++iter) {
+        f -> removeAllTargets();
         if(*iter == mBlendImageFilter) {
             f -> addTarget(*iter);
             list<ArcGLFilter*>::iterator iter2 = iter;
@@ -567,18 +563,6 @@
         } else {
             self->mBrightnessFilter -> setBrightness(brightness);
         }
-        
-//        if(self->mBlendImageFilter) {
-//            self->mSampleBufferFilter -> removeTarget(self->mBlendImageFilter);
-//            self->mBrightnessFilter -> addTarget(self->mBlendImageFilter);
-//        }
-//
-//        if(self->mBlendForEncodeFilter) {
-//            self->mSampleBufferFilter -> removeTarget(self->mBlendForEncodeFilter);
-//            self->mBrightnessFilter -> addTarget(self->mBlendForEncodeFilter);
-//        }
-//
-//        self->mSampleBufferFilter -> addTarget(self->mBrightnessFilter);
     });
 }
 
@@ -588,7 +572,7 @@
     ArcGLSize size = [self getGLSize:_outPutSize];
     mBrightnessFilter -> setOutputSize(size);
     mBrightnessFilter -> setOutputRotation(_outputRotation);
-    
+    mReady = NO;
 }
 
 #pragma mark - Callback
