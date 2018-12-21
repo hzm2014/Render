@@ -40,7 +40,8 @@ typedef void(^PixelBufferForEncode)(CVPixelBufferRef pixelBuffer);
 @property(nonatomic, assign) BOOL hasEncodeVideoFrame;
 @property(nonatomic, assign) BOOL enableBlackFrame; //是否黑帧显示
 @property(nonatomic) CMSampleBufferRef sampleBuffer;
-@property(nonatomic, assign) float brightness; //设置明亮度，范围[-1, 1],默认0
+@property(nonatomic, assign) float brightness; //设置亮度，范围[-1, 1],默认0
+@property(nonatomic, assign) float whitening; //设置美白，范围[0, 1],默认0
 
 
 - (instancetype)initWithViewFrame:(CGRect)frame cameraPosition:(AVCaptureDevicePosition)position;

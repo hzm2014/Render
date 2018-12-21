@@ -261,6 +261,10 @@ void ArcGLFilter::newFrame() {
     if(m_name == "ArcBlendForEncodeFilter") {
         
     }
+    
+    if(m_name == "ArcGLWhiteningFilter") {
+        
+    }
     //Debug end
     
     informTargets();

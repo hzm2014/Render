@@ -15,6 +15,7 @@
 #import "ArcBlendImageFilter.hpp"
 #import "ArcBlendForEncodeFilter.hpp"
 #import "ArcGLBrightnessFilter.hpp"
+#import "ArcGLWhiteningFilter.hpp"
 #import <list>
 
 
@@ -32,6 +33,7 @@
     ArcBlendImageFilter* mBlendImageFilter;
     ArcBlendForEncodeFilter* mBlendForEncodeFilter;
     ArcGLBrightnessFilter* mBrightnessFilter;
+    ArcGLWhiteningFilter* mWhiteningFilter;
     
     list<ArcGLFilter*> mFilters; //不包含SampleBufferFilter和renderView
     BOOL mReady;
@@ -56,6 +58,7 @@
         mBlendImageFilter = nullptr;
         mBlendForEncodeFilter = nullptr;
         mBrightnessFilter = nullptr;
+        mWhiteningFilter = nullptr;
         mReady = NO;
         
         _outputOrientation = UIInterfaceOrientationPortrait;
@@ -372,6 +375,11 @@
         mBrightnessFilter -> setFrameSize(frameSize);
         mBrightnessFilter -> setOutputSize(size);
     }
+    
+    if(mWhiteningFilter) {
+        mWhiteningFilter -> setFrameSize(frameSize);
+        mWhiteningFilter -> setOutputSize(size);
+    }
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -572,6 +580,32 @@
     ArcGLSize size = [self getGLSize:_outPutSize];
     mBrightnessFilter -> setOutputSize(size);
     mBrightnessFilter -> setOutputRotation(_outputRotation);
+    mReady = NO;
+}
+
+- (void)setWhitening:(float)whitening {
+    
+    if(whitening < 0 || whitening > 1.0) {
+        return;
+    }
+    
+    _whitening = whitening;
+    
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        if(self->mWhiteningFilter == nullptr) {
+            [self createWhiteningFilterWithValue:self.whitening];
+        } else {
+            self->mWhiteningFilter -> setStrength(self.whitening);
+        }
+    });
+}
+
+- (void)createWhiteningFilterWithValue:(float)val {
+    mWhiteningFilter = new ArcGLWhiteningFilter(val);
+    mFilters.push_front(mWhiteningFilter);
+    ArcGLSize size = [self getGLSize:_outPutSize];
+    mWhiteningFilter -> setOutputSize(size);
+    mWhiteningFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 

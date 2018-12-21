@@ -23,7 +23,7 @@ const static char* K_Whitening_Fragment = SHADER300_STRING (
     out vec4 out_color;
 
     void main() {
-        mediump vec4 color = texture2D(inputImageTexture[0], textureCoordinate);
+        mediump vec4 color = texture(inputImageTexture[0], textureCoordinate);
         mediump vec3 yuv = rgb2yuv*color.rgb+off2yuv;
         
         mediump float luma = yuv.r;
@@ -47,8 +47,8 @@ static string fragmentShader = K_Whitening_Fragment;
 
 
 ArcGLWhiteningFilter::ArcGLWhiteningFilter(float s): ArcGLFilter(vertexShader, fragmentShader) {
-    
     m_name = "ArcGLWhiteningFilter";
+    setInputs(1);
     m_strength = s;
     
     float ideal[6] = {0.2, 0.6, 0.7, 0.8, 0.5, 0.6};
