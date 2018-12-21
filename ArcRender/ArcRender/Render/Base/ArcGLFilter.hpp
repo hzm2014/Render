@@ -70,6 +70,12 @@ public:
     
     void setClearColor(float r, float g, float b);
     
+    void setFloat(const char *name, GLfloat val);
+    void setFloat(const char *name, GLfloat *val, int num);
+    void setFloatv(const char* name, GLfloat* val, int num);
+    void setMatrix(const char *name, GLfloat *val, int num);
+    void setInteger(const char* name, int i);
+    
 protected:
     
     string m_vertexShader;

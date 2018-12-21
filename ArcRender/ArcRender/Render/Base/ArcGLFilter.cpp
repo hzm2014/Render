@@ -61,7 +61,7 @@ void ArcGLFilter::initParams() {
     
     m_position = m_context -> attribute("position");
     m_inputTexCoor = m_context -> attribute("inputTextureCoordinate");
-    glDisable(GL_DEPTH);
+    glDisable(GL_DEPTH_TEST);
 }
 
 /**
@@ -305,6 +305,24 @@ void ArcGLFilter::setClearColor(float r, float g, float b){
     m_clearColor[0] = r;
     m_clearColor[1] = g;
     m_clearColor[2] = b;
+}
+
+void ArcGLFilter::setFloat(const char *name, GLfloat val){
+    m_context->setFloat(name, val);
+}
+void ArcGLFilter::setFloat(const char *name, GLfloat *val, int num){
+    m_context->setFloat(name, val, num);
+}
+void ArcGLFilter::setFloatv(const char* name, GLfloat* val, int num){
+    m_context->setFloatv(name, val, num);
+}
+
+void ArcGLFilter::setMatrix(const char *name, GLfloat *val, int num){
+    m_context->setMatrix(name, val, num);
+}
+
+void ArcGLFilter::setInteger(const char* name, int i){
+    m_context->setInteger(name, i);
 }
 
 #pragma --mark "全局变量的定义"

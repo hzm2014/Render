@@ -133,4 +133,6 @@ typedef struct ArcGLRect {
 
 #define ArcRotationSwapsWidthAndHeight(rotation) ((rotation) == ArcGLRotateLeft || (rotation) == ArcGLRotateRight || (rotation) == ArcGLRotateRightFlipVertical || (rotation) == ArcGLRotateRightFlipHorizontal)
 
+#define SATURATE(x, min, max)    ((x) < (min) ? (min) : (x) > (max) ? (max) : (x))
+
 #endif /* ArcGLHeader_h */

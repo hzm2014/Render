@@ -124,6 +124,34 @@ ArcGLSize ArcGLContext::sizeFitsTextureMaxSize(ArcGLSize inputSize) {
     return adjustedSize;
 }
 
+void ArcGLContext::setInteger(const string& name, int val) {
+    m_program -> setInteger(name, val);
+}
+
+void ArcGLContext::setIntegerv(const string& name, int* val, int num) {
+    m_program -> setIntegerv(name, val, num);
+}
+
+void ArcGLContext::setUIntegerv(const string& name, uint32_t* val, int num){
+    m_program -> setUIntegerv(name, val, num);
+}
+
+void ArcGLContext::setFloat(const string& name, GLfloat val) {
+    m_program -> setFloat(name, val);
+}
+
+void ArcGLContext::setFloat(const string& name, GLfloat* val, int num) {
+    m_program -> setFloat(name, val, num);
+}
+
+void ArcGLContext::setFloatv(const string& name, GLfloat* val, int num) {
+    m_program -> setFloatv(name, val, num);
+}
+
+void ArcGLContext::setMatrix(const string& name, GLfloat* val, int num) {
+    m_program -> setMatrix(name, val, num);
+}
+
 ArcGLContext::~ArcGLContext() {
     removeAllPrograms();
 }

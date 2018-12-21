@@ -61,8 +61,8 @@ bool ArcGLProgram::link() {
             if (buf) {
                 glGetProgramInfoLog(m_program, bufferLen, NULL, buf);
                 std::cout<<"Visionin Error: Could not link program:%s"<<buf<<std::endl;
-                free(buf);
             }
+            free(buf);
         }
         
         return false;
@@ -93,6 +93,68 @@ const GLuint ArcGLProgram::uniform(const string &name) const {
 
 const GLuint ArcGLProgram::attibute(const string &name) const {
     return  glGetAttribLocation(m_program, name.c_str());
+}
+
+void ArcGLProgram::setInteger(const string& name, int val){
+    
+    GLint index = uniform(name);
+    if(index >= 0)
+        glUniform1i(index, val);
+}
+
+void ArcGLProgram::setIntegerv(const string& name, int* val, int num){
+    
+    GLint index = uniform(name);
+    glUniform1iv(index, num, val);
+}
+
+void ArcGLProgram::setUIntegerv(const string& name, uint32_t* val, int num){
+   
+    GLint index = uniform(name);
+    glUniform1uiv(index, num, val);
+}
+
+void ArcGLProgram::setFloat(const string& name, GLfloat val){
+    setFloat(name, &val, 1);
+}
+
+void ArcGLProgram::setFloat(const string& name, GLfloat* val, int num){
+
+    GLint index = uniform(name);
+    if(index >= 0) {
+        switch(num){
+            case 1:    glUniform1f(index, *val);
+                break;
+            case 2:    glUniform2fv(index, 1, val);
+                break;
+            case 3:    glUniform3fv(index, 1, val);
+                break;
+            case 4:    glUniform4fv(index, 1, val);
+                break;
+        }
+    }
+}
+
+void ArcGLProgram::setFloatv(const string& name, GLfloat* val, int num){
+    
+    GLint index = uniform(name);
+    if(index >= 0)
+        glUniform1fv(index, num, val);
+}
+
+void ArcGLProgram::setMatrix(const string& name, GLfloat* val, int num){
+    
+    GLint index = uniform(name);
+    if(index >= 0) {
+        switch(num){
+            case 2:    glUniformMatrix2fv(index, 1, GL_FALSE, val);
+                break;
+            case 3:    glUniformMatrix3fv(index, 1, GL_FALSE, val);
+                break;
+            case 4:    glUniformMatrix4fv(index, 1, GL_FALSE, val);
+                break;
+        }
+    }
 }
 
 ArcGLProgram::~ArcGLProgram() {

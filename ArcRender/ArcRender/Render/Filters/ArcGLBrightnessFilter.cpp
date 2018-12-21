@@ -10,7 +10,7 @@
 #include <iostream>
 #include "ArcGLContext.hpp"
 
-static const char* kBrightnessFragmentShaderString = SHADER300_STRING (
+static const char* k_Brightness_FragmentShaderString = SHADER300_STRING (
     in vec2 textureCoordinate;
 
     uniform sampler2D inputImageTexture;
@@ -26,7 +26,7 @@ static const char* kBrightnessFragmentShaderString = SHADER300_STRING (
 );
 
 static string vertexShader = ArcGLFilter::g_vertext300_shader;
-static string fragmentShader = kBrightnessFragmentShaderString;
+static string fragmentShader = k_Brightness_FragmentShaderString;
 
 ArcGLBrightnessFilter::ArcGLBrightnessFilter(float value): ArcGLFilter(vertexShader, fragmentShader) {
     m_name = "ArcGLBrightnessFilter";

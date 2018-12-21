@@ -39,6 +39,14 @@ public:
     
     bool initialized() const;
     
+    void setInteger(const string& name, int val);
+    void setIntegerv(const string& name, int* val, int num);
+    void setUIntegerv(const string& name, uint32_t* val, int num);
+    void setFloat(const string& name, GLfloat val);
+    void setFloat(const string& name, GLfloat* val, int num);
+    void setFloatv(const string& name, GLfloat* val, int num);
+    void setMatrix(const string& name, GLfloat* val, int num);
+    
 protected:
     
     GLuint m_program;
