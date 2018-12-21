@@ -15,6 +15,7 @@
 #import "ArcBlendImageFilter.hpp"
 #import "ArcBlendForEncodeFilter.hpp"
 #import "ArcGLBrightnessFilter.hpp"
+#import <list>
 
 
 @interface ArcRender ()
@@ -31,6 +32,9 @@
     ArcBlendImageFilter* mBlendImageFilter;
     ArcBlendForEncodeFilter* mBlendForEncodeFilter;
     ArcGLBrightnessFilter* mBrightnessFilter;
+    
+    list<ArcGLFilter*> mFilters; //不包含SampleBufferFilter和renderView
+    BOOL mReady;
 }
 
 @property (nonatomic, copy) PixelBufferForEncode mPixelBufferBlock;
@@ -52,6 +56,7 @@
         mBlendImageFilter = nullptr;
         mBlendForEncodeFilter = nullptr;
         mBrightnessFilter = nullptr;
+        mReady = NO;
         
         _outputOrientation = UIInterfaceOrientationPortrait;
         _frontVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
@@ -62,7 +67,6 @@
         [self setSemaphore];
         [self setSampleBufferFilter];
         [self setRenderView];
-        [self sampleBufferFilterAddTarget:mRenderView];
         
         self.cameraPosition = position;
     }
@@ -82,17 +86,12 @@
 - (void)setSampleBufferFilter {
     mSampleBufferFilter = new ArcSampleBufferFilter();
     mSampleBufferFilter -> setFillMode(ArcGLFillModePreserveAspectRatioAndFill);
-    
     mSampleBufferFilter -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
 }
 
 - (void)setRenderView {
     mRenderView = new ArcRenderView(_viewFrame);
     mRenderView -> setFillMode(_previewFillMode);
-}
-
-- (void)sampleBufferFilterAddTarget:(ArcGLInput*)target {
-    mSampleBufferFilter -> addTarget(target);
 }
 
 - (UIView *)renderView {
@@ -154,6 +153,12 @@
         mOriginalSize = CGSizeMake(width, height);
         [self calculateVideoSize];
     }
+    
+    if(mReady == NO) {
+        [self linkFilters];
+        mReady = YES;
+    }
+    
     mSampleBufferFilter->processPixelBuffer(pixelBuffer);
 }
 
@@ -420,6 +425,7 @@
         ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendImageFilter = new ArcBlendImageFilter(imageRect, viewSize);
+        mFilters.push_back(mBlendImageFilter);
         if(_cameraPosition == AVCaptureDevicePositionFront) {
             mBlendImageFilter -> setMirror(true);
         } else {
@@ -429,20 +435,20 @@
         mBlendImageFilter -> setOutputSize(size);
         mBlendImageFilter -> setOutputRotation(_outputRotation);
         
-        mBlendImageFilter -> addTarget(mRenderView);
-        mSampleBufferFilter -> removeTarget(mRenderView);
-        mSampleBufferFilter -> addTarget(mBlendImageFilter);
+//        mBlendImageFilter -> addTarget(mRenderView);
+//        mSampleBufferFilter -> removeTarget(mRenderView);
+//        mSampleBufferFilter -> addTarget(mBlendImageFilter);
     }
     
 }
 
 - (void)removeBlendImageFilter {
     if(mBlendImageFilter != nullptr) {
-        mBlendImageFilter -> removeTarget(mRenderView);
+        mBlendImageFilter -> removeAllTargets();
+        mFilters.remove(mBlendImageFilter);
         delete mBlendImageFilter;
         mBlendImageFilter = nullptr;
     }
-    mSampleBufferFilter -> addTarget(mRenderView);
 }
 
 - (void)createBlendForEncodeFilter {
@@ -451,6 +457,7 @@
         ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendForEncodeFilter = new ArcBlendForEncodeFilter(imageRect, viewSize);
+        mFilters.push_back(mBlendForEncodeFilter);
         if(_cameraPosition == AVCaptureDevicePositionFront) {
             mBlendForEncodeFilter -> setMirror(true);
         } else {
@@ -460,14 +467,15 @@
         mBlendForEncodeFilter -> setOutputSize(size);
         mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
     
-        mSampleBufferFilter -> addTarget(mBlendForEncodeFilter);
+//        mSampleBufferFilter -> addTarget(mBlendForEncodeFilter);
         mBlendForEncodeFilter -> setCompleteCallback(blendRenderCompleteForEncode, (__bridge void*)self);
     }
 }
 
 - (void)removeBlendImageForEncodeFilter {
     if(mBlendForEncodeFilter != nullptr) {
-        mSampleBufferFilter -> removeTarget(mBlendForEncodeFilter);
+//        mSampleBufferFilter -> removeTarget(mBlendForEncodeFilter);
+        mFilters.remove(mBlendForEncodeFilter);
         delete mBlendForEncodeFilter;
         mBlendForEncodeFilter = nullptr;
     }
@@ -508,6 +516,7 @@
         [weakSelf removeBlendImageFilter];
         [weakSelf removeBlendImageForEncodeFilter];
         [weakSelf deleteBlendImage];
+        self->mReady = NO;
     }); 
 }
 
@@ -527,6 +536,23 @@
     }
 }
 
+- (void)linkFilters {
+    ArcGLFilter* f = mSampleBufferFilter;
+    for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ++iter) {
+        if(*iter == mBlendImageFilter) {
+            f -> addTarget(*iter);
+            list<ArcGLFilter*>::iterator iter2 = iter;
+            f -> addTarget(*(++iter));
+            f = *iter2;
+            continue;
+        }
+        
+        f -> addTarget(*iter);
+        f = *iter;
+    }
+    f -> addTarget(mRenderView);
+}
+
 #pragma mark - Brightness
 - (void)setBrightness:(float)brightness {
     
@@ -542,25 +568,27 @@
             self->mBrightnessFilter -> setBrightness(brightness);
         }
         
-        if(self->mBlendImageFilter) {
-            self->mSampleBufferFilter -> removeTarget(self->mBlendImageFilter);
-            self->mBrightnessFilter -> addTarget(self->mBlendImageFilter);
-        }
-        
-        if(self->mBlendForEncodeFilter) {
-            self->mSampleBufferFilter -> removeTarget(self->mBlendForEncodeFilter);
-            self->mBrightnessFilter -> addTarget(self->mBlendForEncodeFilter);
-        }
-        
-        self->mSampleBufferFilter -> addTarget(self->mBrightnessFilter);
+//        if(self->mBlendImageFilter) {
+//            self->mSampleBufferFilter -> removeTarget(self->mBlendImageFilter);
+//            self->mBrightnessFilter -> addTarget(self->mBlendImageFilter);
+//        }
+//
+//        if(self->mBlendForEncodeFilter) {
+//            self->mSampleBufferFilter -> removeTarget(self->mBlendForEncodeFilter);
+//            self->mBrightnessFilter -> addTarget(self->mBlendForEncodeFilter);
+//        }
+//
+//        self->mSampleBufferFilter -> addTarget(self->mBrightnessFilter);
     });
 }
 
 - (void)createBrightnessFilterWithValue:(float)value {
     mBrightnessFilter = new ArcGLBrightnessFilter(value);
+    mFilters.push_front(mBrightnessFilter);
     ArcGLSize size = [self getGLSize:_outPutSize];
     mBrightnessFilter -> setOutputSize(size);
     mBrightnessFilter -> setOutputRotation(_outputRotation);
+    
 }
 
 #pragma mark - Callback
