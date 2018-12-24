@@ -44,14 +44,14 @@
     mPosition = AVCaptureDevicePositionFront;
     mRender = [[ArcRender alloc] initWithViewFrame:self.view.frame cameraPosition:mPosition];
     mRender.outputOrientation = UIInterfaceOrientationPortrait;
-    mRender.outPutSize = CGSizeMake(480, 640);
+    mRender.outPutSize = CGSizeMake(720, 1280);
     mRender.mirrorFrontPreview = YES;
     mRender.hasEncodeVideoFrame = YES;
     image = [UIImage imageNamed:@"for_test.png"];
     [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
 //    mRender.brightness = 0.4;
-    mRender.smooth = 1;
-    mRender.whitening = 1;
+    mRender.smooth = 0.7;
+    mRender.whitening = 0.5;
     
     
     [self.view addSubview:[mRender renderView]];

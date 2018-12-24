@@ -265,6 +265,11 @@ void ArcGLFilter::newFrame() {
     if(m_name == "ArcGLWhiteningFilter") {
         
     }
+    
+    if(m_name == "ArcGLSmoothFilter") {
+        
+    }
+    
     //Debug end
     
     informTargets();
@@ -311,21 +316,21 @@ void ArcGLFilter::setClearColor(float r, float g, float b){
     m_clearColor[2] = b;
 }
 
-void ArcGLFilter::setFloat(const char *name, GLfloat val){
+void ArcGLFilter::setFloat(const string& name, GLfloat val){
     m_context->setFloat(name, val);
 }
-void ArcGLFilter::setFloat(const char *name, GLfloat *val, int num){
+void ArcGLFilter::setFloat(const string& name, GLfloat *val, int num){
     m_context->setFloat(name, val, num);
 }
-void ArcGLFilter::setFloatv(const char* name, GLfloat* val, int num){
+void ArcGLFilter::setFloatv(const string& name, GLfloat* val, int num){
     m_context->setFloatv(name, val, num);
 }
 
-void ArcGLFilter::setMatrix(const char *name, GLfloat *val, int num){
+void ArcGLFilter::setMatrix(const string& name, GLfloat *val, int num){
     m_context->setMatrix(name, val, num);
 }
 
-void ArcGLFilter::setInteger(const char* name, int i){
+void ArcGLFilter::setInteger(const string& name, int i){
     m_context->setInteger(name, i);
 }
 

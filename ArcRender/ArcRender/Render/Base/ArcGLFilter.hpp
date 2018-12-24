@@ -70,11 +70,11 @@ public:
     
     void setClearColor(float r, float g, float b);
     
-    void setFloat(const char *name, GLfloat val);
-    void setFloat(const char *name, GLfloat *val, int num);
-    void setFloatv(const char* name, GLfloat* val, int num);
-    void setMatrix(const char *name, GLfloat *val, int num);
-    void setInteger(const char* name, int i);
+    void setFloat(const string& name, GLfloat val);
+    void setFloat(const string& name, GLfloat *val, int num);
+    void setFloatv(const string& name, GLfloat* val, int num);
+    void setMatrix(const string& name, GLfloat *val, int num);
+    void setInteger(const string& name, int i);
     
 protected:
     
