@@ -11,11 +11,12 @@
 #import "ArcRunProcess.h"
 #import "ArcSampleBufferFilter.h"
 #import "ArcRenderView.h"
-#include "ArciOSGLImage.h"
+#import "ArciOSGLImage.h"
 #import "ArcBlendImageFilter.hpp"
 #import "ArcBlendForEncodeFilter.hpp"
 #import "ArcGLBrightnessFilter.hpp"
 #import "ArcGLWhiteningFilter.hpp"
+#import "ArcGLSmoothFilter.hpp"
 #import <list>
 
 
@@ -34,6 +35,7 @@
     ArcBlendForEncodeFilter* mBlendForEncodeFilter;
     ArcGLBrightnessFilter* mBrightnessFilter;
     ArcGLWhiteningFilter* mWhiteningFilter;
+    ArcGLSmoothFilter* mSmoothFilter;
     
     list<ArcGLFilter*> mFilters; //不包含SampleBufferFilter和renderView
     BOOL mReady;
@@ -59,6 +61,7 @@
         mBlendForEncodeFilter = nullptr;
         mBrightnessFilter = nullptr;
         mWhiteningFilter = nullptr;
+        mSmoothFilter = nullptr;
         mReady = NO;
         
         _outputOrientation = UIInterfaceOrientationPortrait;
@@ -380,6 +383,11 @@
         mWhiteningFilter -> setFrameSize(frameSize);
         mWhiteningFilter -> setOutputSize(size);
     }
+    
+    if(mSmoothFilter) {
+        mSmoothFilter -> setFrameSize(frameSize);
+        mSmoothFilter -> setOutputSize(size);
+    }
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -606,6 +614,32 @@
     ArcGLSize size = [self getGLSize:_outPutSize];
     mWhiteningFilter -> setOutputSize(size);
     mWhiteningFilter -> setOutputRotation(_outputRotation);
+    mReady = NO;
+}
+
+- (void)setSmooth:(float)smooth {
+    
+    if(smooth < 0 || smooth > 1.0) {
+        return;
+    }
+    
+    _smooth = smooth;
+    
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        if(self->mSmoothFilter == nullptr) {
+            [self createSmoothFilterWithValue:self.smooth];
+        } else {
+            self->mSmoothFilter -> setSmooth(self.smooth);
+        }
+    });
+}
+
+- (void)createSmoothFilterWithValue:(float)val {
+    mSmoothFilter = new ArcGLSmoothFilter(val);
+    mFilters.push_front(mSmoothFilter);
+    ArcGLSize size = [self getGLSize:_outPutSize];
+    mSmoothFilter -> setOutputSize(size);
+    mSmoothFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 
