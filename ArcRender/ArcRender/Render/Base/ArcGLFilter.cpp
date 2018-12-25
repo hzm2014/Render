@@ -270,6 +270,10 @@ void ArcGLFilter::newFrame() {
         
     }
     
+    if(m_name == "ArcGLBeautyFilter") {
+        
+    }
+    
     //Debug end
     
     informTargets();
@@ -288,7 +292,6 @@ void ArcGLFilter::activeOutFrameBuffer() {
 
 void ArcGLFilter::render() {
     
-    m_context -> makeAsCurrent();
     m_context -> useProgram(m_vertexShader, m_fragmentShader);
     
     activeOutFrameBuffer();

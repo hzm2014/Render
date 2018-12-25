@@ -26,7 +26,7 @@ public:
     ArcGLFrameBuffer(ArcGLSize size, ArcGLTextureOption option, GLuint texture);
     virtual ~ArcGLFrameBuffer();
     
-    void active(int layer = 0);
+    void active();
     void active(GLuint textureUnit);
     void activeTexture();
     void deactive();

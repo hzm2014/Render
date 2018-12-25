@@ -17,6 +17,7 @@
 #import "ArcGLBrightnessFilter.hpp"
 #import "ArcGLWhiteningFilter.hpp"
 #import "ArcGLSmoothFilter.hpp"
+#import "ArcGLBeautyFilter.hpp"
 #import <list>
 
 
@@ -36,6 +37,7 @@
     ArcGLBrightnessFilter* mBrightnessFilter;
     ArcGLWhiteningFilter* mWhiteningFilter;
     ArcGLSmoothFilter* mSmoothFilter;
+    ArcGLBeautyFilter* mBeautyFilter;
     
     list<ArcGLFilter*> mFilters; //不包含SampleBufferFilter和renderView
     BOOL mReady;
@@ -62,6 +64,7 @@
         mBrightnessFilter = nullptr;
         mWhiteningFilter = nullptr;
         mSmoothFilter = nullptr;
+        mBeautyFilter = nullptr;
         mReady = NO;
         
         _outputOrientation = UIInterfaceOrientationPortrait;
@@ -388,6 +391,11 @@
         mSmoothFilter -> setFrameSize(frameSize);
         mSmoothFilter -> setOutputSize(size);
     }
+    
+    if(mBeautyFilter) {
+        mBeautyFilter -> setFrameSize(frameSize);
+        mBeautyFilter -> setOutputSize(size);
+    }
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -641,6 +649,38 @@
     mSmoothFilter -> setOutputSize(size);
     mSmoothFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
+}
+
+- (void)setEnableBeauty:(BOOL)enableBeauty {
+    _enableBeauty = enableBeauty;
+    
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        if(enableBeauty == NO) {
+            [self removeBeautyFilter];
+            return;
+        }
+        if(self->mBeautyFilter == nullptr) {
+            [self createBeautyFilter];
+        }
+    });
+}
+
+- (void)createBeautyFilter {
+    mBeautyFilter = new ArcGLBeautyFilter();
+    mFilters.push_front(mBeautyFilter);
+    ArcGLSize size = [self getGLSize:_outPutSize];
+    mBeautyFilter -> setOutputSize(size);
+    mBeautyFilter -> setOutputRotation(_outputRotation);
+    mReady = NO;
+}
+
+- (void)removeBeautyFilter {
+    if(mBeautyFilter) {
+        mBeautyFilter -> removeAllTargets();
+        delete mBeautyFilter;
+        mBeautyFilter = nullptr;
+        mReady = NO;
+    }
 }
 
 #pragma mark - Callback

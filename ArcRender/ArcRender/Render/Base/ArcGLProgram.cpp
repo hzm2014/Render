@@ -139,7 +139,7 @@ void ArcGLProgram::setFloatv(const string& name, GLfloat* val, int num){
     
     GLint index = uniform(name);
     if(index >= 0)
-        glUniform1fv(index, num, val);
+        setFloat(name, val, num);
 }
 
 void ArcGLProgram::setMatrix(const string& name, GLfloat* val, int num){

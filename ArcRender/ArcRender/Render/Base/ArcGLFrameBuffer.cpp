@@ -26,7 +26,7 @@ void ArcGLFrameBuffer::createTexture(GLuint texture) {
     m_texture = new ArcGLTexture(m_option, m_size, texture);
 }
 
-void ArcGLFrameBuffer::active(int layer) {
+void ArcGLFrameBuffer::active() {
 
     glBindFramebuffer(GL_FRAMEBUFFER, m_frameBuffer);
     glViewport(0, 0, m_size.width, m_size.height);
@@ -38,7 +38,7 @@ void ArcGLFrameBuffer::activeTexture() {
 
 void ArcGLFrameBuffer::active(GLuint textureUnit) {
     glActiveTexture(textureUnit);
-    active();
+    activeTexture();
 }
 
 void ArcGLFrameBuffer::deactive() {

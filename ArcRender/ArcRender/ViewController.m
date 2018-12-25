@@ -49,10 +49,7 @@
     mRender.hasEncodeVideoFrame = YES;
     image = [UIImage imageNamed:@"for_test.png"];
     [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
-//    mRender.brightness = 0.4;
-    mRender.smooth = 0.7;
-    mRender.whitening = 0.5;
-    
+    mRender.enableBeauty = YES;
     
     [self.view addSubview:[mRender renderView]];
     

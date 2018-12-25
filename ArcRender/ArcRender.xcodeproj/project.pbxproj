@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F805066D21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F805066B21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp */; };
+		F805067521D21E85008AA67B /* ArcGLBeautyFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F805067321D21E85008AA67B /* ArcGLBeautyFilter.cpp */; };
 		F80A381621B381D200B3DB0E /* ArciOSGLImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F80A381521B381D200B3DB0E /* ArciOSGLImage.mm */; };
 		F80A381921B40C9C00B3DB0E /* for_test.png in Resources */ = {isa = PBXBuildFile; fileRef = F80A381821B40C9C00B3DB0E /* for_test.png */; };
 		F80A4428219DB29B00DB7FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F80A4427219DB29B00DB7FCB /* AppDelegate.m */; };
@@ -53,6 +55,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F805066B21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLTwoPassFilter.cpp; sourceTree = "<group>"; };
+		F805066C21D1C19E008AA67B /* ArcGLTwoPassFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLTwoPassFilter.hpp; sourceTree = "<group>"; };
+		F805067321D21E85008AA67B /* ArcGLBeautyFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcGLBeautyFilter.cpp; sourceTree = "<group>"; };
+		F805067421D21E85008AA67B /* ArcGLBeautyFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcGLBeautyFilter.hpp; sourceTree = "<group>"; };
 		F80A381421B381D200B3DB0E /* ArciOSGLImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSGLImage.h; sourceTree = "<group>"; };
 		F80A381521B381D200B3DB0E /* ArciOSGLImage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSGLImage.mm; sourceTree = "<group>"; };
 		F80A381821B40C9C00B3DB0E /* for_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = for_test.png; sourceTree = "<group>"; };
@@ -265,6 +271,10 @@
 				F8A149F221D07BBA00B2FCAE /* ArcGLBilateralFilter.hpp */,
 				F8A149F921D082BF00B2FCAE /* ArcGLSmoothFilter.cpp */,
 				F8A149FA21D082BF00B2FCAE /* ArcGLSmoothFilter.hpp */,
+				F805066B21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp */,
+				F805066C21D1C19E008AA67B /* ArcGLTwoPassFilter.hpp */,
+				F805067321D21E85008AA67B /* ArcGLBeautyFilter.cpp */,
+				F805067421D21E85008AA67B /* ArcGLBeautyFilter.hpp */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -403,11 +413,13 @@
 				F8C2134F21AD39AE00E806B4 /* ArcGLView.mm in Sources */,
 				F8C2132C21AB858100E806B4 /* ArcGLFilter.cpp in Sources */,
 				F80A4476219DB61F00DB7FCB /* ArcGLFragmentShader.cpp in Sources */,
+				F805066D21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp in Sources */,
 				F8EE607E21B112150043BD12 /* AVCaptureDevice+Custom.m in Sources */,
 				F8E5FB7C21B2CEA500BA3CC8 /* ArcBlendImageFilter.cpp in Sources */,
 				F80A4461219DB42F00DB7FCB /* ArcGLShader.cpp in Sources */,
 				F8E5669521A15D9D00572403 /* ArcGLPixelBuffer.cpp in Sources */,
 				F8EE9E14219E4E63007C8DB5 /* ArcGLTextureManager.cpp in Sources */,
+				F805067521D21E85008AA67B /* ArcGLBeautyFilter.cpp in Sources */,
 				F80A446A219DB48F00DB7FCB /* ArcGLFrameBufferManager.cpp in Sources */,
 				F80A4436219DB29C00DB7FCB /* main.m in Sources */,
 				F8C2133221AB954800E806B4 /* ArcGLVertexArray.cpp in Sources */,
