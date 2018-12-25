@@ -22,7 +22,7 @@ class ArcGLFilter: public ArcGLInput, public ArcGLOutput {
     
 public:
     
-    ArcGLFilter(string& vertexShader, string& fragmentShader);
+    ArcGLFilter(const string& vertexShader, const string& fragmentShader);
     virtual ~ArcGLFilter();
     
     //定义全局变量
@@ -39,9 +39,7 @@ public:
     virtual void setOutputSize(ArcGLSize size);
     //更新帧尺寸并重新计算裁剪
     virtual void setFrameSize(ArcGLSize size);
-    
-    virtual void setExtraParameter(float p) {}
-    
+        
     // 设置输出framebuffer，如果设置了，则不再从cache中获取buffer
     virtual void setOutputFrameBuffer(FrameBufferPtr buffer){ m_outFrameBuffer = buffer; }
     

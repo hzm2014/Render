@@ -17,7 +17,7 @@
 #endif
 
 
-ArcGLFilter::ArcGLFilter(string& vertexShader, string& fragmentShader) {
+ArcGLFilter::ArcGLFilter(const string& vertexShader, const string& fragmentShader) {
     m_vertexShader = vertexShader;
     m_fragmentShader = fragmentShader;
     m_name = "ArcGLFilter";
