@@ -61,7 +61,6 @@ void ArcGLFilter::initParams() {
     
     m_position = m_context -> attribute("position");
     m_inputTexCoor = m_context -> attribute("inputTextureCoordinate");
-    glDisable(GL_DEPTH_TEST);
 }
 
 /**
@@ -349,7 +348,7 @@ const char* ArcGLFilter::g_vertext300_shader = SHADER300_STRING (
     }
 );
 
-const char* ArcGLFilter::g_fragment300_shader = SHADER300_STRING (
+const char* ArcGLFilter::g_fragment300_shader_RGBA = SHADER300_STRING (
      in vec2 textureCoordinate;
      uniform sampler2D inputImageTexture[1];
      out vec4 out_color;
@@ -358,6 +357,16 @@ const char* ArcGLFilter::g_fragment300_shader = SHADER300_STRING (
          out_color = texture(inputImageTexture[0], textureCoordinate);
      }
  );
+
+const char* ArcGLFilter::g_fragment300_shader_BGRA = SHADER300_STRING (
+      in vec2 textureCoordinate;
+      uniform sampler2D inputImageTexture[1];
+      out vec4 out_color;
+      void main()
+      {
+          out_color = texture(inputImageTexture[0], textureCoordinate);
+      }
+);
 
 const GLfloat ArcGLFilter::g_vertices[] = {
     -1.0f, -1.0f,

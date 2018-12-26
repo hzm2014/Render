@@ -27,7 +27,8 @@ public:
     
     //定义全局变量
     static const char* g_vertext300_shader;
-    static const char* g_fragment300_shader;
+    static const char* g_fragment300_shader_RGBA;
+    static const char* g_fragment300_shader_BGRA;
     static const GLfloat g_vertices[];
     
     inline string name() const { return m_name; }

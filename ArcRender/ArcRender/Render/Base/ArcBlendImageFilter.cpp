@@ -16,7 +16,7 @@ const char* k_fragment300_shader = SHADER300_STRING (
      uniform sampler2D inputImageTexture[1];
      out vec4 out_color;
      void main() {
-         out_color = texture(inputImageTexture[0], textureCoordinate).bgra;
+         out_color = texture(inputImageTexture[0], textureCoordinate);
      }
 );
 
