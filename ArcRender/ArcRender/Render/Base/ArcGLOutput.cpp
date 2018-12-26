@@ -21,7 +21,7 @@ ArcGLOutput::~ArcGLOutput() {
 }
 
 int ArcGLOutput::addTarget(ArcGLInput *target, int location) {
-    if(target == nullptr) {
+    if(target == NULL) {
         std::cout<<"addTarget NULL!"<<std::endl;
         return -1;
     }

@@ -473,7 +473,9 @@
 }
 
 - (void)createBlendForEncodeFilter {
-    
+    if(_hasEncodeVideoFrame == NO) {
+        return;
+    }
     if(mBlendForEncodeFilter == nullptr) {
         ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
@@ -505,7 +507,9 @@
     mBlendImage = new ArciOSGLImage(image.CGImage);
     
     mBlendImage -> addTarget(mBlendImageFilter);
-    mBlendImage -> addTarget(mBlendForEncodeFilter);
+    if(mBlendForEncodeFilter) {
+        mBlendImage -> addTarget(mBlendForEncodeFilter);
+    }
     
     mBlendImage -> informTargets();
 }
@@ -557,18 +561,24 @@
 
 - (void)linkFilters {
     ArcGLFilter* f = mSampleBufferFilter;
-    for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ++iter) {
+    for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ) {
         f -> removeAllTargets();
         if(*iter == mBlendImageFilter) {
-            f -> addTarget(*iter);
+            
             list<ArcGLFilter*>::iterator iter2 = iter;
-            f -> addTarget(*(++iter));
-            f = *iter2;
-            continue;
+            if(*(++iter2) == mBlendForEncodeFilter) {
+                f -> addTarget(mBlendImageFilter);
+                f -> addTarget(mBlendForEncodeFilter);
+                f = mBlendImageFilter;
+                ++iter;
+                ++iter;
+                continue;
+            }
         }
         
         f -> addTarget(*iter);
         f = *iter;
+        ++iter;
     }
     f -> addTarget(mRenderView);
 }
