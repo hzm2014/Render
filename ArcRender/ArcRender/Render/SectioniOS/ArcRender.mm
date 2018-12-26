@@ -708,6 +708,16 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
     }
 }
 
+void beautyRenderCompleteForEncode(ArcGLOutput* output, void* para) {
+    FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
+    CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
+    ArcRender* render = (__bridge ArcRender*)para;
+    
+    if(render.mPixelBufferBlock && render.enableBeauty && render -> mBeautyFilter) {
+        render.mPixelBufferBlock(pixelBuffer);
+    }
+}
+
 void blendRenderCompleteForEncode(ArcGLOutput* output, void* para) {
     FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
     CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());

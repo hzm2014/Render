@@ -47,8 +47,8 @@
     mRender.outPutSize = CGSizeMake(720, 1280);
     mRender.mirrorFrontPreview = YES;
     mRender.hasEncodeVideoFrame = YES;
-    image = [UIImage imageNamed:@"for_test.png"];
-    [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
+//    image = [UIImage imageNamed:@"for_test.png"];
+//    [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
     mRender.enableBeauty = YES;
     
     [self.view addSubview:[mRender renderView]];
