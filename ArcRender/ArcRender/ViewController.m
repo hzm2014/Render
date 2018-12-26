@@ -47,22 +47,22 @@
     mRender.outPutSize = CGSizeMake(720, 1280);
     mRender.mirrorFrontPreview = YES;
     mRender.hasEncodeVideoFrame = YES;
-//    image = [UIImage imageNamed:@"for_test.png"];
-//    [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
+    image = [UIImage imageNamed:@"for_test.png"];
+    [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
     mRender.enableBeauty = YES;
     
     [self.view addSubview:[mRender renderView]];
     
-//    videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
-//    [videoView setBackgroundColor:[UIColor whiteColor]];
-//    [self.view addSubview:videoView];
-//
-//    __weak __typeof(self) weakSelf = self;
+    videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
+    [videoView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:videoView];
+
+    __weak __typeof(self) weakSelf = self;
     [mRender setPixelBufferForEncodeCallback:^(CVPixelBufferRef pixelBuffer) {
-//        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
-//        dispatch_async(dispatch_get_main_queue(), ^(){
-//            [self->videoView setImage:image];
-//        });
+        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            [self->videoView setImage:image];
+        });
     }];
 }
 

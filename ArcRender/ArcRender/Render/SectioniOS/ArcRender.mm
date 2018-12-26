@@ -95,7 +95,6 @@
 - (void)setSampleBufferFilter {
     mSampleBufferFilter = new ArcSampleBufferFilter();
     mSampleBufferFilter -> setFillMode(ArcGLFillModePreserveAspectRatioAndFill);
-    mSampleBufferFilter -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
 }
 
 - (void)setRenderView {
@@ -489,8 +488,6 @@
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendForEncodeFilter -> setOutputSize(size);
         mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
-    
-        mBlendForEncodeFilter -> setCompleteCallback(blendRenderCompleteForEncode, (__bridge void*)self);
     }
 }
 
@@ -561,8 +558,10 @@
 
 - (void)linkFilters {
     ArcGLFilter* f = mSampleBufferFilter;
+    f -> setCompleteCallback(nullptr, nullptr);
     for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ) {
         f -> removeAllTargets();
+        f -> setCompleteCallback(nullptr, nullptr);
         if(*iter == mBlendImageFilter) {
             
             list<ArcGLFilter*>::iterator iter2 = iter;
@@ -580,6 +579,16 @@
         f = *iter;
         ++iter;
     }
+    
+    if(_hasEncodeVideoFrame) {
+        
+        if(mBlendForEncodeFilter) {
+            mBlendForEncodeFilter -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
+        } else {
+            f -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
+        }
+    }
+    
     f -> addTarget(mRenderView);
 }
 
@@ -703,27 +712,7 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
     CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
     ArcRender* render = (__bridge ArcRender*)para;
     
-    if(render.mPixelBufferBlock && render.hasEncodeVideoFrame && render -> mBlendForEncodeFilter == nil) {
-        render.mPixelBufferBlock(pixelBuffer);
-    }
-}
-
-void beautyRenderCompleteForEncode(ArcGLOutput* output, void* para) {
-    FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
-    CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
-    ArcRender* render = (__bridge ArcRender*)para;
-    
-    if(render.mPixelBufferBlock && render.enableBeauty && render -> mBeautyFilter) {
-        render.mPixelBufferBlock(pixelBuffer);
-    }
-}
-
-void blendRenderCompleteForEncode(ArcGLOutput* output, void* para) {
-    FrameBufferPtr frameBuffer = output -> m_outFrameBuffer;
-    CVPixelBufferRef pixelBuffer = static_cast<CVPixelBufferRef>(frameBuffer -> pixelBuffer());
-    ArcRender* render = (__bridge ArcRender*)para;
-    
-    if(render.mPixelBufferBlock && render.hasEncodeVideoFrame && render -> mBlendForEncodeFilter) {
+    if(render.mPixelBufferBlock && render.hasEncodeVideoFrame) {
         render.mPixelBufferBlock(pixelBuffer);
     }
 }
