@@ -67,7 +67,7 @@ typedef struct GL_Context{
     _rotation = ArcGLNoRotation;
     _fillMode = ArcGLFillModePreserveAspectRatioAndFill;
     mContext = static_cast<ArciOSContext*>(ArcGLContext::getInstance());
-    mContext -> useProgram(ArcGLFilter::g_vertext300_shader, ArcGLFilter::g_fragment300_shader_RGBA);
+    mContext -> useProgram(ArcGLFilter::g_vertext300_shader, ArcGLFilter::g_fragment300_shader_BGRA);
     displayPositionAttribute = mContext -> attribute("position");
     displayTextureCoordinateAttribute = mContext -> attribute("inputTextureCoordinate");
     
@@ -251,7 +251,7 @@ typedef struct GL_Context{
 
 -(void)setInputFrameBuffer:(FrameBufferPtr)frameBuffer{
     inputFramebufferForDisplay = frameBuffer;
-    mContext -> useProgram(ArcGLFilter::g_vertext300_shader, ArcGLFilter::g_fragment300_shader_RGBA);
+    mContext -> useProgram(ArcGLFilter::g_vertext300_shader, ArcGLFilter::g_fragment300_shader_BGRA);
     glActiveTexture(GL_TEXTURE0);
     
     glBindTexture(GL_TEXTURE_2D, inputFramebufferForDisplay -> texture() -> texture());

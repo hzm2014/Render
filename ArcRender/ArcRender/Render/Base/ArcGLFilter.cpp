@@ -364,7 +364,7 @@ const char* ArcGLFilter::g_fragment300_shader_BGRA = SHADER300_STRING (
       out vec4 out_color;
       void main()
       {
-          out_color = texture(inputImageTexture[0], textureCoordinate);
+          out_color = texture(inputImageTexture[0], textureCoordinate).bgra;
       }
 );
 

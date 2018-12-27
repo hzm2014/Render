@@ -11,18 +11,8 @@
 #include "ArcGLContext.hpp"
 #include "ArciOSGLImage.h"
 
-const char* k_fragment300_shader = SHADER300_STRING (
-     in vec2 textureCoordinate;
-     uniform sampler2D inputImageTexture[1];
-     out vec4 out_color;
-     void main() {
-         out_color = texture(inputImageTexture[0], textureCoordinate);
-     }
-);
-
-
 static string vertexShader = ArcGLFilter::g_vertext300_shader;
-static string fragmentShader = k_fragment300_shader;
+static string fragmentShader = ArcGLFilter::g_fragment300_shader_RGBA;
 
 ArcBlendImageFilter::ArcBlendImageFilter(ArcGLRect rect, ArcGLSize viewSize): ArcGLFilter(vertexShader, fragmentShader) {
     m_name = "ArcBlendImageFilter";

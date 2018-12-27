@@ -23,7 +23,7 @@ static const char* g_nv12torgb_fragment_shader = SHADER300_STRING(
        yuv.yz = texture(inputImageTexture[1], textureCoordinate).ra - vec2(0.5, 0.5);
        rgb = colorConversionMatrix * yuv;
        
-       out_color = vec4(rgb, 1.0);
+       out_color = vec4(rgb, 1.0).bgra;
     }
 );
 
