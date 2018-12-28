@@ -52,14 +52,15 @@
     
     videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
     [videoView setBackgroundColor:[UIColor whiteColor]];
-//    [self.view addSubview:videoView];
+    [self.view addSubview:videoView];
 
-//    __weak __typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
+    __weak __typeof(videoView) weakVideoView = videoView;
     [mRender setPixelBufferForEncodeCallback:^(CVPixelBufferRef pixelBuffer) {
-//        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
-//        dispatch_async(dispatch_get_main_queue(), ^(){
-//            [self->videoView setImage:image];
-//        });
+        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            [weakVideoView setImage:image];
+        });
     }];
 }
 

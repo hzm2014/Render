@@ -465,6 +465,7 @@
 - (void)removeBlendImageFilter {
     if(mBlendImageFilter != nullptr) {
         mBlendImageFilter -> removeAllTargets();
+        mBlendImageFilter -> removeAllSources();
         mFilters.remove(mBlendImageFilter);
         delete mBlendImageFilter;
         mBlendImageFilter = nullptr;
@@ -493,6 +494,8 @@
 
 - (void)removeBlendImageForEncodeFilter {
     if(mBlendForEncodeFilter != nullptr) {
+        mBlendForEncodeFilter -> removeAllTargets();
+        mBlendForEncodeFilter -> removeAllSources();
         mFilters.remove(mBlendForEncodeFilter);
         delete mBlendForEncodeFilter;
         mBlendForEncodeFilter = nullptr;
@@ -588,7 +591,7 @@
             f -> setCompleteCallback(renderCompleteForEncode, (__bridge void*)self);
         }
     }
-    
+    f -> removeAllTargets();
     f -> addTarget(mRenderView);
 }
 
