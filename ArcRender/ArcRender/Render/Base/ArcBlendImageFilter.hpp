@@ -37,7 +37,6 @@ protected:
     ArcGLSize m_viewSize;
     ArcGLSize m_adjustedViewSize; //按照输出比例调整过的viewSize
     
-    virtual void calculateAspectRatio();
     void calculateAdjustViewSize();
     virtual void calculateImageRect(ArcGLRect rect);
     void updateImageVertex();

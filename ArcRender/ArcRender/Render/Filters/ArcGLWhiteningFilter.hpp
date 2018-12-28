@@ -37,7 +37,6 @@ protected:
     GLfloat m_rgb2yuv[9];
     GLfloat m_off2yuv[3];
     
-    virtual void calculateAspectRatio();
 };
 
 #endif /* ArcGLWhiteningFilter_hpp */

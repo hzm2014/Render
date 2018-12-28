@@ -104,15 +104,20 @@ typedef struct GL_Context{
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    // The frame buffer needs to be trashed and re-created when the view size changes.
-    if (!CGSizeEqualToSize(self.bounds.size, boundsSizeAtFrameBufferEpoch) &&
-        !CGSizeEqualToSize(self.bounds.size, CGSizeZero)) {
+    
+    __weak __typeof(self) weakSelf = self;
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf -> mContext -> makeAsCurrent();
         
-        [self destroyDisplayFramebuffer];
-        [self createDisplayFramebuffer];
-    } else if (!CGSizeEqualToSize(self.bounds.size, CGSizeZero)) {
-        [self recalculateViewGeometry];
-    }
+        if (!CGSizeEqualToSize(weakSelf.bounds.size, strongSelf -> boundsSizeAtFrameBufferEpoch) &&
+            !CGSizeEqualToSize(weakSelf.bounds.size, CGSizeZero)) {
+            [weakSelf destroyDisplayFramebuffer];
+            [weakSelf createDisplayFramebuffer];
+        } else if (!CGSizeEqualToSize(weakSelf.bounds.size, CGSizeZero)) {
+            [weakSelf recalculateViewGeometry];
+        }
+    });
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -130,56 +135,50 @@ typedef struct GL_Context{
 
 - (void)createDisplayFramebuffer {
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
-        glGenFramebuffers(1, &self->displayFramebuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, self->displayFramebuffer);
-        
-        glGenRenderbuffers(1, &self->displayRenderbuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, self->displayRenderbuffer);
-        
-        GL_Context* glContext = (GL_Context*)(self->mContext -> context());
-        EAGLContext* context = glContext -> m_context;
-        [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)self.layer];
-        
-        GLint backingWidth, backingHeight;
-        
-        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
-        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
-        
-        if ( (backingWidth == 0) || (backingHeight == 0) )
-        {
-            [self destroyDisplayFramebuffer];
-            return;
-        }
-        
-        self->_sizeInPixels.width = (CGFloat)backingWidth;
-        self->_sizeInPixels.height = (CGFloat)backingHeight;
-        
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self->displayRenderbuffer);
-        
-        self->boundsSizeAtFrameBufferEpoch = self.bounds.size;
-        
-        [self recalculateViewGeometry];
-    });
-
+    glGenFramebuffers(1, &self->displayFramebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, self->displayFramebuffer);
+    
+    glGenRenderbuffers(1, &self->displayRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, self->displayRenderbuffer);
+    
+    GL_Context* glContext = (GL_Context*)(self->mContext -> context());
+    EAGLContext* context = glContext -> m_context;
+    [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)self.layer];
+    
+    GLint backingWidth, backingHeight;
+    
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+    
+    if ( (backingWidth == 0) || (backingHeight == 0) )
+    {
+        [self destroyDisplayFramebuffer];
+        return;
+    }
+    
+    self->_sizeInPixels.width = (CGFloat)backingWidth;
+    self->_sizeInPixels.height = (CGFloat)backingHeight;
+    
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self->displayRenderbuffer);
+    
+    boundsSizeAtFrameBufferEpoch = self.bounds.size;
+    
+    [self recalculateViewGeometry];
 }
 
 - (void)destroyDisplayFramebuffer {
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
-        
-        if (self->displayFramebuffer)
-        {
-            glDeleteFramebuffers(1, &self->displayFramebuffer);
-            self->displayFramebuffer = 0;
-        }
-        
-        if (self->displayRenderbuffer)
-        {
-            glDeleteRenderbuffers(1, &self->displayRenderbuffer);
-            self->displayRenderbuffer = 0;
-        }
-    });
+    if (self->displayFramebuffer)
+    {
+        glDeleteFramebuffers(1, &self->displayFramebuffer);
+        self->displayFramebuffer = 0;
+    }
+    
+    if (self->displayRenderbuffer)
+    {
+        glDeleteRenderbuffers(1, &self->displayRenderbuffer);
+        self->displayRenderbuffer = 0;
+    }
 }
 
 - (void)createVBO {
@@ -265,39 +264,37 @@ typedef struct GL_Context{
 
 - (void)recalculateViewGeometry {
     
-    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
-        CGFloat heightScaling, widthScaling;
-        CGRect insetRect = AVMakeRectWithAspectRatioInsideRect(self->inputImageSize, self.viewFrame);
-        switch(self.fillMode)
+    CGFloat heightScaling, widthScaling;
+    CGRect insetRect = AVMakeRectWithAspectRatioInsideRect(self->inputImageSize, self.viewFrame);
+    switch(self.fillMode)
+    {
+        case ArcGLFillModeStretch:
         {
-            case ArcGLFillModeStretch:
-            {
-                widthScaling = 1.0;
-                heightScaling = 1.0;
-            }; break;
-            case ArcGLFillModePreserveAspectRatio:
-            {
-                widthScaling = insetRect.size.width / self.viewFrame.size.width;
-                heightScaling = insetRect.size.height / self.viewFrame.size.height;
-            }; break;
-            case ArcGLFillModePreserveAspectRatioAndFill:
-            {
-                widthScaling = self.viewFrame.size.height / insetRect.size.height;
-                heightScaling = self.viewFrame.size.width / insetRect.size.width;
-            }; break;
-        }
-        self->imageVertices[0] = -widthScaling;
-        self->imageVertices[1] = -heightScaling;
-        self->imageVertices[2] = widthScaling;
-        self->imageVertices[3] = -heightScaling;
-        self->imageVertices[4] = -widthScaling;
-        self->imageVertices[5] = heightScaling;
-        self->imageVertices[6] = widthScaling;
-        self->imageVertices[7] = heightScaling;
-        
-        
-        [self updateVAO];
-    });
+            widthScaling = 1.0;
+            heightScaling = 1.0;
+        }; break;
+        case ArcGLFillModePreserveAspectRatio:
+        {
+            widthScaling = insetRect.size.width / self.viewFrame.size.width;
+            heightScaling = insetRect.size.height / self.viewFrame.size.height;
+        }; break;
+        case ArcGLFillModePreserveAspectRatioAndFill:
+        {
+            widthScaling = self.viewFrame.size.height / insetRect.size.height;
+            heightScaling = self.viewFrame.size.width / insetRect.size.width;
+        }; break;
+    }
+    self->imageVertices[0] = -widthScaling;
+    self->imageVertices[1] = -heightScaling;
+    self->imageVertices[2] = widthScaling;
+    self->imageVertices[3] = -heightScaling;
+    self->imageVertices[4] = -widthScaling;
+    self->imageVertices[5] = heightScaling;
+    self->imageVertices[6] = widthScaling;
+    self->imageVertices[7] = heightScaling;
+    
+    
+    [self updateVAO];
 }
 
 + (const GLfloat *)textureCoordinatesForRotation:(ArcGLRotation)rotationMode {

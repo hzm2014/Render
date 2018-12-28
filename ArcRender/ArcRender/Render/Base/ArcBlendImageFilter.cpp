@@ -21,10 +21,6 @@ ArcBlendImageFilter::ArcBlendImageFilter(ArcGLRect rect, ArcGLSize viewSize): Ar
     m_imageRect = rect;
 }
 
-void ArcBlendImageFilter::calculateAspectRatio() {
-    memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
-}
-
 void ArcBlendImageFilter::setOutputSize(ArcGLSize size) {
     ArcGLFilter::setOutputSize(size);
     
@@ -118,14 +114,23 @@ void ArcBlendImageFilter::updateImageVertex() {
         factor = -1;
     }
     
-    m_vertices[0] = x1*2*factor;
-    m_vertices[1] = -y1*2;
-    m_vertices[2] = x2*2*factor;
-    m_vertices[3] = -y2*2;
-    m_vertices[4] = x3*2*factor;
-    m_vertices[5] = -y3*2;
-    m_vertices[6] = x4*2*factor;
-    m_vertices[7] = -y4*2;
+    float v3 = x1*2*factor;
+    float v4 = -y1*2;
+    float v7 = x2*2*factor;
+    float v8 = -y2*2;
+    float v1 = x3*2*factor;
+    float v2 = -y3*2;
+    float v5 = x4*2*factor;
+    float v6 = -y4*2;
+    
+    m_vertices[0] = v1;
+    m_vertices[1] = v2;
+    m_vertices[2] = v3;
+    m_vertices[3] = v4;
+    m_vertices[4] = v5;
+    m_vertices[5] = v6;
+    m_vertices[6] = v7;
+    m_vertices[7] = v8;
 }
 
 void ArcBlendImageFilter::setInputFrameBuffer(FrameBufferPtr frameBuffer, unsigned location) {

@@ -235,7 +235,3 @@ void ArcGLSmoothFilter::setSmooth(float s) {
     m_smoothValue = s;
     setFloat("strength", s);
 }
-
-void ArcGLSmoothFilter::calculateAspectRatio() {
-    memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
-}

@@ -31,7 +31,6 @@ protected:
     void setBeautyLevel(float level);
     void setParams(float beautyLevel, float toneLevel);
     
-    virtual void calculateAspectRatio();
 };
 
 #endif /* ArcGLBeautyFilter_hpp */

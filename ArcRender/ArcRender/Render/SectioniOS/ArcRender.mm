@@ -456,7 +456,6 @@
         }
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendImageFilter -> setOutputSize(size);
-        mBlendImageFilter -> setOutputRotation(_outputRotation);
         mReady = NO;
     }
     
@@ -488,7 +487,6 @@
         }
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendForEncodeFilter -> setOutputSize(size);
-        mBlendForEncodeFilter -> setOutputRotation(_outputRotation);
     }
 }
 
@@ -622,7 +620,7 @@
         return;
     }
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
         self->_brightness = brightness;
         if(self->mBrightnessFilter == nullptr) {
             [self createBrightnessFilterWithValue:brightness];
@@ -637,7 +635,6 @@
     mFilters.push_front(mBrightnessFilter);
     ArcGLSize size = [self getGLSize:_outPutSize];
     mBrightnessFilter -> setOutputSize(size);
-    mBrightnessFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 
@@ -649,7 +646,7 @@
     
     _whitening = whitening;
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
         if(self->mWhiteningFilter == nullptr) {
             [self createWhiteningFilterWithValue:self.whitening];
         } else {
@@ -663,7 +660,6 @@
     mFilters.push_front(mWhiteningFilter);
     ArcGLSize size = [self getGLSize:_outPutSize];
     mWhiteningFilter -> setOutputSize(size);
-    mWhiteningFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 
@@ -675,7 +671,7 @@
     
     _smooth = smooth;
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
         if(self->mSmoothFilter == nullptr) {
             [self createSmoothFilterWithValue:self.smooth];
         } else {
@@ -689,14 +685,13 @@
     mFilters.push_front(mSmoothFilter);
     ArcGLSize size = [self getGLSize:_outPutSize];
     mSmoothFilter -> setOutputSize(size);
-    mSmoothFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 
 - (void)setEnableBeauty:(BOOL)enableBeauty {
     _enableBeauty = enableBeauty;
     
-    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
         if(enableBeauty == NO) {
             [self removeBeautyFilter];
             return;
@@ -712,7 +707,6 @@
     mFilters.push_front(mBeautyFilter);
     ArcGLSize size = [self getGLSize:_outPutSize];
     mBeautyFilter -> setOutputSize(size);
-    mBeautyFilter -> setOutputRotation(_outputRotation);
     mReady = NO;
 }
 

@@ -165,7 +165,3 @@ void ArcGLBeautyFilter::setFrameSize(ArcGLSize size) {
     float offset[2] = {2.0f / static_cast<float>(m_frameSize.width), 2.0f / static_cast<float>(m_frameSize.height)};
     setFloatv("singleStepOffset", offset, 2);
 }
-
-void ArcGLBeautyFilter::calculateAspectRatio() {
-    memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
-}

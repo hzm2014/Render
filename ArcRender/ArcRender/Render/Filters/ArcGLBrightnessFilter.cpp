@@ -48,7 +48,3 @@ void ArcGLBrightnessFilter::setBrightness(float value) {
     glUniform1f(m_uniformBrightness, m_brightness);
 }
 
-void ArcGLBrightnessFilter::calculateAspectRatio() {
-    memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
-}
-

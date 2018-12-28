@@ -30,9 +30,7 @@ public:
 protected:
     
     float m_smoothValue = 0;
-    
-    virtual void calculateAspectRatio();
-    
+        
 };
 
 #endif /* ArcGLSmoothFilter_hpp */

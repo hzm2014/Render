@@ -119,6 +119,3 @@ void ArcGLWhiteningFilter::setStrength(float s){
     setFloat("threshold", m_threshold, 4);
 }
 
-void ArcGLWhiteningFilter::calculateAspectRatio() {
-    memcpy(&m_texCoor[0], coordinatesRotation(ArcGLRotateLeft), sizeof(GLfloat)*8);
-}
