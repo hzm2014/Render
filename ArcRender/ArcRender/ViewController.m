@@ -16,7 +16,6 @@
     ArcVideoProvider* mVideoProvider;
     AVCaptureDevicePosition mPosition;
     UIImage* image;
-    UIInterfaceOrientation old_orientation;
     UIImageView* videoView;
     UIButton* mSwitchCameraBtn;
     UIButton* mSwitchBlackFrameBtn;
@@ -29,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    old_orientation = UIInterfaceOrientationUnknown;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [self setRender];
     [self setVideoProvider];
@@ -84,29 +82,8 @@
 
 - (void)orientationChanged:(NSNotification*)nofication{
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (old_orientation == orientation) {
-        return;
-    }
-    
     [mRender setViewFrame:self.view.bounds];
-    old_orientation = orientation;
-    
-    switch (orientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:
-            [mRender setOutputOrientation:UIInterfaceOrientationPortraitUpsideDown];
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            [mRender setOutputOrientation:UIInterfaceOrientationLandscapeRight];
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-            [mRender setOutputOrientation:UIInterfaceOrientationLandscapeLeft];
-            break;
-        case UIInterfaceOrientationPortrait:
-            [mRender setOutputOrientation:UIInterfaceOrientationPortrait];
-            break;
-        default:
-            break;
-    }
+    mRender.outputOrientation = orientation;
 }
 
 - (void)setupSwitchCameraBtn {
