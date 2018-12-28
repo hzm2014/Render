@@ -592,6 +592,25 @@
     f -> addTarget(mRenderView);
 }
 
+- (void)removeAllFilters {
+    
+    if(mSampleBufferFilter) {
+        delete mSampleBufferFilter;
+        mSampleBufferFilter = nullptr;
+    }
+    
+    if(mRenderView) {
+        delete mRenderView;
+        mRenderView = nullptr;
+    }
+    
+    for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ++iter) {
+        ArcGLFilter* filter = *iter;
+        delete filter;
+    }
+    mFilters.clear();
+}
+
 #pragma mark - Brightness
 - (void)setBrightness:(float)brightness {
     
@@ -721,8 +740,9 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
 - (void)dealloc {
     mRunProcess = nil;
     delete mSampleBufferFilter;
-    ArciOSContext::destroyInstance();
+    ArcGLContext::destroyInstance();
     [self deleteBlendImage];
+    [self removeAllFilters];
 }
 
 @end

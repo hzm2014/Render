@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [self setRender];
     [self setVideoProvider];
@@ -53,7 +54,7 @@
     [videoView setBackgroundColor:[UIColor whiteColor]];
 //    [self.view addSubview:videoView];
 
-    __weak __typeof(self) weakSelf = self;
+//    __weak __typeof(self) weakSelf = self;
     [mRender setPixelBufferForEncodeCallback:^(CVPixelBufferRef pixelBuffer) {
 //        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
 //        dispatch_async(dispatch_get_main_queue(), ^(){
@@ -88,7 +89,7 @@
 
 - (void)setupSwitchCameraBtn {
     mSwitchCameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    mSwitchCameraBtn.frame = CGRectMake(self.view.frame.size.width - 80, 30, 60, 30);
+    mSwitchCameraBtn.frame = CGRectMake(self.view.frame.size.width - 80, 90, 60, 30);
     [self.view addSubview:mSwitchCameraBtn];
     mSwitchCameraBtn.backgroundColor = [UIColor orangeColor];
     [mSwitchCameraBtn setTitle:@"Switch1" forState:UIControlStateNormal];
