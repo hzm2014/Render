@@ -30,9 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     old_orientation = UIInterfaceOrientationUnknown;
-    // 屏幕旋转
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [self setRender];
     [self setVideoProvider];
     [self setupSwitchCameraBtn];
@@ -55,14 +53,14 @@
     
     videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 135, 240)];
     [videoView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:videoView];
+//    [self.view addSubview:videoView];
 
     __weak __typeof(self) weakSelf = self;
     [mRender setPixelBufferForEncodeCallback:^(CVPixelBufferRef pixelBuffer) {
-        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            [self->videoView setImage:image];
-        });
+//        UIImage* image = [weakSelf pixelBuffer2Image:pixelBuffer];
+//        dispatch_async(dispatch_get_main_queue(), ^(){
+//            [self->videoView setImage:image];
+//        });
     }];
 }
 
