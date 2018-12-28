@@ -34,6 +34,8 @@ ArcGLFilter::~ArcGLFilter() {
     m_vertexBuffer = nullptr;
     delete m_texCoorBuffer;
     m_texCoorBuffer = nullptr;
+    
+    ArcGLVBOCache::destroyInstance();
 }
 
 void ArcGLFilter::configContext(string &vertexShader, string &fragmentShader) {

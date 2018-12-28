@@ -166,8 +166,7 @@ typedef struct GL_Context{
 
 - (void)destroyDisplayFramebuffer {
     
-    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
-        self->mContext -> makeAsCurrent();
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
         
         if (self->displayFramebuffer)
         {

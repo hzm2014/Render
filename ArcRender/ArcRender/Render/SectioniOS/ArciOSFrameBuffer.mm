@@ -94,8 +94,13 @@ void* ArciOSFrameBuffer::pixelBuffer() {
 }
 
 ArciOSFrameBuffer::~ArciOSFrameBuffer() {
-    CFRelease(m_renderTarget);
-    m_renderTarget = nil;
-    CFRelease(m_renderTexture);
-    m_renderTexture = nil;
+    if(m_renderTarget) {
+        CFRelease(m_renderTarget);
+        m_renderTarget = nullptr;
+    }
+    if(m_renderTexture) {
+        CFRelease(m_renderTexture);
+        m_renderTexture = nil;
+    }
+    
 }

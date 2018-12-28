@@ -606,6 +606,7 @@
     
     for(list<ArcGLFilter*>::iterator iter = mFilters.begin(); iter != mFilters.end(); ++iter) {
         ArcGLFilter* filter = *iter;
+        filter -> removeAllTargets();
         delete filter;
     }
     mFilters.clear();
@@ -739,7 +740,6 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
 #pragma mark - dealloc
 - (void)dealloc {
     mRunProcess = nil;
-    delete mSampleBufferFilter;
     ArcGLContext::destroyInstance();
     [self deleteBlendImage];
     [self removeAllFilters];

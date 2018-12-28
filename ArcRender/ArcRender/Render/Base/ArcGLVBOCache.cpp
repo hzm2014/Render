@@ -12,6 +12,9 @@
 ArcGLVBOCache* ArcGLVBOCache::m_instance = new ArcGLVBOCache();
 
 ArcGLVBOCache* ArcGLVBOCache::getInstance() {
+    if(m_instance == nullptr) {
+        m_instance = new ArcGLVBOCache();
+    }
     return m_instance;
 }
 

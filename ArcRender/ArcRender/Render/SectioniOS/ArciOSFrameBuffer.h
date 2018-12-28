@@ -25,8 +25,8 @@ public:
     
 protected:
     
-    CVPixelBufferRef m_renderTarget;
-    CVOpenGLESTextureRef m_renderTexture;
+    CVPixelBufferRef m_renderTarget = nullptr;
+    CVOpenGLESTextureRef m_renderTexture = nullptr;
     
     virtual void createFrameBuffer();
     

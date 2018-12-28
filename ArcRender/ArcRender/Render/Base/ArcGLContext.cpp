@@ -20,8 +20,14 @@
 #endif
 
 
-
 ArcGLContext* ArcGLContext::getInstance() {
+    if(m_instance == nullptr) {
+#ifdef __ANDROID__
+        m_instance = new ArcAndroidContext;
+#else
+        m_instance = new ArciOSContext;
+#endif
+    }
     return m_instance;
 }
 

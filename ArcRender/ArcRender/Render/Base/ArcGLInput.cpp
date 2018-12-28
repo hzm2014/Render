@@ -19,7 +19,6 @@ ArcGLInput::ArcGLInput(unsigned inputsNum) {
 }
 
 ArcGLInput::~ArcGLInput() {
-    removeAllSources();
     m_inputBuffers.clear();
 }
 
