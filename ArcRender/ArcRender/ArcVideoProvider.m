@@ -7,7 +7,6 @@
 //
 
 #import "ArcVideoProvider.h"
-#import "ArcRunProcess.h"
 #import "AVCaptureDevice+Custom.h"
 
 @interface ArcVideoProvider () <AVCaptureVideoDataOutputSampleBufferDelegate>
