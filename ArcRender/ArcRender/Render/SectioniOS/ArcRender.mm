@@ -49,15 +49,21 @@
 
 @implementation ArcRender
 
-- (instancetype)initWithViewFrame:(CGRect)frame cameraPosition:(AVCaptureDevicePosition)position {
+- (instancetype)initWithViewFrame:(CGRect)frame {
     if(self = [super init]) {
         
-        _mirrorFrontCamera = NO;
-        _mirrorBackCamera = NO;
-        _mirrorFrontPreview = YES;
-        _mirrorBackPreview = NO;
+        _mirrorForPreview = NO;
+        _mirrorForOutput = NO;
         mRotateAngle = 0;
         _viewFrame = frame;
+        
+        _previewFillMode = ArcGLFillModePreserveAspectRatioAndFill;
+        _outputFillMode = ArcGLFillModePreserveAspectRatioAndFill;
+        _outputRotation = ArcGLNoRotation;
+        _previewRotation = ArcGLNoRotation;
+        
+        _outPutSize = CGSizeMake(720, 1280);
+        
         mBlendImage = nullptr;
         mBlendImageFilter = nullptr;
         mBlendForEncodeFilter = nullptr;
@@ -67,17 +73,10 @@
         mBeautyFilter = nullptr;
         mReady = NO;
         
-        _outputOrientation = UIInterfaceOrientationPortrait;
-        _frontVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-        _backVideoOrientation = AVCaptureVideoOrientationLandscapeRight;
-        _previewFillMode = ArcGLFillModePreserveAspectRatioAndFill;
-        
         [self setRunProcess];
         [self setSemaphore];
         [self setSampleBufferFilter];
         [self setRenderView];
-        
-        self.cameraPosition = position;
     }
     return self;
 }
@@ -121,10 +120,9 @@
 
 - (void)setOutPutSize:(CGSize)outPutSize {
     _outPutSize = outPutSize;
-}
-
-- (void)setVideoSize:(CGSize)videoSize {
-    _videoSize = videoSize;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        [self calculateVideoSize];
+    });
 }
 
 - (void)receiveSampleBuffer:(CMSampleBufferRef)sampleBuffer {
@@ -170,211 +168,76 @@
     mSampleBufferFilter->processPixelBuffer(pixelBuffer);
 }
 
-- (void)setOutputOrientation:(UIInterfaceOrientation)outputOrientation {
-    _outputOrientation = outputOrientation;
-    [self setCameraPosition:_cameraPosition];
+- (void)setMirrorForPreview:(BOOL)mirrorForPreview {
+    _mirrorForPreview = mirrorForPreview;
+    //TODO
 }
 
--(void)setCameraPosition:(AVCaptureDevicePosition)cameraPosition{
-    _cameraPosition = cameraPosition;
-    // 根据设备方向和视频帧方向计算旋转角度
-    mRotateAngle = 0;
-    switch(_outputOrientation)
-    {
-        case UIInterfaceOrientationPortraitUpsideDown:
-            mRotateAngle = 180;
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-            mRotateAngle = 90;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            mRotateAngle = -90;
-            break;
-        case UIInterfaceOrientationPortrait:
-        default:
-            mRotateAngle = 0;
-    }
-
-    AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
-    if (_cameraPosition == AVCaptureDevicePositionFront) {
-        orientation = _frontVideoOrientation;
-    }
-    else if (_cameraPosition == AVCaptureDevicePositionBack) {
-        orientation = _backVideoOrientation;
-    }
-
-    switch(orientation)
-    {
-        case AVCaptureVideoOrientationPortraitUpsideDown:
-            mRotateAngle += 180;
-            break;
-        case AVCaptureVideoOrientationLandscapeLeft:
-            mRotateAngle -= 90;
-            break;
-        case AVCaptureVideoOrientationLandscapeRight:
-            mRotateAngle += 90;
-            break;
-        case AVCaptureVideoOrientationPortrait:
-        default:
-            mRotateAngle += 0;
-            break;
-    }
+- (void)setMirrorForOutput:(BOOL)mirrorForOutput {
+    _mirrorForOutput = mirrorForOutput;
     
+    __weak __typeof(self) weakSelf = self;
     runAsynchronouslyOnProcessQueue(mRunProcess, ^{
-        [self calRotation:self->mSampleBufferFilter];
-        if (self.cameraPosition == AVCaptureDevicePositionFront) {
-            [self setMirrorFrontPreview:self.mirrorFrontPreview];
-            [self setMirrorFrontCamera:self.mirrorFrontCamera];
-        }
-        else if (self.cameraPosition == AVCaptureDevicePositionBack) {
-            [self setMirrorBackPreview:self.mirrorBackPreview];
-            [self setMirrorBackCamera:self.mirrorBackCamera];
-        }
-        [self calculateVideoSize];
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf->mSampleBufferFilter -> setMirror(mirrorForOutput);
+        [weakSelf calculateVideoSize];
     });
 }
 
-- (void)setMirrorFrontPreview:(BOOL)mirrorFrontPreview {
-    _mirrorFrontPreview = mirrorFrontPreview;
-    if (_cameraPosition != AVCaptureDevicePositionFront) {
-        return;
-    }
-    mSampleBufferFilter -> setMirror(_mirrorFrontPreview);
-}
-
-- (void)setMirrorFrontCamera:(BOOL)mirrorFrontCamera {
-    _mirrorFrontCamera = mirrorFrontCamera;
-    if (_cameraPosition != AVCaptureDevicePositionFront) {
-        return;
-    }
-}
-
-- (void)setMirrorBackPreview:(BOOL)mirrorBackPreview {
-    _mirrorBackPreview = mirrorBackPreview;
-    if (_cameraPosition != AVCaptureDevicePositionBack) {
-        return;
-    }
-    mSampleBufferFilter -> setMirror(_mirrorBackPreview);
-}
-
-- (void)setMirrorBackCamera:(BOOL)mirrorBackCamera {
-    _mirrorBackCamera = mirrorBackCamera;
-    if (_cameraPosition != AVCaptureDevicePositionBack) {
-        return;
-    }
-}
-
-- (void)setFrontVideoOrientation:(AVCaptureVideoOrientation)frontVideoOrientation {
-    _frontVideoOrientation = frontVideoOrientation;
-    if (_cameraPosition != AVCaptureDevicePositionFront) {
-        return;
-    }
-    [self setCameraPosition:_cameraPosition];
-}
-
--(void)setBackVideoOrientation:(AVCaptureVideoOrientation)backVideoOrientation{
-    _backVideoOrientation = backVideoOrientation;
-    if (_cameraPosition!=AVCaptureDevicePositionBack) {
-        return;
-    }
-    [self setCameraPosition:_cameraPosition];
-}
-
--(void)calRotation:(ArcGLInput*)input{
-    if (_cameraPosition==AVCaptureDevicePositionBack) {
-        switch(mRotateAngle)
-        {
-            case 0:
-            case 360:
-                _outputRotation = ArcGLNoRotation; break;
-            case 90:
-                _outputRotation = ArcGLRotateRight; break;
-            case -90:
-                _outputRotation = ArcGLRotateLeft; break;
-            case 180:
-            case -180:
-                _outputRotation = ArcGLRotate180; break;
-            default:_outputRotation = ArcGLNoRotation;
-        }
-    } else {
-        switch(mRotateAngle)
-        {
-            case 0:
-            case 360:
-                _outputRotation = ArcGLNoRotation; break;
-            case 90:
-                _outputRotation = ArcGLRotateLeft; break;
-            case -90:
-                _outputRotation = ArcGLRotateRight; break;
-            case 180:
-            case -180:
-                _outputRotation = ArcGLRotate180; break;
-            default:_outputRotation = ArcGLNoRotation;
-        }
-    }
-    input -> setOutputRotation(_outputRotation);
-}
-
 -(void)calculateVideoSize{
-    switch(mRotateAngle)
-    {
-        case 90:
-        case -90:
-            _videoSize = CGSizeMake(mOriginalSize.height, mOriginalSize.width);
-            break;
-        case 0:
-        case 360:
-        case 180:
-        case -180:
-        default:
-            _videoSize = CGSizeMake(mOriginalSize.width, mOriginalSize.height);
+
+    if(_outPutSize.width == 0 || _outPutSize.height == 0 || mOriginalSize.width == 0 || mOriginalSize.height == 0) {
+        return;
     }
     
-    CGSize s = _outPutSize;
-    if(_viewFrame.size.width > _viewFrame.size.height) {
-        s = CGSizeMake(max(_outPutSize.width, _outPutSize.height), min(_outPutSize.width, _outPutSize.height));
+    CGSize frameSize = mOriginalSize;
+    if(_outPutSize.width > _outPutSize.height) {
+        frameSize.width = MAX(mOriginalSize.width, mOriginalSize.height);
+        frameSize.height = MIN(mOriginalSize.width, mOriginalSize.height);
     } else {
-        s = CGSizeMake(min(_outPutSize.width, _outPutSize.height), max(_outPutSize.width, _outPutSize.height));
+        frameSize.width = MIN(mOriginalSize.width, mOriginalSize.height);
+        frameSize.height = MAX(mOriginalSize.width, mOriginalSize.height);
     }
     
-    ArcGLSize size = [self getGLSize:s];
-    ArcGLSize frameSize = [self getGLSize:_videoSize];
-    mSampleBufferFilter -> setFrameSize(frameSize);
-    mSampleBufferFilter -> setOutputSize(size);
+    ArcGLSize outputSize = [self getGLSize:_outPutSize];
+    ArcGLSize originalSize = [self getGLSize:frameSize];
+    mSampleBufferFilter -> setFrameSize(originalSize);
+    mSampleBufferFilter -> setOutputSize(outputSize);
     if(mBlendImageFilter) {
-        mBlendImageFilter -> setFrameSize(frameSize);
-        mBlendImageFilter -> setOutputSize(size);
-        ArcGLSize viewSize = [self getGLSize:self.viewFrame.size];
+        mBlendImageFilter -> setFrameSize(outputSize);
+        mBlendImageFilter -> setOutputSize(outputSize);
+        ArcGLSize viewSize = [self getGLSize:_viewFrame.size];
         ArcGLRect imagaRect = [self getGLRect:mBlendImageRect];
         mBlendImageFilter -> updateImageRectViewSize(imagaRect, viewSize);
     }
     if(mBlendForEncodeFilter) {
-        mBlendForEncodeFilter -> setFrameSize(frameSize);
-        mBlendForEncodeFilter -> setOutputSize(size);
+        mBlendForEncodeFilter -> setFrameSize(outputSize);
+        mBlendForEncodeFilter -> setOutputSize(outputSize);
         ArcGLSize viewSize = [self getGLSize:self.viewFrame.size];
         ArcGLRect imagaRect = [self getGLRect:mBlendImageRect];
         mBlendForEncodeFilter -> updateImageRectViewSize(imagaRect, viewSize);
     }
     
     if(mBrightnessFilter) {
-        mBrightnessFilter -> setFrameSize(frameSize);
-        mBrightnessFilter -> setOutputSize(size);
+        mBrightnessFilter -> setFrameSize(outputSize);
+        mBrightnessFilter -> setOutputSize(outputSize);
     }
     
     if(mWhiteningFilter) {
-        mWhiteningFilter -> setFrameSize(frameSize);
-        mWhiteningFilter -> setOutputSize(size);
+        mWhiteningFilter -> setFrameSize(outputSize);
+        mWhiteningFilter -> setOutputSize(outputSize);
     }
     
     if(mSmoothFilter) {
-        mSmoothFilter -> setFrameSize(frameSize);
-        mSmoothFilter -> setOutputSize(size);
+        mSmoothFilter -> setFrameSize(outputSize);
+        mSmoothFilter -> setOutputSize(outputSize);
     }
     
     if(mBeautyFilter) {
-        mBeautyFilter -> setFrameSize(frameSize);
-        mBeautyFilter -> setOutputSize(size);
+        mBeautyFilter -> setFrameSize(outputSize);
+        mBeautyFilter -> setOutputSize(outputSize);
     }
+    
 }
 
 - (void)setPreviewRotation:(ArcGLRotation)previewRotation {
@@ -384,7 +247,11 @@
 
 - (void)setOutputRotation:(ArcGLRotation)outputRotation {
     _outputRotation = outputRotation;
-    mSampleBufferFilter -> setOutputRotation(outputRotation);
+    __weak __typeof(self) weakSelf = self;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf->mSampleBufferFilter -> setOutputRotation(outputRotation);
+    });
 }
 
 - (void)setOutputFillMode:(ArcGLFillMode)outputFillMode {
@@ -431,6 +298,7 @@
         mFilters.push_back(mBlendImageFilter);
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendImageFilter -> setOutputSize(size);
+        mBlendImageFilter -> setFrameSize(size);
         mReady = NO;
     }
     
@@ -455,12 +323,8 @@
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendForEncodeFilter = new ArcBlendForEncodeFilter(imageRect, viewSize);
         mFilters.push_back(mBlendForEncodeFilter);
-        if(_cameraPosition == AVCaptureDevicePositionFront) {
-            mBlendForEncodeFilter -> setMirror(true);
-        } else {
-            mBlendForEncodeFilter -> setMirror(false);
-        }
         ArcGLSize size = [self getGLSize:_outPutSize];
+        mBlendForEncodeFilter -> setFrameSize(size);
         mBlendForEncodeFilter -> setOutputSize(size);
     }
 }

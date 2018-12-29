@@ -40,7 +40,7 @@ public:
     virtual void setOutputSize(ArcGLSize size);
     //更新帧尺寸并重新计算裁剪
     virtual void setFrameSize(ArcGLSize size);
-        
+            
     // 设置输出framebuffer，如果设置了，则不再从cache中获取buffer
     virtual void setOutputFrameBuffer(FrameBufferPtr buffer){ m_outFrameBuffer = buffer; }
     

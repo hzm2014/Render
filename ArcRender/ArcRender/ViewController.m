@@ -39,10 +39,10 @@
 
 - (void)setRender {
     mPosition = AVCaptureDevicePositionFront;
-    mRender = [[ArcRender alloc] initWithViewFrame:self.view.frame cameraPosition:mPosition];
-    mRender.outputOrientation = UIInterfaceOrientationPortrait;
+    mRender = [[ArcRender alloc] initWithViewFrame:self.view.frame];
     mRender.outPutSize = CGSizeMake(720, 1280);
-    mRender.mirrorFrontPreview = YES;
+    mRender.outputRotation = ArcGLRotateRight;
+    mRender.mirrorForOutput = YES;
     mRender.hasEncodeVideoFrame = YES;
     image = [UIImage imageNamed:@"for_test.png"];
     [mRender setBlendImage:image rect:CGRectMake(20, 160, 120, 120)];
@@ -85,7 +85,93 @@
 - (void)orientationChanged:(NSNotification*)nofication{
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     [mRender setViewFrame:self.view.bounds];
-    mRender.outputOrientation = orientation;
+    ArcGLRotation rotation = [self calRotation:orientation];
+    
+    mRender.outputRotation = rotation;
+    CGSize size = CGSizeMake(720, 1280);
+    if(UIInterfaceOrientationIsPortrait(orientation) == NO) {
+        size = CGSizeMake(1280, 720);
+    }
+    mRender.outPutSize = size;
+}
+
+// 根据设备方向和视频帧方向计算旋转角度
+- (ArcGLRotation)calRotation:(UIInterfaceOrientation)interfaceOrientation{
+    
+    int rotateAngle = 0;
+    switch(interfaceOrientation)
+    {
+        case UIInterfaceOrientationPortraitUpsideDown:
+            rotateAngle = 180;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            rotateAngle = 90;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            rotateAngle = -90;
+            break;
+        case UIInterfaceOrientationPortrait:
+        default:
+            rotateAngle = 0;
+    }
+    
+    AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
+    if (mPosition == AVCaptureDevicePositionFront) {
+        orientation = AVCaptureVideoOrientationLandscapeLeft;
+    } else {
+        orientation = AVCaptureVideoOrientationLandscapeRight;
+    }
+    
+    switch(orientation)
+    {
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            rotateAngle += 180;
+            break;
+        case AVCaptureVideoOrientationLandscapeLeft:
+            rotateAngle -= 90;
+            break;
+        case AVCaptureVideoOrientationLandscapeRight:
+            rotateAngle += 90;
+            break;
+        case AVCaptureVideoOrientationPortrait:
+        default:
+            rotateAngle += 0;
+            break;
+    }
+    
+    ArcGLRotation rotation = ArcGLNoRotation;
+    if (mPosition==AVCaptureDevicePositionBack) {
+        switch(rotateAngle)
+        {
+            case 0:
+            case 360:
+                rotation = ArcGLNoRotation; break;
+            case 90:
+                rotation = ArcGLRotateRight; break;
+            case -90:
+                rotation = ArcGLRotateLeft; break;
+            case 180:
+            case -180:
+                rotation = ArcGLRotate180; break;
+            default:rotation = ArcGLNoRotation;
+        }
+    } else {
+        switch(rotateAngle)
+        {
+            case 0:
+            case 360:
+                rotation = ArcGLNoRotation; break;
+            case 90:
+                rotation = ArcGLRotateLeft; break;
+            case -90:
+                rotation = ArcGLRotateRight; break;
+            case 180:
+            case -180:
+                rotation = ArcGLRotate180; break;
+            default:rotation = ArcGLNoRotation;
+        }
+    }
+    return rotation;
 }
 
 - (void)setupSwitchCameraBtn {
@@ -101,7 +187,12 @@
 - (void)switchCamera {
     [mVideoProvider switchCamera];
     mPosition = mPosition == AVCaptureDevicePositionFront?AVCaptureDevicePositionBack:AVCaptureDevicePositionFront;
-    mRender.cameraPosition = mPosition;
+    
+    if(mPosition == AVCaptureDevicePositionFront) {
+        mRender.mirrorForOutput = YES;
+    } else {
+        mRender.mirrorForOutput = NO;
+    }
 }
 
 - (void)setupSwitchBlackFrameBtn {

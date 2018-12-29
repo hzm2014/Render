@@ -94,76 +94,72 @@ void ArcGLFilter::setFillMode(ArcGLFillMode fillMode) {
 
 void ArcGLFilter::calculateAspectRatio() {
     
+    if (m_outputSize.width == 0 || m_outputSize.height == 0 || m_frameSize.width == 0 || m_frameSize.height == 0) {
+        return;
+    }
+    
     switch(m_fillMode){
             // 用黑框填充
         case ArcGLFillModePreserveAspectRatio:
-            if (m_outputSize.width == 0 || m_outputSize.height == 0 || m_frameSize.width == 0 || m_frameSize.height == 0) {
-                
-                memcpy(&m_vertices[0], g_vertices, sizeof(GLfloat) * 8);
+        {
+            float frameRatio = m_frameSize.width * 1.0 / m_frameSize.height;
+            float outRatio = m_outputSize.width * 1.0 / m_outputSize.height;
+            if (frameRatio > outRatio) {
+                // 按照宽度压缩，上下填黑
+                float w_ratio = m_outputSize.width * 1.0 / m_frameSize.width;
+                float normal_h = w_ratio * m_frameSize.height;
+                m_vertices[0] = -1.0;
+                m_vertices[1] = (-1.0) * normal_h / m_outputSize.height;
+                m_vertices[2] = 1.0;
+                m_vertices[3] = m_vertices[1];
+                m_vertices[4] = -1.0;
+                m_vertices[5] = normal_h / m_outputSize.height;
+                m_vertices[6] = 1.0;
+                m_vertices[7] = m_vertices[5];
                 
             } else {
-                float frameRatio = m_frameSize.width * 1.0 / m_frameSize.height;
-                float outRatio = m_outputSize.width * 1.0 / m_outputSize.height;
-                if (frameRatio > outRatio) {
-                    // 按照宽度压缩，上下填黑
-                    float w_ratio = m_outputSize.width * 1.0 / m_frameSize.width;
-                    float normal_h = w_ratio * m_frameSize.height;
-                    m_vertices[0] = -1.0;
-                    m_vertices[1] = (-1.0) * normal_h / m_outputSize.height;
-                    m_vertices[2] = 1.0;
-                    m_vertices[3] = m_vertices[1];
-                    m_vertices[4] = -1.0;
-                    m_vertices[5] = normal_h / m_outputSize.height;
-                    m_vertices[6] = 1.0;
-                    m_vertices[7] = m_vertices[5];
-                    
-                } else {
-                    // 按照高度压缩，左右填黑
-                    float h_ratio = m_outputSize.height * 1.0 / m_frameSize.height;
-                    float normal_w = h_ratio * m_frameSize.width;
-                    m_vertices[0] = (-1.0) * normal_w / m_outputSize.width;
-                    m_vertices[1] = -1.0;
-                    m_vertices[2] = normal_w / m_outputSize.width;
-                    m_vertices[3] = -1.0;
-                    m_vertices[4] = m_vertices[0];
-                    m_vertices[5] = 1.0;
-                    m_vertices[6] = m_vertices[2];
-                    m_vertices[7] = 1.0;
-                }
+                // 按照高度压缩，左右填黑
+                float h_ratio = m_outputSize.height * 1.0 / m_frameSize.height;
+                float normal_w = h_ratio * m_frameSize.width;
+                m_vertices[0] = (-1.0) * normal_w / m_outputSize.width;
+                m_vertices[1] = -1.0;
+                m_vertices[2] = normal_w / m_outputSize.width;
+                m_vertices[3] = -1.0;
+                m_vertices[4] = m_vertices[0];
+                m_vertices[5] = 1.0;
+                m_vertices[6] = m_vertices[2];
+                m_vertices[7] = 1.0;
             }
+        }
             break;
             // 按照比例裁剪
         case ArcGLFillModePreserveAspectRatioAndFill:
-            if (m_outputSize.width == 0 || m_outputSize.height == 0 || m_frameSize.width == 0 || m_frameSize.height == 0)
-            {
-                memcpy(&m_vertices[0], g_vertices, sizeof(GLfloat) * 8);
+        {
+            float wh_ratio = m_outputSize.width * 1.0 / m_outputSize.height;
+            float hw_ratio = m_outputSize.height * 1.0 / m_outputSize.width;
+            if (wh_ratio > m_frameSize.width * 1.0 / m_frameSize.height) {
+                float ratioy = m_frameSize.width * hw_ratio;
+                m_vertices[0] = -1.0;
+                m_vertices[1] = (-1.0) * m_frameSize.height / ratioy;
+                m_vertices[2] = 1.0;
+                m_vertices[3] = m_vertices[1];
+                m_vertices[4] = -1.0;
+                m_vertices[5] = m_frameSize.height / ratioy;
+                m_vertices[6] = 1.0;
+                m_vertices[7] = m_vertices[5];
             }
             else{
-                float wh_ratio = m_outputSize.width * 1.0 / m_outputSize.height;
-                float hw_ratio = m_outputSize.height * 1.0 / m_outputSize.width;
-                if (wh_ratio > m_frameSize.width * 1.0 / m_frameSize.height) {
-                    float ratioy = m_frameSize.width * hw_ratio;
-                    m_vertices[0] = -1.0;
-                    m_vertices[1] = (-1.0) * m_frameSize.height / ratioy;
-                    m_vertices[2] = 1.0;
-                    m_vertices[3] = m_vertices[1];
-                    m_vertices[4] = -1.0;
-                    m_vertices[5] = m_frameSize.height / ratioy;
-                    m_vertices[6] = 1.0;
-                    m_vertices[7] = m_vertices[5];
-                }
-                else{
-                    float ratiox = m_frameSize.height * wh_ratio;
-                    m_vertices[0] = (-1.0)*m_frameSize.width / ratiox;
-                    m_vertices[1] = -1.0;
-                    m_vertices[2] = m_frameSize.width / ratiox;
-                    m_vertices[3] = -1.0;
-                    m_vertices[4] = m_vertices[0];
-                    m_vertices[5] = 1.0;
-                    m_vertices[6] = m_vertices[2];
-                    m_vertices[7] = 1.0;
-                }
+                float ratiox = m_frameSize.height * wh_ratio;
+                m_vertices[0] = (-1.0)*m_frameSize.width / ratiox;
+                m_vertices[1] = -1.0;
+                m_vertices[2] = m_frameSize.width / ratiox;
+                m_vertices[3] = -1.0;
+                m_vertices[4] = m_vertices[0];
+                m_vertices[5] = 1.0;
+                m_vertices[6] = m_vertices[2];
+                m_vertices[7] = 1.0;
             }
+        }
             break;
             // 直接拉伸
         case ArcGLFillModeStretch:
@@ -181,6 +177,10 @@ void ArcGLFilter::calculateAspectRatio() {
     
     memcpy(&m_texCoor[0], coordinatesRotation(m_rotation), sizeof(GLfloat)*8);
     updateVertexArray();
+    
+    if(m_name == "ArcBlendImageFilter") {
+        
+    }
 }
 
 void ArcGLFilter::setOutputSize(ArcGLSize size) {
@@ -206,6 +206,8 @@ void ArcGLFilter::setVertices(float *v) {
 
 void ArcGLFilter::setMirror(bool mirror) {
     m_mirror = mirror;
+    
+//    calculateAspectRatio();
 }
 
 void ArcGLFilter::createVertexBuffers() {
