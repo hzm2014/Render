@@ -171,6 +171,14 @@ void ArcGLFilter::calculateAspectRatio() {
             memcpy(&m_vertices[0], g_vertices, sizeof(GLfloat) * 8);
             break;
     }
+    
+    if(m_mirror) {
+        m_vertices[0] = -m_vertices[0];
+        m_vertices[2] = -m_vertices[2];
+        m_vertices[4] = -m_vertices[4];
+        m_vertices[6] = -m_vertices[6];
+    }
+    
     memcpy(&m_texCoor[0], coordinatesRotation(m_rotation), sizeof(GLfloat)*8);
     updateVertexArray();
 }

@@ -239,23 +239,13 @@
     if (_cameraPosition != AVCaptureDevicePositionFront) {
         return;
     }
-    
-    ArcGLRotation rotation = _mirrorFrontPreview ? ArcGLFlipHorizonal : ArcGLNoRotation;
-    mRenderView -> setOutputRotation(rotation);
+    mSampleBufferFilter -> setMirror(_mirrorFrontPreview);
 }
 
 - (void)setMirrorFrontCamera:(BOOL)mirrorFrontCamera {
     _mirrorFrontCamera = mirrorFrontCamera;
     if (_cameraPosition != AVCaptureDevicePositionFront) {
         return;
-    }
-    
-    if(mBlendImageFilter) {
-        mBlendImageFilter -> setMirror(true);
-    }
-    
-    if(mBlendForEncodeFilter) {
-        mBlendForEncodeFilter -> setMirror(true);
     }
 }
 
@@ -264,23 +254,13 @@
     if (_cameraPosition != AVCaptureDevicePositionBack) {
         return;
     }
-    
-    ArcGLRotation rotation = _mirrorBackPreview ? ArcGLFlipHorizonal : ArcGLNoRotation;
-    mRenderView -> setOutputRotation(rotation);
+    mSampleBufferFilter -> setMirror(_mirrorBackPreview);
 }
 
 - (void)setMirrorBackCamera:(BOOL)mirrorBackCamera {
     _mirrorBackCamera = mirrorBackCamera;
     if (_cameraPosition != AVCaptureDevicePositionBack) {
         return;
-    }
-    
-    if(mBlendImageFilter) {
-        mBlendImageFilter -> setMirror(false);
-    }
-    
-    if(mBlendForEncodeFilter) {
-        mBlendForEncodeFilter -> setMirror(false);
     }
 }
 
@@ -449,11 +429,6 @@
         ArcGLRect imageRect = {static_cast<float>(mBlendImageRect.origin.x), static_cast<float>(mBlendImageRect.origin.y), static_cast<unsigned>(mBlendImageRect.size.width), static_cast<unsigned>(mBlendImageRect.size.height)};
         mBlendImageFilter = new ArcBlendImageFilter(imageRect, viewSize);
         mFilters.push_back(mBlendImageFilter);
-        if(_cameraPosition == AVCaptureDevicePositionFront) {
-            mBlendImageFilter -> setMirror(true);
-        } else {
-            mBlendImageFilter -> setMirror(false);
-        }
         ArcGLSize size = [self getGLSize:_outPutSize];
         mBlendImageFilter -> setOutputSize(size);
         mReady = NO;
