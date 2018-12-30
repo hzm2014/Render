@@ -297,8 +297,8 @@
         mBlendImageFilter = new ArcBlendImageFilter(imageRect, viewSize);
         mFilters.push_back(mBlendImageFilter);
         ArcGLSize size = [self getGLSize:_outPutSize];
-        mBlendImageFilter -> setOutputSize(size);
         mBlendImageFilter -> setFrameSize(size);
+        mBlendImageFilter -> setOutputSize(size);
         mReady = NO;
     }
     

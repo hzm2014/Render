@@ -10,6 +10,7 @@
 #include "ArcGLVBOCache.hpp"
 #include "ArcGLContext.hpp"
 #include "ArciOSGLImage.h"
+#include "iostream"
 
 static string vertexShader = ArcGLFilter::g_vertext300_shader;
 static string fragmentShader = ArcGLFilter::g_fragment300_shader_RGBA;
@@ -134,11 +135,20 @@ void ArcBlendImageFilter::updateImageVertex() {
 }
 
 void ArcBlendImageFilter::setInputFrameBuffer(FrameBufferPtr frameBuffer, unsigned location) {
+    
+    if (frameBuffer == nullptr) {
+        std::cout<<"setInputFrameBuffer NULL!"<<std::endl;
+        return;
+    }
+    
     if(location == 0) {
         m_outFrameBuffer = frameBuffer;
         return;
     }
-    ArcGLInput::setInputFrameBuffer(frameBuffer);
+    
+    
+    frameBuffer -> retainForUse();
+    m_inputBuffers[0] = frameBuffer;
 }
 
 void ArcBlendImageFilter::activeOutFrameBuffer() {
