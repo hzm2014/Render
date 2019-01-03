@@ -48,6 +48,10 @@
 		F8EE607E21B112150043BD12 /* AVCaptureDevice+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EE607D21B112150043BD12 /* AVCaptureDevice+Custom.m */; };
 		F8EE9E14219E4E63007C8DB5 /* ArcGLTextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8EE9E12219E4E63007C8DB5 /* ArcGLTextureManager.cpp */; };
 		F8EE9E1C219E9948007C8DB5 /* ArciOSFrameBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8EE9E1B219E9948007C8DB5 /* ArciOSFrameBuffer.mm */; };
+		F8F43B1F21DDE5CA0042C4A4 /* track_data.dat in Resources */ = {isa = PBXBuildFile; fileRef = F8F43B1D21DDE5CA0042C4A4 /* track_data.dat */; };
+		F8F43B2021DDE5CA0042C4A4 /* libArcSoftSpotlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F43B1E21DDE5CA0042C4A4 /* libArcSoftSpotlight.a */; };
+		F8F43B2321DDE84A0042C4A4 /* ArcSoftBeautyFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8F43B2121DDE84A0042C4A4 /* ArcSoftBeautyFilter.cpp */; };
+		F8F43B2621DDFD5A0042C4A4 /* ArcFaceDeformationFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8F43B2421DDFD5A0042C4A4 /* ArcFaceDeformationFilter.cpp */; };
 		F8FCBC2321A54D5700AFA34D /* ArciOSFrameBufferManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2221A54D5700AFA34D /* ArciOSFrameBufferManager.mm */; };
 		F8FCBC2C21A642E500AFA34D /* ArcRender.mm in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2B21A642E500AFA34D /* ArcRender.mm */; };
 		F8FCBC3021A6735E00AFA34D /* ArcRunProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FCBC2E21A6735E00AFA34D /* ArcRunProcess.m */; };
@@ -141,6 +145,24 @@
 		F8EE9E18219E9916007C8DB5 /* ArcAndroidFrameBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcAndroidFrameBuffer.hpp; sourceTree = "<group>"; };
 		F8EE9E1A219E9948007C8DB5 /* ArciOSFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSFrameBuffer.h; sourceTree = "<group>"; };
 		F8EE9E1B219E9948007C8DB5 /* ArciOSFrameBuffer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSFrameBuffer.mm; sourceTree = "<group>"; };
+		F8F43B0E21DDE57A0042C4A4 /* asvloffscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asvloffscreen.h; sourceTree = "<group>"; };
+		F8F43B0F21DDE57A0042C4A4 /* amcomdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amcomdef.h; sourceTree = "<group>"; };
+		F8F43B1021DDE57A0042C4A4 /* arcsoft_spotlight_beauty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight_beauty.h; sourceTree = "<group>"; };
+		F8F43B1121DDE57A0042C4A4 /* arcsoft_spotlight_2dsticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight_2dsticker.h; sourceTree = "<group>"; };
+		F8F43B1221DDE57A0042C4A4 /* arcsoft_spotlight_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight_common.h; sourceTree = "<group>"; };
+		F8F43B1321DDE57A0042C4A4 /* arcsoft_spotlight_face_alignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight_face_alignment.h; sourceTree = "<group>"; };
+		F8F43B1421DDE57A0042C4A4 /* arcsoft_spotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight.h; sourceTree = "<group>"; };
+		F8F43B1521DDE57A0042C4A4 /* merror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = merror.h; sourceTree = "<group>"; };
+		F8F43B1721DDE5890042C4A4 /* asvloffscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asvloffscreen.h; sourceTree = "<group>"; };
+		F8F43B1821DDE5890042C4A4 /* amcomdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amcomdef.h; sourceTree = "<group>"; };
+		F8F43B1921DDE5890042C4A4 /* arcsoft_spotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arcsoft_spotlight.h; sourceTree = "<group>"; };
+		F8F43B1A21DDE5890042C4A4 /* merror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = merror.h; sourceTree = "<group>"; };
+		F8F43B1D21DDE5CA0042C4A4 /* track_data.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = track_data.dat; sourceTree = "<group>"; };
+		F8F43B1E21DDE5CA0042C4A4 /* libArcSoftSpotlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libArcSoftSpotlight.a; sourceTree = "<group>"; };
+		F8F43B2121DDE84A0042C4A4 /* ArcSoftBeautyFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcSoftBeautyFilter.cpp; sourceTree = "<group>"; };
+		F8F43B2221DDE84A0042C4A4 /* ArcSoftBeautyFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcSoftBeautyFilter.hpp; sourceTree = "<group>"; };
+		F8F43B2421DDFD5A0042C4A4 /* ArcFaceDeformationFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcFaceDeformationFilter.cpp; sourceTree = "<group>"; };
+		F8F43B2521DDFD5A0042C4A4 /* ArcFaceDeformationFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ArcFaceDeformationFilter.hpp; sourceTree = "<group>"; };
 		F8FCBC2121A54D5700AFA34D /* ArciOSFrameBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArciOSFrameBufferManager.h; sourceTree = "<group>"; };
 		F8FCBC2221A54D5700AFA34D /* ArciOSFrameBufferManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArciOSFrameBufferManager.mm; sourceTree = "<group>"; };
 		F8FCBC2421A54D7300AFA34D /* ArcAFrameBufferManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcAFrameBufferManager.cpp; sourceTree = "<group>"; };
@@ -159,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FD71D521AD73900048955B /* AVFoundation.framework in Frameworks */,
+				F8F43B2021DDE5CA0042C4A4 /* libArcSoftSpotlight.a in Frameworks */,
 				F8FCBC3C21A6A81000AFA34D /* CoreMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,6 +209,7 @@
 		F80A4425219DB29B00DB7FCB /* ArcRender */ = {
 			isa = PBXGroup;
 			children = (
+				F8F43B0B21DDE4EA0042C4A4 /* Depend */,
 				F80A4458219DB2DE00DB7FCB /* Render */,
 				F80A4426219DB29B00DB7FCB /* AppDelegate.h */,
 				F80A4427219DB29B00DB7FCB /* AppDelegate.m */,
@@ -280,8 +304,73 @@
 				F805066C21D1C19E008AA67B /* ArcGLTwoPassFilter.hpp */,
 				F805067321D21E85008AA67B /* ArcGLBeautyFilter.cpp */,
 				F805067421D21E85008AA67B /* ArcGLBeautyFilter.hpp */,
+				F8F43B2121DDE84A0042C4A4 /* ArcSoftBeautyFilter.cpp */,
+				F8F43B2221DDE84A0042C4A4 /* ArcSoftBeautyFilter.hpp */,
+				F8F43B2421DDFD5A0042C4A4 /* ArcFaceDeformationFilter.cpp */,
+				F8F43B2521DDFD5A0042C4A4 /* ArcFaceDeformationFilter.hpp */,
 			);
 			path = Filters;
+			sourceTree = "<group>";
+		};
+		F8F43B0B21DDE4EA0042C4A4 /* Depend */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B0C21DDE4F60042C4A4 /* ArcSoft */,
+			);
+			path = Depend;
+			sourceTree = "<group>";
+		};
+		F8F43B0C21DDE4F60042C4A4 /* ArcSoft */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B1B21DDE5AF0042C4A4 /* Include */,
+				F8F43B1C21DDE5BD0042C4A4 /* Lib */,
+			);
+			path = ArcSoft;
+			sourceTree = "<group>";
+		};
+		F8F43B0D21DDE57A0042C4A4 /* beautySpotlight */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B0E21DDE57A0042C4A4 /* asvloffscreen.h */,
+				F8F43B0F21DDE57A0042C4A4 /* amcomdef.h */,
+				F8F43B1021DDE57A0042C4A4 /* arcsoft_spotlight_beauty.h */,
+				F8F43B1121DDE57A0042C4A4 /* arcsoft_spotlight_2dsticker.h */,
+				F8F43B1221DDE57A0042C4A4 /* arcsoft_spotlight_common.h */,
+				F8F43B1321DDE57A0042C4A4 /* arcsoft_spotlight_face_alignment.h */,
+				F8F43B1421DDE57A0042C4A4 /* arcsoft_spotlight.h */,
+				F8F43B1521DDE57A0042C4A4 /* merror.h */,
+			);
+			path = beautySpotlight;
+			sourceTree = "<group>";
+		};
+		F8F43B1621DDE5890042C4A4 /* faceRecognizeSpotlight */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B1721DDE5890042C4A4 /* asvloffscreen.h */,
+				F8F43B1821DDE5890042C4A4 /* amcomdef.h */,
+				F8F43B1921DDE5890042C4A4 /* arcsoft_spotlight.h */,
+				F8F43B1A21DDE5890042C4A4 /* merror.h */,
+			);
+			path = faceRecognizeSpotlight;
+			sourceTree = "<group>";
+		};
+		F8F43B1B21DDE5AF0042C4A4 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B1621DDE5890042C4A4 /* faceRecognizeSpotlight */,
+				F8F43B0D21DDE57A0042C4A4 /* beautySpotlight */,
+			);
+			path = Include;
+			sourceTree = "<group>";
+		};
+		F8F43B1C21DDE5BD0042C4A4 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				F8F43B1E21DDE5CA0042C4A4 /* libArcSoftSpotlight.a */,
+				F8F43B1D21DDE5CA0042C4A4 /* track_data.dat */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		F8FCBC2721A54DDF00AFA34D /* SectioniOS */ = {
@@ -391,6 +480,7 @@
 				F80A4433219DB29C00DB7FCB /* LaunchScreen.storyboard in Resources */,
 				F80A381921B40C9C00B3DB0E /* for_test.png in Resources */,
 				F80A4430219DB29C00DB7FCB /* Assets.xcassets in Resources */,
+				F8F43B1F21DDE5CA0042C4A4 /* track_data.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +497,7 @@
 				F80A442B219DB29B00DB7FCB /* ViewController.m in Sources */,
 				F8E5FB7F21B2D42D00BA3CC8 /* ArcGLImage.cpp in Sources */,
 				F80A4464219DB45200DB7FCB /* ArcGLFrameBuffer.cpp in Sources */,
+				F8F43B2321DDE84A0042C4A4 /* ArcSoftBeautyFilter.cpp in Sources */,
 				F80A4470219DB5B100DB7FCB /* ArcGLOutput.cpp in Sources */,
 				F8EE9E1C219E9948007C8DB5 /* ArciOSFrameBuffer.mm in Sources */,
 				F80A381621B381D200B3DB0E /* ArciOSGLImage.mm in Sources */,
@@ -416,6 +507,7 @@
 				F8B292D421AE3359006D7837 /* ArcVideoProvider.m in Sources */,
 				F8FCBC2321A54D5700AFA34D /* ArciOSFrameBufferManager.mm in Sources */,
 				F8C2134F21AD39AE00E806B4 /* ArcGLView.mm in Sources */,
+				F8F43B2621DDFD5A0042C4A4 /* ArcFaceDeformationFilter.cpp in Sources */,
 				F8C2132C21AB858100E806B4 /* ArcGLFilter.cpp in Sources */,
 				F80A4476219DB61F00DB7FCB /* ArcGLFragmentShader.cpp in Sources */,
 				F805066D21D1C19E008AA67B /* ArcGLTwoPassFilter.cpp in Sources */,
@@ -577,11 +669,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 235UW68632;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ArcRender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ArcRender/Depend/ArcSoft/Lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.arcvideo.ArcRender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -596,11 +693,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 235UW68632;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ArcRender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ArcRender/Depend/ArcSoft/Lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.arcvideo.ArcRender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
