@@ -49,36 +49,62 @@
 
 @implementation ArcRender
 
+static ArcRender* render = nil;
+
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        render = [[self alloc] init];
+    });
+    return render;
+}
+
++ (void)releaseInstance {
+    render = nil;
+}
+
+- (instancetype)init {
+    if(!(self = [super init])) {
+        return nil;
+    }
+    [self commonInit];
+    return self;
+}
+
 - (instancetype)initWithViewFrame:(CGRect)frame {
     if(self = [super init]) {
         
-        _mirrorForPreview = NO;
-        _mirrorForOutput = NO;
-        mRotateAngle = 0;
-        _viewFrame = frame;
-        
-        _previewFillMode = ArcGLFillModePreserveAspectRatioAndFill;
-        _outputFillMode = ArcGLFillModePreserveAspectRatioAndFill;
-        _outputRotation = ArcGLNoRotation;
-        _previewRotation = ArcGLNoRotation;
-        
-        _outPutSize = CGSizeMake(720, 1280);
-        
-        mBlendImage = nullptr;
-        mBlendImageFilter = nullptr;
-        mBlendForEncodeFilter = nullptr;
-        mBrightnessFilter = nullptr;
-        mWhiteningFilter = nullptr;
-        mSmoothFilter = nullptr;
-        mBeautyFilter = nullptr;
-        mReady = NO;
-        
-        [self setRunProcess];
-        [self setSemaphore];
-        [self setSampleBufferFilter];
-        [self setRenderView];
+        [self commonInit];
+        self.viewFrame = frame;
     }
     return self;
+}
+
+- (void)commonInit {
+    _mirrorForPreview = NO;
+    _mirrorForOutput = NO;
+    mRotateAngle = 0;
+    
+    _previewFillMode = ArcGLFillModePreserveAspectRatioAndFill;
+    _outputFillMode = ArcGLFillModePreserveAspectRatioAndFill;
+    _outputRotation = ArcGLNoRotation;
+    _previewRotation = ArcGLNoRotation;
+    
+    _outPutSize = CGSizeMake(720, 1280);
+    
+    mBlendImage = nullptr;
+    mBlendImageFilter = nullptr;
+    mBlendForEncodeFilter = nullptr;
+    mBrightnessFilter = nullptr;
+    mWhiteningFilter = nullptr;
+    mSmoothFilter = nullptr;
+    mBeautyFilter = nullptr;
+    mReady = NO;
+    
+    [self setRunProcess];
+    [self setSemaphore];
+    [self setSampleBufferFilter];
+    [self setRenderView];
 }
 
 - (void)setRunProcess {

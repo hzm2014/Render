@@ -36,6 +36,8 @@ typedef void(^PixelBufferForEncode)(CVPixelBufferRef pixelBuffer);
 @property(nonatomic, assign) float smooth; //设置磨皮，范围[0, 1],默认0
 @property(nonatomic, assign) BOOL enableBeauty; //开启一键美颜
 
++ (instancetype)sharedInstance;
++ (void)releaseInstance;
 
 - (instancetype)initWithViewFrame:(CGRect)frame;
 
