@@ -7,6 +7,7 @@
 //
 
 #include "ArcFaceDeformationFilter.hpp"
+#include <cmath>
 
 static const char* k_FaceDeformationFragment = SHADER300_STRING (
                                                                  
@@ -85,11 +86,6 @@ ArcFaceDeformationFilter::ArcFaceDeformationFilter(const ArcGLSize& size): ArcGL
     m_eyeRadius = 0.08f; //眼睛瞳孔中心到眼角半径
     m_faceRadius = 0.01f; //下巴到脸颊最边缘的距离
     m_aspectRatio = float(size.height*1.0/size.width); //宽高比
-    m_leftEyeCenterPos = new float[2];//左眼的中心坐标
-    m_rightEyeCenterPos = new float[2];//右眼的中心坐标
-    m_leftFaceContour = new float[m_faceContourSize*2]; //左边脸部轮廓点
-    m_rightFaceContour = new float[m_faceContourSize*2]; //右边脸部轮廓点
-    m_deltaArray = new float[m_faceContourSize];
     m_needFaceDeformation = 0; //是否需要启用瘦脸操作
     m_needEyeDeformation = 0;  //是否需要启用大眼操作
     
@@ -107,8 +103,58 @@ void ArcFaceDeformationFilter::setEyeScale(float value) {
     } else {
         m_needEyeDeformation = 1;
     }
-    
+    setFloat("eyescale", m_eyeScale);
     setInteger("needEyeDeformation", m_needEyeDeformation);
 }
 
+void ArcFaceDeformationFilter::setFaceScale(float value) {
+    m_faceScale = value;
+    
+    if(value == 0.0) {
+        m_needFaceDeformation = 0;
+    } else {
+        m_needFaceDeformation = 1;
+    }
+    setFloat("facescale", m_faceScale);
+    setInteger("needEyeDeformation", m_needFaceDeformation);
+}
 
+float distance(float x1, float y1, float x2, float y2) {
+    return sqrtf((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+}
+
+void ArcFaceDeformationFilter::setFaceContour(float *leftEye, float *rightEye, float *face, int length) {
+    if (m_needEyeDeformation == 1) {
+        m_leftEyeCenterPos[0] = leftEye[0];
+        m_leftEyeCenterPos[1] = leftEye[1];
+        m_rightEyeCenterPos[0] = rightEye[0];
+        m_rightEyeCenterPos[1] = rightEye[1];
+        
+        //现在是取中心-外眼角的距离
+        m_eyeRadius = fmax(distance(leftEye[0], leftEye[1], leftEye[14], leftEye[15]),
+                         distance(rightEye[0], rightEye[1], rightEye[14], rightEye[15]));
+        
+        setFloat("radius", m_eyeRadius);
+        setFloatv("leftEyePos", m_leftEyeCenterPos, 2);
+        setFloatv("rightEyePos", m_rightEyeCenterPos, 2);
+    }
+    
+    if (m_needFaceDeformation == 1) {
+        int fpc = length/2;
+        //不确定含义，先随便算一个
+        m_faceRadius = distance(face[(fpc-1)*2], face[(fpc-1)*2+1], face[0], face[1])/2;
+        
+        for (int i = 0; i < m_faceContourSize; i++) {
+            m_leftFaceContour[i*2] = face[(fpc-1-i)*2];
+            m_leftFaceContour[i*2+1] = face[(fpc-1-i)*2+1];
+            m_rightFaceContour[i*2] = face[i*2];
+            m_rightFaceContour[i*2+1] = face[i*2+1];
+            //不确定含义，随便算一个
+            m_deltaArray[i] = 0.1f*m_faceScale*distance(face[(fpc-1-i)*2],
+                                                    face[(fpc-1-i)*2+1], face[i*2], face[i*2+1])/2;
+        }
+        //TODO
+        setFloat("radius2", m_faceRadius);
+        
+    }
+}
