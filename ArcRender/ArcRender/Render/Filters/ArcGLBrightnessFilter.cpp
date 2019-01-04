@@ -13,13 +13,13 @@
 static const char* k_Brightness_FragmentShaderString = SHADER300_STRING (
     in vec2 textureCoordinate;
 
-    uniform sampler2D inputImageTexture;
+    uniform sampler2D inputImageTexture[1];
     uniform float brightness;
                                                                        
     out vec4 out_color;
 
     void main() {
-     vec4 textureColor = texture(inputImageTexture, textureCoordinate);
+     vec4 textureColor = texture(inputImageTexture[0], textureCoordinate);
 
      out_color = vec4((textureColor.rgb + vec3(brightness)), textureColor.w);
     }

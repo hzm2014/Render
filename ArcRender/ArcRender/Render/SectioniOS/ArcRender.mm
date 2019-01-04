@@ -18,6 +18,8 @@
 #import "ArcGLWhiteningFilter.hpp"
 #import "ArcGLSmoothFilter.hpp"
 #import "ArcGLBeautyFilter.hpp"
+#import "ArcSoftBeautyFilter.hpp"
+#import "ArcRGBFilter.hpp"
 #import <list>
 
 
@@ -38,6 +40,8 @@
     ArcGLWhiteningFilter* mWhiteningFilter;
     ArcGLSmoothFilter* mSmoothFilter;
     ArcGLBeautyFilter* mBeautyFilter;
+    ArcSoftBeautyFilter* mArcSoftBeautyFilter;
+    ArcRGBFilter* mRGBFilter;
     
     list<ArcGLFilter*> mFilters; //不包含SampleBufferFilter和renderView
     BOOL mReady;
