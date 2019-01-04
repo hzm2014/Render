@@ -95,6 +95,12 @@ ArcFaceDeformationFilter::ArcFaceDeformationFilter(const ArcGLSize& size): ArcGL
     setInteger("needEyeDeformation", m_needEyeDeformation);
 }
 
+void ArcFaceDeformationFilter::setOutputSize(ArcGLSize size) {
+    ArcGLFilter::setOutputSize(size);
+    
+    m_aspectRatio = float(size.height*1.0/size.width);
+}
+
 void ArcFaceDeformationFilter::setEyeScale(float value) {
     m_eyeScale = value;
     
@@ -144,7 +150,7 @@ void ArcFaceDeformationFilter::setFaceContour(float *leftEye, float *rightEye, f
         //不确定含义，先随便算一个
         m_faceRadius = distance(face[(fpc-1)*2], face[(fpc-1)*2+1], face[0], face[1])/2;
         
-        for (int i = 0; i < m_faceContourSize; i++) {
+        for (int i = 0; i < 3; i++) {
             m_leftFaceContour[i*2] = face[(fpc-1-i)*2];
             m_leftFaceContour[i*2+1] = face[(fpc-1-i)*2+1];
             m_rightFaceContour[i*2] = face[i*2];
@@ -153,8 +159,13 @@ void ArcFaceDeformationFilter::setFaceContour(float *leftEye, float *rightEye, f
             m_deltaArray[i] = 0.1f*m_faceScale*distance(face[(fpc-1-i)*2],
                                                     face[(fpc-1-i)*2+1], face[i*2], face[i*2+1])/2;
         }
-        //TODO
-        setFloat("radius2", m_faceRadius);
         
+        setFloat("radius2", m_faceRadius);
+        setFloatv("leftContour", m_leftFaceContour, 6);
+        setFloatv("rightContour", m_rightFaceContour, 6);
+        setFloatv("deltaArray", m_deltaArray, 3);
+        setInteger("arraySize", 3);
     }
 }
+
+

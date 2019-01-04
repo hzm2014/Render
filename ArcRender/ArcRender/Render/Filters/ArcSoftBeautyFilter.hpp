@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "ArcGLHeader.h"
+#include "ArcFaceDeformationFilter.hpp"
 #include "arcsoft_spotlight_beauty.h"
 #include "arcsoft_spotlight_2dsticker.h"
 #include "arcsoft_spotlight_face_alignment.h"
@@ -18,18 +19,23 @@
 
 using namespace std;
 
-class ArcSoftBeautyFilter {
+class ArcSoftBeautyFilter: public ArcFaceDeformationFilter {
 
 public:
     
     ArcSoftBeautyFilter(const string& trackDataPath, const ArcGLSize& size, MBool mirror, MUInt32 orientation);
-    void setOutputSize(const ArcGLSize& size);
     MRESULT setStickerTemplate(const string& path);
+    void setSkinSoft(MLong value);
+    void setSkinBright(MLong value);
+    void updateFaceDeformation(const PMPOINT points);
+    void processNV12Data(const ArcGLSize& size, uint8_t* baseAddress0, uint8_t* baseAddress1);
+    void processRGBASLST2D(GLuint inTexture, GLuint* outTexture);
         
 protected:
     
     MRESULT createASLFAEngine();
     MRESULT createASLST2DEngine();
+    MRESULT createASLFBEngine();
     
     void* m_spotlightOutline = nullptr;
     void* m_spotlightBeauty = nullptr;
@@ -41,7 +47,7 @@ protected:
     ASVLOFFSCREEN m_offScreenOut = {0};
     
     string m_outlineTrackDataFilePath;
-    string m_StickerTemplatePath;
+    string m_stickerTemplatePath;
     ArcGLSize m_outputSize;
     MBool m_mirror = false;
     MUInt32 m_orientation = 0;

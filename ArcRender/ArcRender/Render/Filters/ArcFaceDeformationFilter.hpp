@@ -12,11 +12,12 @@
 #include <stdio.h>
 #include "ArcGLFilter.hpp"
 
-class ArcFaceDeformationFilter: ArcGLFilter {
+class ArcFaceDeformationFilter: public ArcGLFilter {
     
 public:
     
     ArcFaceDeformationFilter(const ArcGLSize& size);
+    virtual void setOutputSize(ArcGLSize size);
     void setEyeScale(float value);
     void setFaceScale(float value);
     void setFaceContour(float* leftEye, float* rightEye, float* face, int length);
@@ -34,9 +35,7 @@ protected:
     float       m_rightFaceContour[6] = {0};      //右边脸部轮廓点
     float       m_deltaArray[3] = {0};
     int         m_needFaceDeformation;    //是否需要启用瘦脸操作
-    int         m_needEyeDeformation;     //是否需要启用大眼操作
-    
-    const unsigned m_faceContourSize = 3;
+    int         m_needEyeDeformation;     //是否需要启用大眼操作    
 };
 
 #endif /* ArcFaceDeformationFilter_hpp */
