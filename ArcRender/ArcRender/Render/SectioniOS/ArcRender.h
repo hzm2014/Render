@@ -50,6 +50,8 @@ typedef void(^PixelBufferForEncode)(CVPixelBufferRef pixelBuffer);
 
 - (void)setBlendImage:(UIImage*)image rect:(CGRect)rect;
 
+- (void)setRedEffectLevel:(int)value;
+
 - (void)setPixelBufferForEncodeCallback:(PixelBufferForEncode)pixelBufferCb;
 
 @end

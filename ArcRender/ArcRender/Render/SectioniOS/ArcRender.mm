@@ -588,6 +588,30 @@ static ArcRender* render = nil;
     }
 }
 
+#pragma mark - RedEffect
+
+- (void)setRedEffectLevel:(int)value {
+    __weak __typeof(self) weakSelf = self;
+    runAsynchronouslyOnProcessQueue(mRunProcess, ^{
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        if(strongSelf -> mRGBFilter == nullptr) {
+            [weakSelf createRGBFilter];
+        }
+        
+        float tmpValue = (value*1.0/100) * 0.2;
+        strongSelf -> mRGBFilter -> setGreen(1.0 - tmpValue);
+        strongSelf -> mRGBFilter -> setBlue(1.0 - tmpValue);
+    });
+}
+
+- (void)createRGBFilter {
+    mRGBFilter = new ArcRGBFilter();
+    mFilters.push_front(mRGBFilter);
+    ArcGLSize size = [self getGLSize:_outPutSize];
+    mRGBFilter -> setOutputSize(size);
+    mReady = NO;
+}
+
 #pragma mark - Callback
 - (void)setPixelBufferForEncodeCallback:(PixelBufferForEncode)pixelBufferCb {
     _mPixelBufferBlock = pixelBufferCb;

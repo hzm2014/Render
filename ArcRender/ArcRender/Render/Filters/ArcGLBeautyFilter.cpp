@@ -127,7 +127,7 @@ ArcGLBeautyFilter::ArcGLBeautyFilter(): ArcGLFilter(vertexShader, fragmentShader
     
     m_beautyLevel = 0.42;
     m_brightLevel = 0.34;
-    m_toneLevel = 0.1;
+    m_toneLevel = 0.3;
     
     setParams(m_beautyLevel, m_toneLevel);
     setBrightLevel(m_brightLevel);
