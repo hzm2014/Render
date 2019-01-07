@@ -78,8 +78,8 @@ static ArcRender* render = nil;
 - (instancetype)initWithViewFrame:(CGRect)frame {
     if(self = [super init]) {
         
+        _viewFrame = frame;
         [self commonInit];
-        self.viewFrame = frame;
     }
     return self;
 }

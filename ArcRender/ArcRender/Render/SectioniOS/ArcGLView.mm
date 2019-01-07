@@ -81,7 +81,6 @@ typedef struct GL_Context{
     mContext -> makeAsCurrent();
     [self createVAO];
     [self createVBO];
-    [self createDisplayFramebuffer];
     
     _enabled = YES;
 }
@@ -135,13 +134,13 @@ typedef struct GL_Context{
 
 - (void)createDisplayFramebuffer {
     
-    glGenFramebuffers(1, &self->displayFramebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, self->displayFramebuffer);
+    glGenFramebuffers(1, &displayFramebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
     
     glGenRenderbuffers(1, &self->displayRenderbuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, self->displayRenderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, displayRenderbuffer);
     
-    GL_Context* glContext = (GL_Context*)(self->mContext -> context());
+    GL_Context* glContext = (GL_Context*)(mContext -> context());
     EAGLContext* context = glContext -> m_context;
     [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(CAEAGLLayer*)self.layer];
     
@@ -156,10 +155,10 @@ typedef struct GL_Context{
         return;
     }
     
-    self->_sizeInPixels.width = (CGFloat)backingWidth;
-    self->_sizeInPixels.height = (CGFloat)backingHeight;
+    _sizeInPixels.width = (CGFloat)backingWidth;
+    _sizeInPixels.height = (CGFloat)backingHeight;
     
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self->displayRenderbuffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, displayRenderbuffer);
     
     boundsSizeAtFrameBufferEpoch = self.bounds.size;
     
