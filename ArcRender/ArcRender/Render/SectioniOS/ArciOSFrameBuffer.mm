@@ -94,13 +94,17 @@ void* ArciOSFrameBuffer::pixelBuffer() {
 }
 
 ArciOSFrameBuffer::~ArciOSFrameBuffer() {
+        
     if(m_renderTarget) {
         CFRelease(m_renderTarget);
-        m_renderTarget = nullptr;
     }
     if(m_renderTexture) {
         CFRelease(m_renderTexture);
-        m_renderTexture = nil;
     }
     
+    glDeleteFramebuffers(1, &m_frameBuffer);
+    m_frameBuffer = 0;
+    
+    delete m_texture;
+    m_texture = nullptr;
 }

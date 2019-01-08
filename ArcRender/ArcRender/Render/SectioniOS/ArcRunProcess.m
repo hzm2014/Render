@@ -47,7 +47,7 @@
 }
 
 - (void)dealloc {
-    
+    _mProcessQueue = nil;
 }
 
 @end

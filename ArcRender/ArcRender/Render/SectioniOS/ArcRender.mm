@@ -25,7 +25,7 @@
 
 @interface ArcRender ()
 {
-    __unsafe_unretained ArcRunProcess* mRunProcess;
+    ArcRunProcess* mRunProcess;
     dispatch_semaphore_t mRenderSemaphore;
     ArcSampleBufferFilter* mSampleBufferFilter;
     ArcRenderView* mRenderView;
@@ -112,9 +112,8 @@ static ArcRender* render = nil;
 }
 
 - (void)setRunProcess {
-    ArciOSContext* context = static_cast<ArciOSContext*>(ArcGLContext::getInstance());
-    void* process = context -> runProcess();
-    mRunProcess = (__bridge ArcRunProcess*)process;
+    mRunProcess = [[ArcRunProcess alloc] init];
+    [mRunProcess createProcessQueueWithLabel:@"com.arcrender.context"];
 }
 
 - (void)setSemaphore {

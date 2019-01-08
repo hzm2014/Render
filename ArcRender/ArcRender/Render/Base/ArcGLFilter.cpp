@@ -35,6 +35,9 @@ ArcGLFilter::~ArcGLFilter() {
     delete m_texCoorBuffer;
     m_texCoorBuffer = nullptr;
     
+    delete m_vertexArray;
+    m_vertexArray = nullptr;
+    
     ArcGLVBOCache::destroyInstance();
 }
 

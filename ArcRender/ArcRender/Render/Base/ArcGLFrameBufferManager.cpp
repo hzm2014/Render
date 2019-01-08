@@ -14,7 +14,7 @@ ArcGLFrameBufferManager::ArcGLFrameBufferManager() {
 }
 
 ArcGLFrameBufferManager::~ArcGLFrameBufferManager() {
-    
+    m_frameBufferMap.clear();
 }
 
 string ArcGLFrameBufferManager::hashForFrameBuffer(const ArcGLSize &size, const ArcGLTextureOption &option) const {

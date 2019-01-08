@@ -17,26 +17,30 @@ typedef struct GL_Context{
     EAGLContext* m_context;
     EAGLSharegroup* m_sharegroup;
     CVOpenGLESTextureCacheRef m_textureCache;
+    ArcRunProcess* m_runProcess;
 }GL_Context;
 
 ArciOSContext::ArciOSContext() {
-    createRunProcess();
     createContext();
+    createRunProcess();
     createCoreVideoTextureCache();
     createFrameBufferManager();
 }
 
 ArciOSContext::~ArciOSContext() {
     CVOpenGLESTextureCacheFlush(m_glContext -> m_textureCache, 0);
+    CFRelease(m_glContext -> m_textureCache);
+    m_glContext -> m_context = nil;
+    m_glContext -> m_runProcess = nil;
     delete m_glContext;
     [EAGLContext setCurrentContext:nil];
     delete m_frameBufferManager;
 }
 
 void ArciOSContext::createRunProcess() {
-    static ArcRunProcess* runProcess = [[ArcRunProcess alloc] init];
-    [runProcess createProcessQueueWithLabel:@"com.arcrender.context"];
-    m_runProcess = (__bridge void*)runProcess;
+    m_glContext -> m_runProcess = [[ArcRunProcess alloc] init];
+    [m_glContext -> m_runProcess createProcessQueueWithLabel:@"com.arcrender.context"];
+    m_runProcess = (__bridge void*)m_glContext -> m_runProcess;
 }
 
 void* ArciOSContext::runProcess() const {

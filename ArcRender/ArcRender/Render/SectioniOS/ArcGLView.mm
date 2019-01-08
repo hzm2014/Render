@@ -127,6 +127,12 @@ typedef struct GL_Context{
 
 - (void)dealloc {
     [self destroyDisplayFramebuffer];
+    delete VAO;
+    VAO = nullptr;
+    delete vertexVBO;
+    vertexVBO = nullptr;
+    delete texCoorVBO;
+    texCoorVBO = nullptr;
 }
 
 #pragma mark -
@@ -167,16 +173,16 @@ typedef struct GL_Context{
 
 - (void)destroyDisplayFramebuffer {
     
-    if (self->displayFramebuffer)
+    if (displayFramebuffer)
     {
-        glDeleteFramebuffers(1, &self->displayFramebuffer);
-        self->displayFramebuffer = 0;
+        glDeleteFramebuffers(1, &displayFramebuffer);
+        displayFramebuffer = 0;
     }
     
-    if (self->displayRenderbuffer)
+    if (displayRenderbuffer)
     {
-        glDeleteRenderbuffers(1, &self->displayRenderbuffer);
-        self->displayRenderbuffer = 0;
+        glDeleteRenderbuffers(1, &displayRenderbuffer);
+        displayRenderbuffer = 0;
     }
 }
 
