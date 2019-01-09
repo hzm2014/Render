@@ -209,9 +209,8 @@ typedef struct GL_Context{
 }
 
 - (void)activeBuffer {
-    if (!displayFramebuffer)
-    {
-        [self createDisplayFramebuffer];
+    if (!displayFramebuffer) {
+        return;
     }
     
     glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
