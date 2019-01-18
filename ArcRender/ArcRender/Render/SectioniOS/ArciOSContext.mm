@@ -49,7 +49,7 @@ void* ArciOSContext::runProcess() const {
 
 void ArciOSContext::createContext() {
     m_glContext = new GL_Context;
-    m_glContext -> m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3 sharegroup:m_glContext -> m_sharegroup];
+    m_glContext -> m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     
     assert(m_glContext -> m_context);
     

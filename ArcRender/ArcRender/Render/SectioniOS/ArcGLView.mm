@@ -232,6 +232,8 @@ typedef struct GL_Context{
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     [self presentFramebuffer];
+    const GLenum discards[1]  = {GL_COLOR_ATTACHMENT0};
+    glInvalidateFramebuffer(GL_FRAMEBUFFER, 1, discards);
     
     VAO -> unbind();
     inputFramebufferForDisplay -> releaseForUnUse();
