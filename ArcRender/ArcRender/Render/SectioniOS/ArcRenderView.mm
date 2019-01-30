@@ -14,7 +14,7 @@ ArcRenderView::ArcRenderView(CGRect rect) {
 }
 
 ArcRenderView::~ArcRenderView() {
-    
+    m_view = nil;
 }
 
 void ArcRenderView::setInputs(unsigned inputsNum) {

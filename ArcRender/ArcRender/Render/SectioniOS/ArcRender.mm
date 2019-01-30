@@ -630,9 +630,9 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
 #pragma mark - dealloc
 - (void)dealloc {
     mRunProcess = nil;
-    ArcGLContext::destroyInstance();
     [self deleteBlendImage];
     [self removeAllFilters];
+    ArcGLContext::destroyInstance();
 }
 
 @end
