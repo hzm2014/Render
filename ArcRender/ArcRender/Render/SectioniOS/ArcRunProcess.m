@@ -13,6 +13,7 @@
 {
     void *mProcessQueueKey;
     NSString * mLabelStr;
+    dispatch_queue_t mProcessQueue;
 }
 
 @end
@@ -30,7 +31,7 @@
 
 - (void)createProcessQueueWithLabel:(NSString *)LabelStr {
     
-    if(_mProcessQueue) {
+    if(mProcessQueue) {
         NSLog(@"%@ contextQueue has being created!", self.class);
         return;
     }
@@ -38,8 +39,12 @@
     if(LabelStr || LabelStr.length > 0) {
         mLabelStr = LabelStr;
     }
-    _mProcessQueue = dispatch_queue_create(mLabelStr.UTF8String, NULL);
-    dispatch_queue_set_specific(self.mProcessQueue,mProcessQueueKey, (__bridge void *)self, NULL);
+    mProcessQueue = dispatch_queue_create(mLabelStr.UTF8String, NULL);
+    dispatch_queue_set_specific(mProcessQueue,mProcessQueueKey, (__bridge void *)self, NULL);
+}
+
+- (dispatch_queue_t)processQueue {
+    return mProcessQueue;
 }
 
 - (void *)processQueueKey {
@@ -47,7 +52,7 @@
 }
 
 - (void)dealloc {
-    _mProcessQueue = nil;
+    mProcessQueue = nil;
 }
 
 @end
@@ -82,7 +87,7 @@ void runSynchronouslyOnProcessQueue(ArcRunProcess *process, void (^block)(void))
         return;
     }
     
-    dispatch_queue_t shareProcessQueue = process.mProcessQueue;
+    dispatch_queue_t shareProcessQueue = [process processQueue];
     if (dispatch_get_specific([process processQueueKey]))
     {
         block();
@@ -99,7 +104,7 @@ void runAsynchronouslyOnProcessQueue(ArcRunProcess *process, void (^block)(void)
         return;
     }
     
-    dispatch_queue_t shareProcessQueue = process.mProcessQueue;
+    dispatch_queue_t shareProcessQueue = [process processQueue];
     if (dispatch_get_specific([process processQueueKey]))
     {
         block();

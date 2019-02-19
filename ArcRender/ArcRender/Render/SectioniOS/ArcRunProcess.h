@@ -10,9 +10,10 @@
 #import <Foundation/Foundation.h>
 
 @interface ArcRunProcess : NSObject
-@property(strong, nonatomic) dispatch_queue_t mProcessQueue;
 
 - (void)createProcessQueueWithLabel:(NSString *)LabelStr;
+
+- (dispatch_queue_t)processQueue;
 
 @end
 

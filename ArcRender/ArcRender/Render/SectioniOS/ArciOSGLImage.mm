@@ -30,9 +30,7 @@ void ArciOSGLImage::process(void *cgImageRef) {
     // TODO: Dispatch this whole thing asynchronously to move image loading off main thread
     unsigned widthOfImage = (unsigned)CGImageGetWidth(newImageSource);
     unsigned heightOfImage = (unsigned)CGImageGetHeight(newImageSource);
-    
-    assert(widthOfImage > 0 && heightOfImage > 0);
-    
+        
     ArcGLSize imageSize = {widthOfImage, heightOfImage};
     bool shouldRedrawUsingCoreGraphics = false;
     

@@ -588,6 +588,12 @@ static ArcRender* render = nil;
     }
 }
 
+- (void)clearAllGLCommands {
+    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        glFinish();
+    });
+}
+
 #pragma mark - RedEffect
 
 - (void)setRedEffectLevel:(int)value {

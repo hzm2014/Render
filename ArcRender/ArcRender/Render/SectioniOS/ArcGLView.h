@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setInputs:(unsigned)inputsNum;
 - (void)newFrame;
 -(void)setInputFrameBuffer:(FrameBufferPtr)frameBuffer;
+- (void)clear;
 
 @end
 

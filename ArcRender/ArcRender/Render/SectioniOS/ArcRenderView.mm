@@ -14,6 +14,7 @@ ArcRenderView::ArcRenderView(CGRect rect) {
 }
 
 ArcRenderView::~ArcRenderView() {
+    [m_view clear];
     m_view = nil;
 }
 

@@ -104,6 +104,9 @@ typedef struct GL_Context{
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    if(mRunProcess == nil) {
+        return;
+    }
     __weak __typeof(self) weakSelf = self;
     runSynchronouslyOnProcessQueue(mRunProcess, ^{
         __strong __typeof(weakSelf) strongSelf = weakSelf;
@@ -125,7 +128,12 @@ typedef struct GL_Context{
     _viewFrame = frame;
 }
 
+- (void)clear {
+    mRunProcess = nil;
+}
+
 - (void)dealloc {
+    mRunProcess = nil;
     [self destroyDisplayFramebuffer];
     delete VAO;
     VAO = nullptr;
@@ -143,7 +151,7 @@ typedef struct GL_Context{
     glGenFramebuffers(1, &displayFramebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
     
-    glGenRenderbuffers(1, &self->displayRenderbuffer);
+    glGenRenderbuffers(1, &displayRenderbuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, displayRenderbuffer);
     
     GL_Context* glContext = (GL_Context*)(mContext -> context());
@@ -209,7 +217,8 @@ typedef struct GL_Context{
 }
 
 - (void)activeBuffer {
-    if (!displayFramebuffer) {
+    if (!displayFramebuffer)
+    {
         return;
     }
     

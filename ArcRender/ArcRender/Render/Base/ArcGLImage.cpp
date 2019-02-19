@@ -24,7 +24,7 @@ void ArcGLImage::createOutputFrameBuffer(ArcGLSize &size, ArcGLTextureOption &op
 
 void ArcGLImage::setPixelToOutBuffer(uint8_t* data) {
     if(data == NULL) {
-        assert(false);
+        return;
     }
     m_outFrameBuffer -> setPixels(data);
 }

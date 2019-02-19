@@ -51,8 +51,6 @@ void ArciOSContext::createContext() {
     m_glContext = new GL_Context;
     m_glContext -> m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     
-    assert(m_glContext -> m_context);
-    
     [EAGLContext setCurrentContext:m_glContext -> m_context];
     glDisable(GL_DEPTH_TEST);
 }
@@ -75,7 +73,7 @@ void ArciOSContext::makeAsCurrent() const {
 void ArciOSContext::createCoreVideoTextureCache() {
     CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, m_glContext -> m_context, NULL, &m_glContext -> m_textureCache);
     if(err) {
-        assert(false);
+        
     }
 }
 

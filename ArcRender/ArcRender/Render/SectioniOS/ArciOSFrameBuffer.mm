@@ -34,7 +34,7 @@ void ArciOSFrameBuffer::createFrameBuffer() {
     
     CVReturn err = CVPixelBufferCreate(kCFAllocatorDefault, m_size.width, m_size.height, kCVPixelFormatType_32BGRA, attrs, &m_renderTarget);
     if (err) {
-        assert(false);
+        
     }
     
     err = CVOpenGLESTextureCacheCreateTextureFromImage (kCFAllocatorDefault, coreVideoTextureCache, m_renderTarget,
@@ -48,7 +48,7 @@ void ArciOSFrameBuffer::createFrameBuffer() {
                                                         0,
                                                         &m_renderTexture);
     if (err) {
-        assert(false);
+        
     }
     
     CFRelease(attrs);
@@ -70,11 +70,11 @@ void ArciOSFrameBuffer::createFrameBuffer() {
             break;
 
         case GL_FRAMEBUFFER_UNSUPPORTED:
-            assert(false);
+            
             break;
 
         default:
-            assert(false);
+            
             break;
     }
     

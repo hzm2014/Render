@@ -54,6 +54,8 @@ typedef void(^PixelBufferForEncode)(CVPixelBufferRef pixelBuffer);
 
 - (void)setPixelBufferForEncodeCallback:(PixelBufferForEncode)pixelBufferCb;
 
+- (void)clearAllGLCommands;
+
 @end
 
 
