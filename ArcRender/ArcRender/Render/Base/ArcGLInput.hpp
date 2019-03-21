@@ -25,10 +25,6 @@ public:
     virtual void setInputs(unsigned inputsNum);
     virtual void setInputFrameBuffer(FrameBufferPtr frameBuffer, unsigned location = 0);
     virtual void newFrame();
-    unsigned addSource(ArcGLOutput *source);
-    unsigned removeSource(ArcGLOutput *source);
-    virtual bool removeAllSources();
-    inline unsigned sourcesCount() const { return static_cast<unsigned>(m_sources.size()); }
     
     inline virtual void setOutputRotation(ArcGLRotation rotation) { m_rotation = rotation; }
     inline virtual ArcGLRotation getOutputRotation() { return m_rotation; }
@@ -44,7 +40,6 @@ public:
 protected:
     
     unsigned m_inputsNum;
-    std::vector<ArcGLOutput*>   m_sources;
     std::vector<FrameBufferPtr> m_inputBuffers;
     FrameBufferPtr m_firstFrameBuffer;
     bool m_enable = true; //是否执行newFrame

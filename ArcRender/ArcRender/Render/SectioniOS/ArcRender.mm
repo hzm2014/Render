@@ -337,7 +337,6 @@ static ArcRender* render = nil;
 - (void)removeBlendImageFilter {
     if(mBlendImageFilter != nullptr) {
         mBlendImageFilter -> removeAllTargets();
-        mBlendImageFilter -> removeAllSources();
         mFilters.remove(mBlendImageFilter);
         delete mBlendImageFilter;
         mBlendImageFilter = nullptr;
@@ -362,7 +361,6 @@ static ArcRender* render = nil;
 - (void)removeBlendImageForEncodeFilter {
     if(mBlendForEncodeFilter != nullptr) {
         mBlendForEncodeFilter -> removeAllTargets();
-        mBlendForEncodeFilter -> removeAllSources();
         mFilters.remove(mBlendForEncodeFilter);
         delete mBlendForEncodeFilter;
         mBlendForEncodeFilter = nullptr;
@@ -479,6 +477,7 @@ static ArcRender* render = nil;
         filter -> removeAllTargets();
         delete filter;
     }
+    
     mFilters.clear();
 }
 
@@ -635,10 +634,13 @@ void renderCompleteForEncode(ArcGLOutput* output, void* para) {
 
 #pragma mark - dealloc
 - (void)dealloc {
+    
+//    runSynchronouslyOnProcessQueue(mRunProcess, ^{
+        [self removeAllFilters];
+        [self deleteBlendImage];
+        ArcGLContext::destroyInstance();
+//    });
     mRunProcess = nil;
-    [self deleteBlendImage];
-    [self removeAllFilters];
-    ArcGLContext::destroyInstance();
 }
 
 @end

@@ -35,7 +35,6 @@ int ArcGLOutput::addTarget(ArcGLInput *target, int location) {
         }
     }
     
-    target -> addSource(this);
     m_targets.push_back(target);
     m_location.push_back(location);
     return location;
@@ -65,9 +64,6 @@ bool ArcGLOutput::removeTarget(ArcGLInput *target, int* location) {
 }
 
 bool ArcGLOutput::removeAllTargets() {
-    for (int i=0; i<m_targets.size(); i++) {
-        m_targets[i]->removeSource(this);
-    }
     
     m_targets.clear();
     m_location.clear();

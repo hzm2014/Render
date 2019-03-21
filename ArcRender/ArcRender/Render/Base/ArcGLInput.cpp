@@ -57,37 +57,6 @@ void ArcGLInput::setFrameSize(ArcGLSize size) {
     m_frameSize = size;
 }
 
-unsigned ArcGLInput::addSource(ArcGLOutput *source) {
-    if(source == nullptr) {
-        return static_cast<unsigned>(m_sources.size());
-    }
-    m_sources.push_back(source);
-    return static_cast<unsigned>(m_sources.size());
-}
-
-unsigned ArcGLInput::removeSource(ArcGLOutput *source) {
-    vector<ArcGLOutput*>::iterator iter = std::find(m_sources.begin(), m_sources.end(), source);
-    if (iter != m_sources.end()) {
-        m_sources.erase(iter);
-    }
-    
-    return (int)m_sources.size();
-}
-
-bool ArcGLInput::removeAllSources() {
-    
-    for (int i=0; i < sourcesCount(); i++) {
-        ArcGLOutput* source = m_sources[i];
-        if (source != nullptr) {
-            source -> removeTarget(this);
-        }
-    }
-    
-    m_sources.clear();
-    return true;
-    
-}
-
 void ArcGLInput::unlockInputFrameBuffersForUse() {
     for (int i = 0; i < m_inputsNum; i++) {
         if (m_inputBuffers[i] == nullptr) {
